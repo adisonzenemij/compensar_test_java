@@ -93,7 +93,7 @@ public class Graphic {
     }
     
     public static void cptrFull() {
-        // Captura nombre completo
+        // Captura Datos
         dataFull = JOptionPane.showInputDialog(
         null,
         "Nombre Completo",
@@ -103,7 +103,7 @@ public class Graphic {
     }
     
     public static void cptrAge() {
-        // Captura nombre completo
+        // Captura Datos
         inputAge = JOptionPane.showInputDialog(
 null,
         "Edad",
@@ -113,6 +113,7 @@ null,
     }
     
     public static void cptrSalary() {
+        // Captura Datos
         inputSalary = JOptionPane.showInputDialog(
     null,
         "Salario Actual:",
