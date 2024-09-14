@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 public class Graphic {
     // Declarar Variables Globales
     
-    // Capturar salario
+    // Capturar edad
     private static String inputAge;
     // Capturar salario
     private static String inputSalary;
@@ -35,7 +35,7 @@ public class Graphic {
     private static double salaries;
     
     public static void procInterface() {
-        System.out.println("Funcion Interfaz");
+        System.out.println("App Interfaz");
         capture(); // Capturar los datos de entrada
         process(); // Procesar y mostrar el resultado
         message(); // Visualizar mensaje final
