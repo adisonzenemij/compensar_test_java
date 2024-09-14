@@ -14,45 +14,94 @@ import javax.swing.JOptionPane;
  * @author adiso
  */
 public class Interface {
-    // Capturar Visitantes
-    private static String inputVisitor;
-    // Capturar Documento
-    private static String inputDoc;
-    // Capturar Edad
-    private static String inputAge;
-    
     // Capturar Visitante
     private static int dataVisitor;
-    // Capturar Documento
-    private static int dataDoc;
-    // Capturar Nombre Completo
-    private static String dataFull;
-    // Capturar Edad
-    private static int dataAge;
-    // Capturar Categoria
-    private static double dataCategory;
+    private static double valueBase;
+    private static String[] valueCtgr;
     
-    // Capturar Valor
-    private static int dataValue;
+    // Capturar Datos Entrantes
+    private static String inputVisitor;
+    private static String inputDoc;
+    private static String inputFull;
+    private static String inputAge;
+    private static String inputAfltn;
+    private static String inputCtgr;
+    private static String inputPrice;
+    
+    // Capturar Información Visitantes
+    private static String[] visitorNames;
+    private static int[] visitorDocs;
+    private static int[] visitorAges;
+    private static String[] visitorAfltn;
+    private static String[] visitorCtgr;
+    private static int[] visitorPrice;
     
     public static void procInterface() {
         System.out.println("Application Interfaz");
+        valueBase = 30000; // Valor Base Museo
+        valueCtgr = new String[]{"", "A", "B", "C"};
         capture(); // Capturar los datos de entrada
         //process(); // Procesar y mostrar el resultado
-        //message(); // Visualizar mensaje final
+        message(); // Visualizar mensaje final
     }
     
     // Capturar Datos
     public static void capture() {
         // Validar Datos
         vldVisitor();
-        vldDoc();
-        vldFull();
-        vldAge();
+        if (dataVisitor > 0) {
+            // Inicializar Arreglos Almacenamiento
+            visitorNames = new String[dataVisitor];
+            visitorDocs = new int[dataVisitor];
+            visitorAges = new int[dataVisitor];
+            visitorAfltn = new String[dataVisitor];
+            visitorCtgr = new String[dataVisitor];
+            visitorPrice = new int[dataVisitor];
+            // Capturar Información Visitantes
+            for (int i = 0; i < dataVisitor; i++) {                
+                visitorDocs[i] = vldDoc();
+                visitorNames[i] = vldFull();
+                visitorAges[i] = vldAge();
+                visitorAfltn[i] = vldAfltn();
+                visitorCtgr[i] = vldCtgr();
+                /*if (visitorAges[i] < 18) {
+                    visitorPrice[i] = 5000;
+                }
+                if (visitorAges[i] >= 18) {
+                    if (visitorAfltn[i] === "No") {
+                        visitorPrice[i] = 30000;
+                    }
+                    if (visitorAfltn[i] === "Si") {
+                    }
+                }*/
+            }
+        }
+    }
+    
+    public static void data() {
+        double price = 0;
+        if (vldAge() < 18) {
+            price = 5000;
+        }
+        if (vldAge() >= 18) {
+            price = 30000;
+        }
+    }
+    
+    public static void message() {
+        System.out.println("\nInformación Visitantes:");
+        for (int i = 0; i < dataVisitor; i++) {
+            System.out.println("Visitante " + (i + 1) + ":");
+            System.out.println("Nombre Completo: " + visitorNames[i]);
+            System.out.println("Documento: " + visitorDocs[i]);
+            System.out.println("Edad: " + visitorAges[i]);
+            System.out.println("Afiliado: " + visitorAfltn[i]);
+            System.out.println("Categoria: " + visitorCtgr[i]);
+            System.out.println();
+        }
     }
     
     public static void vldVisitor() {
-        // Captura el nombre completo
         cptrVisitor();
 
         // Repetir hasta que el valor sea válido (número mayor a 0)
@@ -61,14 +110,14 @@ public class Interface {
             if (!isValidNumber(inputVisitor)) {
                 mssgNumber();
                 cptrVisitor();
-                continue;  // Volver al inicio del ciclo si no es un número
+                continue; // Volver al inicio del ciclo si no es un número
             }
 
             // Validar que el número sea mayor a cero
             if (!isCountMin(inputVisitor)) {
                 mssgCountMin();
                 cptrVisitor();
-                continue;  // Volver al inicio del ciclo si el número no es mayor a 0
+                continue; // Volver al inicio del ciclo si el número no es mayor a 0
             }
 
             // Si pasa ambas validaciones, salir del ciclo
@@ -81,8 +130,7 @@ public class Interface {
         dataVisitor = Integer.parseInt(inputVisitor);
     }
     
-    public static void vldDoc() {
-        // Captura el nombre completo
+    public static int vldDoc() {
         cptrDoc();
 
         // Validar que el nombre solo contenga letras
@@ -94,22 +142,22 @@ public class Interface {
         // Reemplazar puntos para conversion
         inputDoc = inputDoc.replace(".", "");
         // Reemplazar puntos para conversion
-        dataDoc = Integer.parseInt(inputDoc);
+        return Integer.parseInt(inputDoc);
     }
     
-    public static void vldFull() {
-        // Captura el nombre completo
+    public static String vldFull() {
         cptrFull();
 
         // Validar que el nombre solo contenga letras
-        while (!isValidLetter(dataFull)) {
+        while (!isValidLetter(inputFull)) {
             mssgLetter();
             cptrFull();
         }
+        // Asignar informacion correcta
+        return inputFull;
     }
     
-    public static void vldAge() {
-        // Captura el nombre completo
+    public static int vldAge() {
         cptrAge();
 
         // Validar que el nombre solo contenga letras
@@ -121,7 +169,28 @@ public class Interface {
         // Reemplazar puntos para conversion
         inputAge = inputAge.replace(".", "");
         // Reemplazar puntos para conversion
-        dataAge = Integer.parseInt(inputAge);
+        return Integer.parseInt(inputAge);
+    }
+    
+    public static String vldAfltn() {
+        boolean result = cptrAfltn();
+        if (result) { inputAfltn = "Si"; }
+        if (!result) { inputAfltn = "No"; }
+        return inputAfltn;
+    }
+    
+    public static String vldCtgr() {
+        if ("No".equals(inputAfltn)) {
+            inputCtgr = "";
+        }
+        if ("Si".equals(inputAfltn)) {
+            inputCtgr = cptrCtgr();
+            if ("".equals(inputCtgr)) {
+                mssgEmpty();
+                vldCtgr();
+            } 
+        }
+        return inputCtgr;
     }
     
     public static void cptrVisitor() {
@@ -146,7 +215,7 @@ null,
     
     public static void cptrFull() {
         // Captura Datos
-        dataFull = JOptionPane.showInputDialog(
+        inputFull = JOptionPane.showInputDialog(
         null,
         "Nombre Completo",
         "Capturar Datos", // Título de la ventana
@@ -162,6 +231,34 @@ null,
         "Capturar Datos", // Título de la ventana
             JOptionPane.QUESTION_MESSAGE // Tipo de mensaje
         );
+    }
+    
+    public static boolean cptrAfltn() {
+        // Captura Datos
+        int response = JOptionPane.showConfirmDialog(
+            null,
+            "Afiliado",
+            "Capturar Datos",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+        );
+        
+        // JOptionPane.YES_OPTION = 0, JOptionPane.NO_OPTION = 1
+        return response == JOptionPane.YES_OPTION;
+    }
+    
+    public static String cptrCtgr() {
+        // Captura Datos
+        String response = (String) JOptionPane.showInputDialog(
+            null,
+            "Selecciona una opción:",
+            "Seleccionar Categoría",
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            valueCtgr,
+            valueCtgr[0] // Valor por defecto seleccionado
+        );
+        return response;
     }
     
     public static void mssgCountMin() {
@@ -186,6 +283,15 @@ null,
         JOptionPane.showMessageDialog(
 null,
         "Únicamente se aceptan números.", // Mensaje de ayuda
+        "Entrada Inválida", // Título de la ventana
+            JOptionPane.WARNING_MESSAGE // Tipo de mensaje
+        );
+    }
+    
+    public static void mssgEmpty() {
+        JOptionPane.showMessageDialog(
+null,
+        "Únicamente se aceptan valores seleccionables.", // Mensaje de ayuda
         "Entrada Inválida", // Título de la ventana
             JOptionPane.WARNING_MESSAGE // Tipo de mensaje
         );

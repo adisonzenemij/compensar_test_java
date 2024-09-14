@@ -16,22 +16,19 @@ import javax.swing.JOptionPane;
 public class Graphic {
     // Declarar Variables Globales
     
-    // Capturar edad
+    // Capturar Datos Entrantes
+    private static String inputFull;
     private static String inputAge;
-    // Capturar salario
     private static String inputSalary;
     
-    // Capturar nombre completo
+    // Capturar Valores Finales
     private static String dataFull;
-    // Capturar edad
     private static int dataAge;
-    // Capturar salario
     private static double dataSalary;
-    // Capturar porcentaje
+    
+    // Capturar Operaciones
     private static double percent;
-    // Capturar incremento
     private static double increase;
-    // Obtener nuevo sueldo
     private static double salaries;
     
     public static void procInterface() {
@@ -54,10 +51,12 @@ public class Graphic {
         cptrFull();
 
         // Validar que el nombre solo contenga letras
-        while (!isValidLetter(dataFull)) {
+        while (!isValidLetter(inputFull)) {
             mssgLetter();
             cptrFull();
         }
+        // Asignar informacion correcta
+        dataFull = inputFull;
     }
     
     public static void vldAge() {
@@ -94,7 +93,7 @@ public class Graphic {
     
     public static void cptrFull() {
         // Captura Datos
-        dataFull = JOptionPane.showInputDialog(
+        inputFull = JOptionPane.showInputDialog(
         null,
         "Nombre Completo",
         "Capturar Datos", // Título de la ventana
