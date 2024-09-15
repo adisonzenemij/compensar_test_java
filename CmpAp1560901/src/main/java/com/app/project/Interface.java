@@ -158,35 +158,44 @@ public class Interface {
 
         // Crear la tabla de visitantes
         JTable visitorTable = new JTable(visitorModel);
-        visitorTable.setPreferredScrollableViewportSize(new Dimension(500, 150));  // Ajustar la altura de la tabla de visitantes
+        // Ajustar la altura de la tabla de visitantes
+        visitorTable.setPreferredScrollableViewportSize(new Dimension(500, 150));
         JScrollPane visitorScrollPane = new JScrollPane(visitorTable);
 
         // Crear las columnas para la tabla de totales
         String[] totalColumnNames = {"Total Precio", "Menores de Edad", "Mayores de Edad"};
 
         // Crear el modelo de tabla para los totales
-        DefaultTableModel totalModel = new DefaultTableModel(totalColumnNames, 0);
+        DefaultTableModel totalModel = new DefaultTableModel(
+    totalColumnNames,
+        0
+        );
         Object[] totalRow = {
-            formatter.format(totalPrice),  // Precio total
-            countUnder,                    // Menores de edad
-            countOver                      // Mayores de edad
+            formatter.format(totalPrice),// Precio total
+            countUnder, // Menores de edad
+            countOver // Mayores de edad
         };
         totalModel.addRow(totalRow);
 
         // Crear la tabla de totales
         JTable totalTable = new JTable(totalModel);
-        totalTable.setPreferredScrollableViewportSize(new Dimension(500, 40));  // Ajustar la altura de la tabla de totales
+        // Ajustar la altura de la tabla de totales
+        totalTable.setPreferredScrollableViewportSize(new Dimension(500, 40));
         JScrollPane totalScrollPane = new JScrollPane(totalTable);
 
         // Crear el botón de exportar
         JButton exportButton = new JButton("Exportar");
-        exportButton.addActionListener(e -> saveFile());  // Llamar a la función saveFile() cuando se presione el botón
+        // Llamar a la función saveFile() cuando se presione el botón
+        exportButton.addActionListener(e -> saveFile());
 
         // Crear el panel para organizar las tablas y el botón
         JPanel panel = new JPanel(new BorderLayout());
-        panel.add(visitorScrollPane, BorderLayout.CENTER); // Añadir la tabla de visitantes
-        panel.add(totalScrollPane, BorderLayout.NORTH);    // Añadir la tabla de totales encima
-        panel.add(exportButton, BorderLayout.SOUTH);       // Añadir el botón debajo de las tablas
+        // Añadir la tabla de visitantes
+        panel.add(visitorScrollPane, BorderLayout.CENTER);
+        // Añadir la tabla de totales encima
+        panel.add(totalScrollPane, BorderLayout.NORTH);
+        // Añadir el botón debajo de las tablas
+        panel.add(exportButton, BorderLayout.SOUTH);
 
         // Mostrar el panel en un JOptionPane
         JOptionPane.showMessageDialog(
@@ -198,6 +207,7 @@ public class Interface {
     }
     
     public static void saveFile() {
+        String message = null;
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Guardar Archivo");
 
@@ -226,13 +236,13 @@ public class Interface {
                 }
 
                 // Mostrar mensaje de éxito al usuario
-                String message = "Archivo almacenado correctamente en:\n" + fileToSave.getAbsolutePath();
-                JOptionPane.showMessageDialog(null, message, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                message = "Archivo Almacenado Correctamente:\n";
+                message += fileToSave.getAbsolutePath();
+                mssgSuccess(message);
 
             } catch (IOException e) {
                 // Manejo mejorado de errores
-                String errorMessage = "Error al guardar el archivo: " + e.getMessage();
-                JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+                mssgError(e.getMessage());
                 e.printStackTrace();
             }
         }
