@@ -85,7 +85,7 @@ public class Desktop {
         intFrame.add(btnWorking);
 
         // Añadir evento al botón "Empleados"
-        btnEmployee.addActionListener(new ActionListener() {
+        btnBenefit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
