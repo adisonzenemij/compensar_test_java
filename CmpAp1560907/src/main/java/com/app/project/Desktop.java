@@ -4,6 +4,7 @@
  */
 package com.app.project;
 
+import com.app.project.view.*;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -57,22 +58,94 @@ public class Desktop {
         intFrame.add(labelTitle); // Añadir el JLabel al JInternalFrame
 
         // Añadir espacio entre títulos
-        intFrame.add(Box.createVerticalStrut(105));
+        intFrame.add(Box.createVerticalStrut(60));
 
         // Crear y añadir botones al JInternalFrame
+        JButton btnBenefit = addButtons("Beneficios");
         JButton btnEmployee = addButtons("Empleados");
         JButton btnProduct = addButtons("Productos");
+        JButton btnProdType = addButtons("Tipos de Productos");
+        JButton btnWorking = addButtons("Jornadas");
 
+        btnBenefit.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el botón
         btnEmployee.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el botón
         btnProduct.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el botón
+        btnProdType.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el botón
+        btnWorking.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el botón
 
         // Añadir los botones
+        intFrame.add(btnBenefit);
+        intFrame.add(Box.createVerticalStrut(10)); // Espacio entre los botones
         intFrame.add(btnEmployee);
-        intFrame.add(Box.createVerticalStrut(20)); // Espacio entre los botones
+        intFrame.add(Box.createVerticalStrut(10)); // Espacio entre los botones
         intFrame.add(btnProduct);
+        intFrame.add(Box.createVerticalStrut(10)); // Espacio entre los botones
+        intFrame.add(btnProdType);
+        intFrame.add(Box.createVerticalStrut(10)); // Espacio entre los botones
+        intFrame.add(btnWorking);
+
+        // Añadir evento al botón "Empleados"
+        btnEmployee.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
+                JInternalFrame dataFrame = new JInternalFrame(
+                    "Beneficios",
+                    true,
+                    true,
+                    true,
+                    true
+                );
+                dataFrame.setSize(600, 400);
+                dataFrame.setLayout(new BorderLayout());
+
+                // Obtener el JTabbedPane desde Benefit
+                JTabbedPane tabbedPane = (JTabbedPane) Benefit.tabbedPane();
+
+                // Añadir el JTabbedPane al nuevo JInternalFrame
+                dataFrame.add(tabbedPane, BorderLayout.CENTER);
+
+                // Hacer visible el nuevo JInternalFrame
+                dataFrame.setVisible(true);
+
+                // Añadir el nuevo JInternalFrame al JDesktopPane
+                desktopPane.add(dataFrame);
+                dataFrame.moveToFront();
+            }
+        });
+
+        // Añadir evento al botón "Empleados"
+        btnEmployee.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
+                JInternalFrame dataFrame = new JInternalFrame(
+                    "Empleados",
+                    true,
+                    true,
+                    true,
+                    true
+                );
+                dataFrame.setSize(600, 400);
+                dataFrame.setLayout(new BorderLayout());
+
+                // Obtener el JTabbedPane desde Employee
+                JTabbedPane tabbedPane = (JTabbedPane) Employee.tabbedPane();
+
+                // Añadir el JTabbedPane al nuevo JInternalFrame
+                dataFrame.add(tabbedPane, BorderLayout.CENTER);
+
+                // Hacer visible el nuevo JInternalFrame
+                dataFrame.setVisible(true);
+
+                // Añadir el nuevo JInternalFrame al JDesktopPane
+                desktopPane.add(dataFrame);
+                dataFrame.moveToFront();
+            }
+        });
 
         // Añadir espacio entre el segundo título y los botones
-        intFrame.add(Box.createVerticalStrut(105));
+        intFrame.add(Box.createVerticalStrut(60));
 
         // Crear y añadir un segundo JLabel para el segundo título
         JLabel labelDevelop = new JLabel("Desarrollador Por Adison Jimenez", SwingConstants.CENTER);
@@ -191,7 +264,7 @@ public class Desktop {
         });
     }
 
-    public static void openTab(JDesktopPane desktopPane) {
+    /*public static void openTab(JDesktopPane desktopPane) {
         // Crear un JTabbedPane
         JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -207,9 +280,9 @@ public class Desktop {
         // Forzar revalidación y repaint
         desktopPane.revalidate();
         desktopPane.repaint();
-    }
+    }*/
 
-    private static void frameInternal(String title, String content, JDesktopPane desktopPane) {
+    /*private static void frameInternal(String title, String content, JDesktopPane desktopPane) {
         // Crear un JInternalFrame
         JInternalFrame internalFrame = new JInternalFrame(
             title,
@@ -229,14 +302,13 @@ public class Desktop {
         desktopPane.add(internalFrame);
         // Asegurar que el internal frame esté al frente
         internalFrame.moveToFront();
-    }
+    }*/
 
-    public static void mainButtons(JDesktopPane desktopPane) {
-
+    /*public static void mainButtons(JDesktopPane desktopPane) {
         //openInternal(desktopPane);
 
         // Crear un JInternalFrame para contener los botones
-        /*JInternalFrame buttonFrame = new JInternalFrame(
+        JInternalFrame buttonFrame = new JInternalFrame(
             "Tablero de Control",
             false, // No redimensionar
             false, // No cerrar
@@ -286,6 +358,6 @@ public class Desktop {
         // Forzar revalidación del desktopPane
         desktopPane.revalidate();
         // Forzar repaint del desktopPane
-        desktopPane.repaint();*/
-    }
+        desktopPane.repaint();
+    }*/
 }
