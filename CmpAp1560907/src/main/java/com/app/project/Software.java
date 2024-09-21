@@ -25,7 +25,7 @@ public class Software {
         // Crear el marco principal
         JFrame frame = new JFrame("Compensar: Aplicacion Software");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1280, 720);
+        frame.setSize(1000, 800);
 
         // Desactivar la maximización
         // Deshabilitar el redimensionamiento
@@ -43,7 +43,7 @@ public class Software {
         // Centrar el marco en la pantalla
         frame.setLocationRelativeTo(null);
         
-        // Añadir botones al JDesktopPane
+        // Abrir JInternalFrame
         Desktop.openInternal(desktopPane);
     }
     
