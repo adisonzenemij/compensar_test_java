@@ -31,8 +31,10 @@ import javax.swing.SwingConstants;
  */
 public class Desktop {
 
-    private static JInternalFrame dataFrame; // Mantener una referencia al JInternalFrame
-    private static JTabbedPane tabbedPane; // Mantener una referencia al JTabbedPane
+    // Mantener una referencia al JInternalFrame
+    private static JInternalFrame dataFrame;
+    // Mantener una referencia al JTabbedPane
+    private static JTabbedPane tabbedPane;
 
     private static JButton btnBenefit;
     private static JButton btnEmployee;
@@ -66,116 +68,16 @@ public class Desktop {
             // Cambiar el layout a BoxLayout en el eje Y
             dataFrame.setLayout(new BoxLayout(dataFrame.getContentPane(), BoxLayout.Y_AXIS));
 
-            // Crear y añadir el label para el título principal
-            labelTitle = new JLabel("Bienvenidos", SwingConstants.CENTER);
-            labelTitle.setFont(new Font("Arial", Font.BOLD, 15)); // Cambiar la fuente si es necesario
-            labelTitle.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el JLabel
-            dataFrame.add(labelTitle); // Añadir el label al internal frame
-
+            titleWelcome();
             // Añadir espacio entre títulos
             dataFrame.add(Box.createVerticalStrut(60));
-
-            // Crear y añadir botones al JInternalFrame
-            btnBenefit = addButtons("Beneficios");
-            btnEmployee = addButtons("Empleados");
-            btnProduct = addButtons("Productos");
-            btnProdType = addButtons("Tipos de Productos");
-            btnWorking = addButtons("Jornadas");
-
-            btnBenefit.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el botón
-            btnEmployee.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el botón
-            btnProduct.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el botón
-            btnProdType.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el botón
-            btnWorking.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el botón
-
-            // Añadir los botones
-            dataFrame.add(btnBenefit);
-            dataFrame.add(Box.createVerticalStrut(10)); // Espacio entre los botones
-            dataFrame.add(btnEmployee);
-            dataFrame.add(Box.createVerticalStrut(10)); // Espacio entre los botones
-            dataFrame.add(btnProduct);
-            dataFrame.add(Box.createVerticalStrut(10)); // Espacio entre los botones
-            dataFrame.add(btnProdType);
-            dataFrame.add(Box.createVerticalStrut(10)); // Espacio entre los botones
-            dataFrame.add(btnWorking);
-
-            // Añadir evento al botón "Empleados"
-            btnBenefit.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
-                    JInternalFrame dataFrame = new JInternalFrame(
-                        "Beneficios",
-                        true,
-                        true,
-                        true,
-                        true
-                    );
-                    dataFrame.setSize(600, 400);
-                    dataFrame.setLayout(new BorderLayout());
-
-                    // Obtener el JTabbedPane desde vBenefit
-                    JTabbedPane tabbedPane = (JTabbedPane) vBenefit.tabbedPane();
-
-                    // Añadir el JTabbedPane al nuevo JInternalFrame
-                    dataFrame.add(tabbedPane, BorderLayout.CENTER);
-
-                    // Hacer visible el nuevo JInternalFrame
-                    dataFrame.setVisible(true);
-
-                    // Añadir el nuevo JInternalFrame al JDesktopPane
-                    desktopPane.add(dataFrame);
-                    dataFrame.moveToFront();
-                }
-            });
-
-            // Añadir evento al botón "Empleados"
-            btnEmployee.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
-                    JInternalFrame dataFrame = new JInternalFrame(
-                        "Empleados",
-                        true,
-                        true,
-                        true,
-                        true
-                    );
-                    dataFrame.setSize(600, 400);
-                    dataFrame.setLayout(new BorderLayout());
-
-                    // Obtener el JTabbedPane desde vEmployee
-                    JTabbedPane tabbedPane = (JTabbedPane) vEmployee.tabbedPane();
-
-                    // Añadir el JTabbedPane al nuevo JInternalFrame
-                    dataFrame.add(tabbedPane, BorderLayout.CENTER);
-
-                    // Hacer visible el nuevo JInternalFrame
-                    dataFrame.setVisible(true);
-
-                    // Añadir el nuevo JInternalFrame al JDesktopPane
-                    desktopPane.add(dataFrame);
-                    dataFrame.moveToFront();
-                }
-            });
-
+            buttonAction();
             // Añadir espacio entre el segundo título y los botones
             dataFrame.add(Box.createVerticalStrut(60));
-
-            // Crear y añadir un segundo label para el segundo título
-            labelDevelop = new JLabel("Desarrollador Por Adison Jimenez", SwingConstants.CENTER);
-            labelDevelop.setFont(new Font("Arial", Font.BOLD, 12)); // Cambiar la fuente si es necesario
-            labelDevelop.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el JLabel
-            dataFrame.add(labelDevelop); // Añadir el label al JInternalFrame
-
+            titleDevelop();
             // Añadir espacio entre el segundo título y los botones
             dataFrame.add(Box.createVerticalStrut(10));
-
-            // Crear y añadir un segundo label para el segundo título
-            labelWebMain = new JLabel("www.adisonjimenez.net | www.engsoft.app", SwingConstants.CENTER);
-            labelWebMain.setFont(new Font("Arial", Font.BOLD, 12)); // Cambiar la fuente si es necesario
-            labelWebMain.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el JLabel
-            dataFrame.add(labelWebMain); // Añadir el label al JInternalFrame
+            titleWebPage();
 
             // Hacer visible el JInternalFrame
             dataFrame.setVisible(true);
@@ -187,7 +89,128 @@ public class Desktop {
             desktopPane.revalidate();
             // Forzar repaint del desktopPane
             desktopPane.repaint();
+
+            actBenefit(desktopPane);
+            actEmployee(desktopPane);
         }
+    }
+
+    public static void buttonAction() {
+        // Crear y añadir botones al internal frame
+        btnBenefit = addButtons("Beneficios");
+        btnEmployee = addButtons("Empleados");
+        btnProduct = addButtons("Productos");
+        btnProdType = addButtons("Tipos de Productos");
+        btnWorking = addButtons("Jornadas");
+
+        // Centrar botones al internal frame
+        btnBenefit.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnEmployee.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnProduct.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnProdType.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnWorking.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Añadir los botones
+        dataFrame.add(btnBenefit);
+        // Espacio entre los botones
+        dataFrame.add(Box.createVerticalStrut(10));
+        dataFrame.add(btnEmployee);
+        // Espacio entre los botones
+        dataFrame.add(Box.createVerticalStrut(10));
+        dataFrame.add(btnProduct);
+        // Espacio entre los botones
+        dataFrame.add(Box.createVerticalStrut(10));
+        dataFrame.add(btnProdType);
+        // Espacio entre los botones
+        dataFrame.add(Box.createVerticalStrut(10));
+        dataFrame.add(btnWorking);
+
+    }
+
+    public static void titleWelcome() {
+        // Crear y añadir el label para el título principal
+        labelTitle = new JLabel("Bienvenidos", SwingConstants.CENTER);
+        labelTitle.setFont(new Font("Arial", Font.BOLD, 15));
+        labelTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        dataFrame.add(labelTitle);
+    }
+
+    public static void titleDevelop() {
+        // Crear y añadir el label para el título desarrollador
+        labelDevelop = new JLabel("Desarrollador Por Adison Jimenez", SwingConstants.CENTER);
+        labelDevelop.setFont(new Font("Arial", Font.BOLD, 12)); // Cambiar la fuente si es necesario
+        labelDevelop.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el JLabel
+        dataFrame.add(labelDevelop); // Añadir el label al JInternalFrame
+    }
+
+    public static void titleWebPage() {
+        // Crear y añadir el label para el título de pagina web
+        labelWebMain = new JLabel("www.adisonjimenez.net | www.engsoft.app", SwingConstants.CENTER);
+        labelWebMain.setFont(new Font("Arial", Font.BOLD, 12)); // Cambiar la fuente si es necesario
+        labelWebMain.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el JLabel
+        dataFrame.add(labelWebMain); // Añadir el label al JInternalFrame
+    }
+
+    public static void actBenefit(JDesktopPane desktopPane) {
+        btnBenefit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
+                JInternalFrame dataFrame = new JInternalFrame(
+                    "Beneficios",
+                    true,
+                    true,
+                    true,
+                    true
+                );
+                dataFrame.setSize(600, 400);
+                dataFrame.setLayout(new BorderLayout());
+
+                // Obtener el JTabbedPane desde vBenefit
+                JTabbedPane tabbedPane = (JTabbedPane) vBenefit.tabbedPane();
+
+                // Añadir el JTabbedPane al nuevo JInternalFrame
+                dataFrame.add(tabbedPane, BorderLayout.CENTER);
+
+                // Hacer visible el nuevo JInternalFrame
+                dataFrame.setVisible(true);
+
+                // Añadir el nuevo internal frame
+                desktopPane.add(dataFrame);
+                dataFrame.moveToFront();
+            }
+        });
+    }
+
+    public static void actEmployee(JDesktopPane desktopPane) {
+        btnEmployee.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
+                JInternalFrame dataFrame = new JInternalFrame(
+                    "Empleados",
+                    true,
+                    true,
+                    true,
+                    true
+                );
+                dataFrame.setSize(600, 400);
+                dataFrame.setLayout(new BorderLayout());
+
+                // Obtener el JTabbedPane desde vEmployee
+                JTabbedPane tabbedPane = (JTabbedPane) vEmployee.tabbedPane();
+
+                // Añadir el JTabbedPane al nuevo JInternalFrame
+                dataFrame.add(tabbedPane, BorderLayout.CENTER);
+
+                // Hacer visible el nuevo JInternalFrame
+                dataFrame.setVisible(true);
+
+                // Añadir el nuevo internal frame
+                desktopPane.add(dataFrame);
+                dataFrame.moveToFront();
+            }
+        });
     }
 
     public static void internalSize(
