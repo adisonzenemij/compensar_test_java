@@ -140,11 +140,11 @@ public class vBenefit {
         fieldRecreat = new JTextField();
         fieldRecreat.setEditable(true); // Habilitar el campo
 
-        labelAgeMin = new JLabel("Año Minimo");
+        labelAgeMin = new JLabel("Minimo");
         fieldAgeMin = new JTextField();
         fieldAgeMin.setEditable(true); // Habilitar el campo
 
-        labelAgeMax = new JLabel("Año Maximo");
+        labelAgeMax = new JLabel("Maximo");
         fieldAgeMax = new JTextField();
         fieldAgeMax.setEditable(true); // Habilitar el campo
 
@@ -311,8 +311,8 @@ public class vBenefit {
             "Registro",
             "Tienda",
             "Recreación",
-            "Año Minimo",
-            "Año Maximo",
+            "Minimo",
+            "Maximo",
         };
     }
 
