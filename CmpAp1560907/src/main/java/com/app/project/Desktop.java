@@ -28,6 +28,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 
 import com.app.project.model.mBenefit;
+import com.app.project.model.mEmployee;
+import com.app.project.model.mProdType;
+import com.app.project.model.mProduct;
+import com.app.project.model.mWorking;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -45,12 +49,30 @@ public class Desktop {
     private static mBenefit benefitModel;
     private static DefaultTableModel dfltBenefit;
 
+    // Datos para el modelo de beneficios
+    private static mEmployee employeeModel;
+    private static DefaultTableModel dfltEmployee;
+
+    // Datos para el modelo de beneficios
+    private static mProdType prodTypeModel;
+    private static DefaultTableModel dfltProdType;
+
+    // Datos para el modelo de beneficios
+    private static mProduct productModel;
+    private static DefaultTableModel dfltProduct;
+
+    // Datos para el modelo de beneficios
+    private static mWorking workingModel;
+    private static DefaultTableModel dfltWorking;
+
+    // Botones para llamar internal frame
     private static JButton btnBenefit;
     private static JButton btnEmployee;
     private static JButton btnProduct;
     private static JButton btnProdType;
     private static JButton btnWorking;
 
+    // Titulos para el interna frame principal
     private static JLabel labelTitle;
     private static JLabel labelDevelop;
     private static JLabel labelWebMain;
@@ -101,6 +123,9 @@ public class Desktop {
 
             actBenefit(desktopPane);
             actEmployee(desktopPane);
+            actProduct(desktopPane);
+            actProdType(desktopPane);
+            actWorking(desktopPane);
         }
     }
 
@@ -133,7 +158,6 @@ public class Desktop {
         // Espacio entre los botones
         dataFrame.add(Box.createVerticalStrut(10));
         dataFrame.add(btnWorking);
-
     }
 
     public static void titleWelcome() {
@@ -147,17 +171,17 @@ public class Desktop {
     public static void titleDevelop() {
         // Crear y añadir el label para el título desarrollador
         labelDevelop = new JLabel("Desarrollador Por Adison Jimenez", SwingConstants.CENTER);
-        labelDevelop.setFont(new Font("Arial", Font.BOLD, 12)); // Cambiar la fuente si es necesario
-        labelDevelop.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el JLabel
-        dataFrame.add(labelDevelop); // Añadir el label al JInternalFrame
+        labelDevelop.setFont(new Font("Arial", Font.BOLD, 12));
+        labelDevelop.setAlignmentX(Component.CENTER_ALIGNMENT);
+        dataFrame.add(labelDevelop); 
     }
 
     public static void titleWebPage() {
         // Crear y añadir el label para el título de pagina web
         labelWebMain = new JLabel("www.adisonjimenez.net | www.engsoft.app", SwingConstants.CENTER);
-        labelWebMain.setFont(new Font("Arial", Font.BOLD, 12)); // Cambiar la fuente si es necesario
-        labelWebMain.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el JLabel
-        dataFrame.add(labelWebMain); // Añadir el label al JInternalFrame
+        labelWebMain.setFont(new Font("Arial", Font.BOLD, 12));
+        labelWebMain.setAlignmentX(Component.CENTER_ALIGNMENT);
+        dataFrame.add(labelWebMain);
     }
 
     public static void actBenefit(JDesktopPane desktopPane) {
@@ -172,15 +196,10 @@ public class Desktop {
                     true,
                     true
                 );
-                dataFrame.setSize(600, 400);
+                dataFrame.setSize(500, 500);
                 dataFrame.setLayout(new BorderLayout());
 
-                // Obtener el JTabbedPane desde vBenefit
-                //tabbedPane = (JTabbedPane) vBenefit.tabbedPane();
-                // Inicializar modelo nuevo y vacio
-                //if (benefitModel == null) { benefitModel = new mBenefit(); }
-
-                // Verificar si el modelo de beneficios ya existe, si no, inicializarlo
+                // Verificar si el modelo ya existe, si no, inicializarlo
                  if (benefitModel == null) {
                     benefitModel = new mBenefit();
                     String[] columns = vBenefit.tableColumn();
@@ -189,13 +208,10 @@ public class Desktop {
 
                 // Añadir el JTabbedPane con el modelo existente
                 tabbedPane = vBenefit.tabbedPane(dfltBenefit, benefitModel);
-
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
-
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
-
                 // Añadir el nuevo internal frame
                 desktopPane.add(dataFrame);
                 dataFrame.moveToFront();
@@ -215,18 +231,127 @@ public class Desktop {
                     true,
                     true
                 );
-                dataFrame.setSize(600, 400);
+                dataFrame.setSize(500, 500);
                 dataFrame.setLayout(new BorderLayout());
 
-                // Obtener el JTabbedPane desde vEmployee
-                JTabbedPane tabbedPane = (JTabbedPane) vEmployee.tabbedPane();
+                // Verificar si el modelo ya existe, si no, inicializarlo
+                 if (employeeModel == null) {
+                    employeeModel = new mEmployee();
+                    String[] columns = vEmployee.tableColumn();
+                    dfltEmployee = new DefaultTableModel(columns, 0);
+                }
 
+                // Añadir el JTabbedPane con el modelo existente
+                tabbedPane = vEmployee.tabbedPane(dfltEmployee, employeeModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
-
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
+                // Añadir el nuevo internal frame
+                desktopPane.add(dataFrame);
+                dataFrame.moveToFront();
+            }
+        });
+    }
 
+    public static void actProdType(JDesktopPane desktopPane) {
+        btnProdType.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
+                JInternalFrame dataFrame = new JInternalFrame(
+                    "Empleados",
+                    true,
+                    true,
+                    true,
+                    true
+                );
+                dataFrame.setSize(500, 500);
+                dataFrame.setLayout(new BorderLayout());
+
+                // Verificar si el modelo ya existe, si no, inicializarlo
+                 if (prodTypeModel == null) {
+                    prodTypeModel = new mProdType();
+                    String[] columns = vProdType.tableColumn();
+                    dfltProdType = new DefaultTableModel(columns, 0);
+                }
+
+                // Añadir el JTabbedPane con el modelo existente
+                tabbedPane = vProdType.tabbedPane(dfltProdType, prodTypeModel);
+                // Añadir el JTabbedPane al nuevo JInternalFrame
+                dataFrame.add(tabbedPane, BorderLayout.CENTER);
+                // Hacer visible el nuevo JInternalFrame
+                dataFrame.setVisible(true);
+                // Añadir el nuevo internal frame
+                desktopPane.add(dataFrame);
+                dataFrame.moveToFront();
+            }
+        });
+    }
+
+    public static void actProduct(JDesktopPane desktopPane) {
+        btnProduct.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
+                JInternalFrame dataFrame = new JInternalFrame(
+                    "Empleados",
+                    true,
+                    true,
+                    true,
+                    true
+                );
+                dataFrame.setSize(500, 500);
+                dataFrame.setLayout(new BorderLayout());
+
+                // Verificar si el modelo ya existe, si no, inicializarlo
+                 if (productModel == null) {
+                    productModel = new mProduct();
+                    String[] columns = vProduct.tableColumn();
+                    dfltProduct = new DefaultTableModel(columns, 0);
+                }
+
+                // Añadir el JTabbedPane con el modelo existente
+                tabbedPane = vProduct.tabbedPane(dfltProduct, productModel);
+                // Añadir el JTabbedPane al nuevo JInternalFrame
+                dataFrame.add(tabbedPane, BorderLayout.CENTER);
+                // Hacer visible el nuevo JInternalFrame
+                dataFrame.setVisible(true);
+                // Añadir el nuevo internal frame
+                desktopPane.add(dataFrame);
+                dataFrame.moveToFront();
+            }
+        });
+    }
+
+    public static void actWorking(JDesktopPane desktopPane) {
+        btnWorking.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
+                JInternalFrame dataFrame = new JInternalFrame(
+                    "Empleados",
+                    true,
+                    true,
+                    true,
+                    true
+                );
+                dataFrame.setSize(500, 500);
+                dataFrame.setLayout(new BorderLayout());
+
+                // Verificar si el modelo ya existe, si no, inicializarlo
+                 if (workingModel == null) {
+                    workingModel = new mWorking();
+                    String[] columns = vWorking.tableColumn();
+                    dfltWorking = new DefaultTableModel(columns, 0);
+                }
+
+                // Añadir el JTabbedPane con el modelo existente
+                tabbedPane = vWorking.tabbedPane(dfltWorking, workingModel);
+                // Añadir el JTabbedPane al nuevo JInternalFrame
+                dataFrame.add(tabbedPane, BorderLayout.CENTER);
+                // Hacer visible el nuevo JInternalFrame
+                dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
                 desktopPane.add(dataFrame);
                 dataFrame.moveToFront();

@@ -28,8 +28,8 @@ import javax.swing.ListSelectionModel;
  * @author adiso
  */
 public class vBenefit {
-    private static JTable tblBenefit;
-    private static DefaultTableModel dfltBenefit;
+    private static JTable tblDataInfo;
+    private static DefaultTableModel dfltDataModel;
     private static mBenefit mdlBenefit;
 
     // JTabbedPane del internal frame
@@ -66,7 +66,7 @@ public class vBenefit {
     private static int selectedRow;
 
     public static JTabbedPane tabbedPane(DefaultTableModel modelData, mBenefit benefitMdl) {
-        mdlBenefit = benefitMdl; dfltBenefit = modelData;
+        mdlBenefit = benefitMdl; dfltDataModel = modelData;
         // Crear un JTabbedPane
         if (tabbedPane == null) { tabbedPane = new JTabbedPane(); }
         
@@ -74,12 +74,12 @@ public class vBenefit {
         if (listPanel == null) { listPanel = new JPanel(new BorderLayout()); }
 
         // Modelo para el registro de beneficios
-        tblBenefit = new JTable(modelData);
-        tblBenefit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tblBenefit.setCellSelectionEnabled(false);
-        tblBenefit.setRowSelectionAllowed(true);
-        System.out.println("Beneficios: Registros:" + " " + dfltBenefit.getRowCount());
-        listPanel.add(new JScrollPane(tblBenefit), BorderLayout.CENTER);
+        tblDataInfo = new JTable(modelData);
+        tblDataInfo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tblDataInfo.setCellSelectionEnabled(false);
+        tblDataInfo.setRowSelectionAllowed(true);
+        System.out.println("Beneficios: Registros:" + " " + dfltDataModel.getRowCount());
+        listPanel.add(new JScrollPane(tblDataInfo), BorderLayout.CENTER);
 
         // Formulario de acciones
         infoAction();
@@ -178,15 +178,15 @@ public class vBenefit {
         updateBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //int selectedRow = tblBenefit.getSelectedRow();
+                //int selectedRow = tblDataInfo.getSelectedRow();
                 System.out.println("selectedRow" + selectedRow);
                 if (selectedRow >= 0) {
                     isEditing = true; // Modo edición activada
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
                     // Llenar los campos con los valores seleccionados
-                    fieldId.setText((String) tblBenefit.getValueAt(selectedRow, 0).toString());
-                    fieldShop.setText((String) tblBenefit.getValueAt(selectedRow, 1));
-                    fieldRecreat.setText((String) tblBenefit.getValueAt(selectedRow, 2));
+                    fieldId.setText((String) tblDataInfo.getValueAt(selectedRow, 0).toString());
+                    fieldShop.setText((String) tblDataInfo.getValueAt(selectedRow, 1));
+                    fieldRecreat.setText((String) tblDataInfo.getValueAt(selectedRow, 2));
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo
@@ -203,9 +203,9 @@ public class vBenefit {
         deleteBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int selectedRow = tblBenefit.getSelectedRow();
+                int selectedRow = tblDataInfo.getSelectedRow();
                 if (selectedRow >= 0 || selectedRow != -1) {
-                    dfltBenefit.removeRow(selectedRow);
+                    dfltDataModel.removeRow(selectedRow);
                 }
             }
         });
@@ -222,11 +222,11 @@ public class vBenefit {
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente
-                    dfltBenefit.setValueAt(mdlBenefit.getShop(), editingRowIndex, 1);
-                    dfltBenefit.setValueAt(mdlBenefit.getRecreat(), editingRowIndex, 2);
+                    dfltDataModel.setValueAt(mdlBenefit.getShop(), editingRowIndex, 1);
+                    dfltDataModel.setValueAt(mdlBenefit.getRecreat(), editingRowIndex, 2);
                 } else {
                     // Crear nuevo registro
-                    dfltBenefit.addRow(new Object[] {
+                    dfltDataModel.addRow(new Object[] {
                         nextId++, // ID autoincrementable
                         mdlBenefit.getShop(),
                         mdlBenefit.getRecreat()
@@ -272,10 +272,10 @@ public class vBenefit {
 
     // Verificar la seleccion de la fila
     public static void rowSelected() {
-        tblBenefit.addMouseListener(new MouseAdapter() {
+        tblDataInfo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                selectedRow = tblBenefit.rowAtPoint(e.getPoint());
+                selectedRow = tblDataInfo.rowAtPoint(e.getPoint());
                 System.out.println("Row Selected:" + " " + selectedRow);
             }
         });
