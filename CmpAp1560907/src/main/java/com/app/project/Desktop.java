@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 
@@ -52,19 +53,19 @@ public class Desktop {
     private static mBenefit benefitModel;
     private static DefaultTableModel dfltBenefit;
 
-    // Datos para el modelo de beneficios
+    // Datos para el modelo de empleados
     private static mEmployee employeeModel;
     private static DefaultTableModel dfltEmployee;
 
-    // Datos para el modelo de beneficios
+    // Datos para el modelo de tipos
     private static mProdType prodTypeModel;
     private static DefaultTableModel dfltProdType;
 
-    // Datos para el modelo de beneficios
+    // Datos para el modelo de productos
     private static mProduct productModel;
     private static DefaultTableModel dfltProduct;
 
-    // Datos para el modelo de beneficios
+    // Datos para el modelo de jornadas
     private static mWorking workingModel;
     private static DefaultTableModel dfltWorking;
 
@@ -94,8 +95,8 @@ public class Desktop {
             );
 
             internalSize(dataFrame);
-            disableComponent();
-            disableInternal();
+            disableComponent(dataFrame);
+            disableInternal(dataFrame);
 
             // Establecer el layout & centrar los componentes
             dataFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -243,6 +244,20 @@ public class Desktop {
         btnEmployee.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Validar si el modelo de beneficios tiene datos cargados
+                if (dfltBenefit == null || dfltBenefit.getRowCount() == 0) {
+                    String message = "Modulo beneficios no contiene datos";
+                    Message.mssgError(message);
+                    return; // Evita que el JInternalFrame se abra si no hay datos
+                }
+                
+                // Validar si el modelo de beneficios tiene datos cargados
+                if (dfltWorking == null || dfltWorking.getRowCount() == 0) {
+                    String message = "Modulo jornadas no contiene datos";
+                    Message.mssgError(message);
+                    return; // Evita que el JInternalFrame se abra si no hay datos
+                }
+
                 // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
                 JInternalFrame dataFrame = new JInternalFrame(
                     "Empleados",
@@ -280,6 +295,13 @@ public class Desktop {
         btnProdType.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Validar si el modelo de beneficios tiene datos cargados
+                if (dfltProdType == null || dfltProdType.getRowCount() == 0) {
+                    String message = "Modulo tipos de productos no contiene datos";
+                    Message.mssgError(message);
+                    return; // Evita que el JInternalFrame se abra si no hay datos
+                }
+
                 // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
                 JInternalFrame dataFrame = new JInternalFrame(
                     "Tipos",
@@ -413,78 +435,80 @@ public class Desktop {
         return dtButton;
     }
 
-    private static void disableComponent() {
+    private static void disableComponent(
+        JInternalFrame intFrame
+    ) {
         // Obtener el tamaño actual del JInternalFrame
-        int frameWidth = dataFrame.getWidth();
-        int frameHeight = dataFrame.getHeight();
+        int frameWidth = intFrame.getWidth();
+        int frameHeight = intFrame.getHeight();
     
         // Calcular la posición centrada
         int x = (desktopPane.getWidth() - frameWidth) / 2;
         int y = (desktopPane.getHeight() - frameHeight) / 2;
     
         // Deshabilitar el movimiento del JInternalFrame
-        dataFrame.addComponentListener(new ComponentAdapter() {
+        intFrame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentMoved(ComponentEvent e) {
                 // Restablecer la posición
-                dataFrame.setLocation(x, y);
+                intFrame.setLocation(x, y);
             }
         });
     }
 
-    private static void disableInternal() {
+    private static void disableInternal(JInternalFrame intFrame) {
         // Quitar el borde del iframe
-        //frame.setBorder(BorderFactory.createEmptyBorder());
+        //intFrame.setBorder(BorderFactory.createEmptyBorder());
 
         // Evitar que se mueva el internal frame
-        dataFrame.addMouseListener(new MouseAdapter() {
+        intFrame.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 // Cancelar el movimiento
-                dataFrame.setLocation(0, 0);
+                intFrame.setLocation(0, 0);
             }
         });
 
-        dataFrame.addMouseMotionListener(new MouseAdapter() {
+        intFrame.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 // Cancelar el movimiento
-                dataFrame.setLocation(0, 0);
+                intFrame.setLocation(0, 0);
             }
         });
 
         // Añadir un MouseListener que ignore los eventos de movimiento
-        dataFrame.addMouseListener(new MouseAdapter() {
+        intFrame.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 // Cancelar el movimiento
                 // Mantener la posición actual
-                dataFrame.setLocation(dataFrame.getX(), dataFrame.getY());
+                intFrame.setLocation(intFrame.getX(), intFrame.getY());
             }
         });
 
-        dataFrame.addMouseMotionListener(new MouseAdapter() {
+        intFrame.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 // Cancelar el movimiento
                 // Mantener la posición actual
-                dataFrame.setLocation(dataFrame.getX(), dataFrame.getY());
+                intFrame.setLocation(intFrame.getX(), intFrame.getY());
             }
         });
     }
 
     // Método para centrar el JInternalFrame dentro del JDesktopPane
-    private static void centerFrame(JInternalFrame frame) {
+    private static void centerFrame(JInternalFrame intFrame) {
         // Obtener el tamaño del JDesktopPane y del JInternalFrame
         Dimension desktopSize = desktopPane.getSize();
-        Dimension frameSize = frame.getSize();
+        Dimension frameSize = intFrame.getSize();
     
         // Calcular las coordenadas para centrar el JInternalFrame
         int x = (desktopSize.width - frameSize.width) / 2;
         int y = (desktopSize.height - frameSize.height) / 2;
     
         // Establecer la ubicación centrada
-        frame.setLocation(x, y);
+        intFrame.setLocation(x, y);
     }
 
     public static void printDefaultData(DefaultTableModel model) {
