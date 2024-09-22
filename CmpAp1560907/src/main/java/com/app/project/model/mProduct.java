@@ -13,7 +13,7 @@ public class mProduct {
     private String name;
     private int unity;
     private int unitary;
-    private double iva;
+    private String iva;
     private double total;
     private int type;
     
@@ -54,11 +54,11 @@ public class mProduct {
     }
 
     // Getter y Setter para iva
-    public double getIva() {
+    public String getIva() {
         return iva;
     }
 
-    public void setIva(double iva) {
+    public void setIva(String iva) {
         this.iva = iva;
     }
 

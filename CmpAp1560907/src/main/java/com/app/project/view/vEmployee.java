@@ -458,9 +458,9 @@ public class vEmployee {
         benefitMap.clear();
     
         for (mBenefit benefit : listOfBenefitData) {
-            int ageMin = benefit.getAgeMin();
-            int ageMax = benefit.getAgeMax();
-            if (valTime >= ageMin && valTime <= ageMax) {
+            int mdAgeMin = benefit.getAgeMin();
+            int mdAgeMax = benefit.getAgeMax();
+            if (valTime >= mdAgeMin && valTime <= mdAgeMax) {
                 // Guardar la relación
                 benefitMap.put(benefit.getId(), benefit.getRebate());
                 // Añadir el valor al JComboBox

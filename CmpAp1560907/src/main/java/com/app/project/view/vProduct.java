@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.app.project.model.mProdType;
 import com.app.project.model.mProduct;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.ListSelectionModel;
+
+import com.app.project.Format;
 
 /**
  *
@@ -194,6 +197,7 @@ public class vProduct {
         newForm.add(newAction, BorderLayout.SOUTH);
 
         prodTypeList();
+        fdTypeForm();
     }
 
     // Estabelcer valores vacio del formulario
@@ -267,7 +271,7 @@ public class vProduct {
                 mdlProduct.setName(fieldName.getText());
                 mdlProduct.setUnity(Integer.parseInt(fieldUnity.getText()));
                 mdlProduct.setUnitary(Integer.parseInt(fieldUnitary.getText()));
-                mdlProduct.setIva(Double.parseDouble(fieldIva.getText()));
+                mdlProduct.setIva(fieldIva.getText());
                 mdlProduct.setTotal(Double.parseDouble(fieldTotal.getText()));
                 
                 // Obtener el valor seleccionado y buscar el ID
@@ -386,7 +390,7 @@ public class vProduct {
             product.setName((String) dfltDataModel.getValueAt(row, 1));
             product.setUnity((int) dfltDataModel.getValueAt(row, 2));
             product.setUnitary((int) dfltDataModel.getValueAt(row, 3));
-            product.setIva((double) dfltDataModel.getValueAt(row, 4));
+            product.setIva((String) dfltDataModel.getValueAt(row, 4));
             product.setTotal((double) dfltDataModel.getValueAt(row, 5));
             product.setType((int) dfltDataModel.getValueAt(row, 6));
             productList.add(product);
@@ -408,5 +412,75 @@ public class vProduct {
             // Añadir el valor al JComboBox
             fieldType.addItem(prodType.getName());
         }
+    }
+
+    // Filtrar y retornar valores segun el la condicion
+    public static double prodTypeFtIva(String valName) {
+        double valIva = 0.0;
+        List<mProdType> listOfProdTypeData = vProdType.getList();
+        // Limpiar el mapa antes de llenarlo
+        prodTypeMap.clear();
+    
+        for (mProdType prodType : listOfProdTypeData) {
+            String mdName = prodType.getName();
+            if (valName.equals(mdName)) {
+                valIva = prodType.getIva();
+                break; // Salir del bucle si se encuentra el valor
+            }
+        }
+        return valIva;
+    }
+
+    public static void fdTypeForm() {
+        // Añadir un ActionListener al campo fieldType
+        fieldType.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtener el valor del campo "tipo"
+                String typeValue = (String) fieldType.getSelectedItem();
+                System.out.println("Valor Campo:" + " " + typeValue);
+                // Validar si el campo no está vacio
+                if (typeValue != null && !typeValue.isEmpty()) {
+                    double ivaValue = prodTypeFtIva(typeValue);
+                    System.out.println("Valor Iva:" + " " + ivaValue);
+                    fieldIva.setText(calculateVat(ivaValue));
+                    double totalValue = calculateTotal(ivaValue);
+                    fieldTotal.setText(String.valueOf(totalValue));
+                    fieldTotal.setText(Format.decimalToTwo(totalValue));
+                }
+            }
+        });
+    }
+
+    public static String calculateVat(double ivaValue) {
+        // Estabelcer resultado inicial
+        String result = "0%";
+        // Validar que no sea un valor 
+        if (ivaValue != 0) {
+            // Asignar el resultado
+            result = ivaValue * 100 + "%";
+        }
+        // Retornar resultado
+        return result;
+    }
+
+    public static double calculateTotal(double ivaValue) {
+        // Estabelcer resultado inicial
+        double result = 0.0;
+        // Obtener el valor del campo "Tiempo"
+        String unityValue = fieldUnity.getText();
+        // Obtener el valor del campo "Tiempo"
+        String unitaryValue = fieldUnitary.getText();
+        // Validar si los campos no están vacios
+        if (!unityValue.equals("") && !unitaryValue.equals("")) {
+            // Formatear valor del campo a valor entero
+            int unityFrmt = Integer.parseInt(unityValue);
+            // Formatear valor del campo a valor entero
+            int unitaryFrmt = Integer.parseInt(unitaryValue);
+            // Calcular resultado y asignar el valor obtenido
+            result = unityFrmt * unitaryFrmt * (1 + ivaValue);
+        }
+        // Retornar resultado
+        return result;
     }
 }
