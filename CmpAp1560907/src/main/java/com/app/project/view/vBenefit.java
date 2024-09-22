@@ -19,6 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.app.project.model.mBenefit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -27,7 +30,7 @@ import com.app.project.model.mBenefit;
 public class vBenefit {
     private static JTable tblBenefit;
     private static DefaultTableModel dfltBenefit;
-    private static mBenefit mdlBenefit = new mBenefit();
+    private static mBenefit mdlBenefit;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -60,26 +63,30 @@ public class vBenefit {
     private static boolean isEditing = false;
     // Índice de la fila que se está editando
     private static int editingRowIndex = -1;
+    private static int selectedRow;
 
-    public static JTabbedPane tabbedPane() {
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mBenefit benefitMdl) {
+        mdlBenefit = benefitMdl; dfltBenefit = modelData;
         // Crear un JTabbedPane
-        tabbedPane = new JTabbedPane();
+        if (tabbedPane == null) { tabbedPane = new JTabbedPane(); }
         
         // Crear un panel para una pestaña
-        listPanel = new JPanel(new BorderLayout());
+        if (listPanel == null) { listPanel = new JPanel(new BorderLayout()); }
 
         // Modelo para el registro de beneficios
-        String[] columns = tableColumn(); // Obtener las columnas
-        dfltBenefit = new DefaultTableModel(columns, 0);
-        tblBenefit = new JTable(dfltBenefit);
+        tblBenefit = new JTable(modelData);
+        tblBenefit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tblBenefit.setCellSelectionEnabled(false);
+        tblBenefit.setRowSelectionAllowed(true);
+        System.out.println("Beneficios: Registros:" + " " + dfltBenefit.getRowCount());
         listPanel.add(new JScrollPane(tblBenefit), BorderLayout.CENTER);
 
         // Formulario de acciones
         infoAction();
-
         // Añadir los paneles al JTabbedPane
-        tabbedPane.addTab("Información", listPanel);
-
+        tabPaneDflt();
+        // Verificar fila seleccionada
+        rowSelected();
         // Utilizar el formulario
         formData();
         // Utilizar funcionalidades en la pestaña principal
@@ -171,7 +178,8 @@ public class vBenefit {
         updateBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int selectedRow = tblBenefit.getSelectedRow();
+                //int selectedRow = tblBenefit.getSelectedRow();
+                System.out.println("selectedRow" + selectedRow);
                 if (selectedRow >= 0) {
                     isEditing = true; // Modo edición activada
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
@@ -196,7 +204,7 @@ public class vBenefit {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = tblBenefit.getSelectedRow();
-                if (selectedRow >= 0) {
+                if (selectedRow >= 0 || selectedRow != -1) {
                     dfltBenefit.removeRow(selectedRow);
                 }
             }
@@ -227,13 +235,7 @@ public class vBenefit {
 
                 // Limpiar campos del formulario
                 clearFields();
-
-                // Añadir la pestaña establecida según su titulo
-                tabbedPane.addTab("Información", listPanel);
-                // Remover la pestaña establecida según su titulo
-                tabbedPane.removeTabAt(tabbedPane.indexOfTab("Formulario"));
-                // Seleccionar la pestaña establecida según su titulo
-                tabbedPane.setSelectedIndex(tabbedPane.indexOfTab("Información"));
+                tabPaneDflt();
             }
         });
     }
@@ -245,13 +247,36 @@ public class vBenefit {
             public void actionPerformed(ActionEvent e) {
                 // Limpiar campos del formulario
                 clearFields();
+                tabPaneDflt();
+            }
+        });
+    }
 
-                // Añadir la pestaña establecida según su titulo
-                tabbedPane.addTab("Información", listPanel);
-                // Remover la pestaña establecida según su titulo
-                tabbedPane.removeTabAt(tabbedPane.indexOfTab("Formulario"));
-                // Seleccionar la pestaña establecida según su titulo
-                tabbedPane.setSelectedIndex(tabbedPane.indexOfTab("Información"));
+    // Establecer paneles por defecto
+    public static void tabPaneDflt() {
+        // Añadir la pestaña establecida según su titulo
+        tabbedPane.addTab("Información", listPanel);
+        // Verificar si la pestaña "Formulario" existe antes de intentar eliminarla
+        int indexFormulario = tabbedPane.indexOfTab("Formulario");
+        if (indexFormulario >= 0) {
+            // Remover la pestaña "Formulario" si existe
+            tabbedPane.removeTabAt(indexFormulario);
+        }
+        // Seleccionar la pestaña "Información"
+        int indexInformacion = tabbedPane.indexOfTab("Información");
+        if (indexInformacion >= 0) {
+            // Seleccionar la pestaña "Información" si existe
+            tabbedPane.setSelectedIndex(indexInformacion);
+        }
+    }
+
+    // Verificar la seleccion de la fila
+    public static void rowSelected() {
+        tblBenefit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                selectedRow = tblBenefit.rowAtPoint(e.getPoint());
+                System.out.println("Row Selected:" + " " + selectedRow);
             }
         });
     }

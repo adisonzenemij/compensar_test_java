@@ -5,6 +5,7 @@
 package com.app.project;
 
 import com.app.project.view.*;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -15,6 +16,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 
@@ -24,6 +26,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
+
+import com.app.project.model.mBenefit;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,6 +40,10 @@ public class Desktop {
     private static JInternalFrame dataFrame;
     // Mantener una referencia al JTabbedPane
     private static JTabbedPane tabbedPane;
+
+    // Datos para el modelo de beneficios
+    private static mBenefit benefitModel;
+    private static DefaultTableModel dfltBenefit;
 
     private static JButton btnBenefit;
     private static JButton btnEmployee;
@@ -167,7 +176,19 @@ public class Desktop {
                 dataFrame.setLayout(new BorderLayout());
 
                 // Obtener el JTabbedPane desde vBenefit
-                JTabbedPane tabbedPane = (JTabbedPane) vBenefit.tabbedPane();
+                //tabbedPane = (JTabbedPane) vBenefit.tabbedPane();
+                // Inicializar modelo nuevo y vacio
+                //if (benefitModel == null) { benefitModel = new mBenefit(); }
+
+                // Verificar si el modelo de beneficios ya existe, si no, inicializarlo
+                 if (benefitModel == null) {
+                    benefitModel = new mBenefit();
+                    String[] columns = vBenefit.tableColumn();
+                    dfltBenefit = new DefaultTableModel(columns, 0);
+                }
+
+                // Añadir el JTabbedPane con el modelo existente
+                tabbedPane = vBenefit.tabbedPane(dfltBenefit, benefitModel);
 
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
