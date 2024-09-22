@@ -18,7 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.app.project.model.mBenefit;
+import com.app.project.model.mEmployee;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ListSelectionModel;
@@ -30,7 +30,7 @@ import javax.swing.ListSelectionModel;
 public class vEmployee {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
-    private static mBenefit mdlBenefit;
+    private static mEmployee mdlEmployee;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -42,13 +42,25 @@ public class vEmployee {
     private static JPanel newField;
     private static JPanel newAction;
 
-    // Campos del formulario
+    // Etiquetas del formulario
     private static JLabel labelId;
-    private static JLabel labelShop;
-    private static JLabel labelRecreat;
+    private static JLabel labelDocument;
+    private static JLabel labelNames;
+    private static JLabel labelSrnms;
+    private static JLabel labelAge;
+    private static JLabel labelTime;
+    private static JLabel labelBenefit;
+    private static JLabel labelWorking;
+    
+    // Campos del formulario
     private static JTextField fieldId;
-    private static JTextField fieldShop;
-    private static JTextField fieldRecreat;
+    private static JTextField fieldDocument;
+    private static JTextField fieldNames;
+    private static JTextField fieldSrnms;
+    private static JTextField fieldAge;
+    private static JTextField fieldTime;
+    private static JTextField fieldBenefit;
+    private static JTextField fieldWorking;
 
     // Botones de los paneles
     private static JButton createBtn;
@@ -65,8 +77,8 @@ public class vEmployee {
     private static int editingRowIndex = -1;
     private static int selectedRow;
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mBenefit benefitMdl) {
-        mdlBenefit = benefitMdl; dfltDataModel = modelData;
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mEmployee benefitMdl) {
+        mdlEmployee = benefitMdl; dfltDataModel = modelData;
         // Crear un JTabbedPane
         if (tabbedPane == null) { tabbedPane = new JTabbedPane(); }
         
@@ -126,17 +138,42 @@ public class vEmployee {
         fieldId = new JTextField();
         fieldId.setEditable(false); // Bloquear el campo
 
-        labelShop = new JLabel("Tienda");
-        fieldShop = new JTextField();
-        fieldShop.setEditable(true); // Habilitar el campo
+        labelDocument = new JLabel("Documento");
+        fieldDocument = new JTextField();
+        fieldDocument.setEditable(true); // Habilitar el campo
 
-        labelRecreat = new JLabel("Recreación");
-        fieldRecreat = new JTextField();
-        fieldRecreat.setEditable(true); // Habilitar el campo
+        labelNames = new JLabel("Nombres");
+        fieldNames = new JTextField();
+        fieldNames.setEditable(true); // Habilitar el campo
+
+        labelSrnms = new JLabel("Apellidos");
+        fieldSrnms = new JTextField();
+        fieldSrnms.setEditable(true); // Habilitar el campo
+
+        labelAge = new JLabel("Edad");
+        fieldAge = new JTextField();
+        fieldAge.setEditable(true); // Habilitar el campo
+
+        labelTime = new JLabel("Tiempo");
+        fieldTime = new JTextField();
+        fieldTime.setEditable(true); // Habilitar el campo
+
+        labelBenefit = new JLabel("Beneficios");
+        fieldBenefit = new JTextField();
+        fieldBenefit.setEditable(true); // Habilitar el campo
+
+        labelWorking = new JLabel("Jornada");
+        fieldWorking = new JTextField();
+        fieldWorking.setEditable(true); // Habilitar el campo
 
         newField.add(labelId); newField.add(fieldId);
-        newField.add(labelShop); newField.add(fieldShop);
-        newField.add(labelRecreat); newField.add(fieldRecreat);
+        newField.add(labelDocument); newField.add(fieldDocument);
+        newField.add(labelNames); newField.add(fieldNames);
+        newField.add(labelSrnms); newField.add(fieldSrnms);
+        newField.add(labelAge); newField.add(fieldAge);
+        newField.add(labelTime); newField.add(fieldTime);
+        newField.add(labelBenefit); newField.add(fieldBenefit);
+        newField.add(labelWorking); newField.add(fieldWorking);
 
         // Crear un panel para añadir botones de acciones
         newAction = new JPanel(new GridLayout(1,1));
@@ -185,8 +222,13 @@ public class vEmployee {
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
                     // Llenar los campos con los valores seleccionados
                     fieldId.setText((String) tblDataInfo.getValueAt(selectedRow, 0).toString());
-                    fieldShop.setText((String) tblDataInfo.getValueAt(selectedRow, 1));
-                    fieldRecreat.setText((String) tblDataInfo.getValueAt(selectedRow, 2));
+                    fieldDocument.setText((String) tblDataInfo.getValueAt(selectedRow, 1));
+                    fieldNames.setText((String) tblDataInfo.getValueAt(selectedRow, 2));
+                    fieldSrnms.setText((String) tblDataInfo.getValueAt(selectedRow, 3));
+                    fieldAge.setText((String) tblDataInfo.getValueAt(selectedRow, 4));
+                    fieldTime.setText((String) tblDataInfo.getValueAt(selectedRow, 5));
+                    fieldBenefit.setText((String) tblDataInfo.getValueAt(selectedRow, 6));
+                    fieldWorking.setText((String) tblDataInfo.getValueAt(selectedRow, 7));
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo
@@ -217,19 +259,34 @@ public class vEmployee {
             @Override
             public void actionPerformed(ActionEvent e) {
                 /// Usar el modelo para establecer los valores
-                mdlBenefit.setShop(fieldShop.getText());
-                mdlBenefit.setRecreat(fieldRecreat.getText());
+                mdlEmployee.setDocument(fieldDocument.getText());
+                mdlEmployee.setNames(fieldNames.getText());
+                mdlEmployee.setSrnms(fieldSrnms.getText());
+                mdlEmployee.setAge(Integer.parseInt(fieldAge.getText()));
+                mdlEmployee.setTime(Integer.parseInt(fieldTime.getText()));
+                mdlEmployee.setBenefit(Integer.parseInt(fieldBenefit.getText()));
+                mdlEmployee.setWorking(Integer.parseInt(fieldWorking.getText()));
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente
-                    dfltDataModel.setValueAt(mdlBenefit.getShop(), editingRowIndex, 1);
-                    dfltDataModel.setValueAt(mdlBenefit.getRecreat(), editingRowIndex, 2);
+                    dfltDataModel.setValueAt(mdlEmployee.getDocument(), editingRowIndex, 1);
+                    dfltDataModel.setValueAt(mdlEmployee.getNames(), editingRowIndex, 2);
+                    dfltDataModel.setValueAt(mdlEmployee.getSrnms(), editingRowIndex, 3);
+                    dfltDataModel.setValueAt(mdlEmployee.getAge(), editingRowIndex, 4);
+                    dfltDataModel.setValueAt(mdlEmployee.getTime(), editingRowIndex, 5);
+                    dfltDataModel.setValueAt(mdlEmployee.getBenefit(), editingRowIndex, 6);
+                    dfltDataModel.setValueAt(mdlEmployee.getWorking(), editingRowIndex, 7);
                 } else {
                     // Crear nuevo registro
                     dfltDataModel.addRow(new Object[] {
                         nextId++, // ID autoincrementable
-                        mdlBenefit.getShop(),
-                        mdlBenefit.getRecreat()
+                        mdlEmployee.getDocument(),
+                        mdlEmployee.getNames(),
+                        mdlEmployee.getSrnms(),
+                        mdlEmployee.getAge(),
+                        mdlEmployee.getTime(),
+                        mdlEmployee.getBenefit(),
+                        mdlEmployee.getWorking(),
                     });
                 }
 
@@ -297,7 +354,12 @@ public class vEmployee {
 
     // Limpiar los campos del formulario
     private static void clearFields() {
-        fieldShop.setText("");
-        fieldRecreat.setText("");
+        fieldDocument.setText("");
+        fieldNames.setText("");
+        fieldSrnms.setText("");
+        fieldAge.setText("");
+        fieldTime.setText("");
+        fieldBenefit.setText("");
+        fieldWorking.setText("");
     }
 }

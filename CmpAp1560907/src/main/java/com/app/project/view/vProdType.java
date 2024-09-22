@@ -18,7 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.app.project.model.mBenefit;
+import com.app.project.model.mProdType;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ListSelectionModel;
@@ -30,7 +30,7 @@ import javax.swing.ListSelectionModel;
 public class vProdType {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
-    private static mBenefit mdlBenefit;
+    private static mProdType mdlProdType;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -42,13 +42,15 @@ public class vProdType {
     private static JPanel newField;
     private static JPanel newAction;
 
-    // Campos del formulario
+    // Etiquetas del formulario
     private static JLabel labelId;
-    private static JLabel labelShop;
-    private static JLabel labelRecreat;
+    private static JLabel labelName;
+    private static JLabel labelIva;
+    
+    // Campos del formulario
     private static JTextField fieldId;
-    private static JTextField fieldShop;
-    private static JTextField fieldRecreat;
+    private static JTextField fieldName;
+    private static JTextField fieldIva;
 
     // Botones de los paneles
     private static JButton createBtn;
@@ -65,8 +67,8 @@ public class vProdType {
     private static int editingRowIndex = -1;
     private static int selectedRow;
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mBenefit benefitMdl) {
-        mdlBenefit = benefitMdl; dfltDataModel = modelData;
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mProdType benefitMdl) {
+        mdlProdType = benefitMdl; dfltDataModel = modelData;
         // Crear un JTabbedPane
         if (tabbedPane == null) { tabbedPane = new JTabbedPane(); }
         
@@ -126,17 +128,17 @@ public class vProdType {
         fieldId = new JTextField();
         fieldId.setEditable(false); // Bloquear el campo
 
-        labelShop = new JLabel("Tienda");
-        fieldShop = new JTextField();
-        fieldShop.setEditable(true); // Habilitar el campo
+        labelName = new JLabel("Tienda");
+        fieldName = new JTextField();
+        fieldName.setEditable(true); // Habilitar el campo
 
-        labelRecreat = new JLabel("Recreación");
-        fieldRecreat = new JTextField();
-        fieldRecreat.setEditable(true); // Habilitar el campo
+        labelIva = new JLabel("Recreación");
+        fieldIva = new JTextField();
+        fieldIva.setEditable(true); // Habilitar el campo
 
         newField.add(labelId); newField.add(fieldId);
-        newField.add(labelShop); newField.add(fieldShop);
-        newField.add(labelRecreat); newField.add(fieldRecreat);
+        newField.add(labelName); newField.add(fieldName);
+        newField.add(labelIva); newField.add(fieldIva);
 
         // Crear un panel para añadir botones de acciones
         newAction = new JPanel(new GridLayout(1,1));
@@ -185,8 +187,8 @@ public class vProdType {
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
                     // Llenar los campos con los valores seleccionados
                     fieldId.setText((String) tblDataInfo.getValueAt(selectedRow, 0).toString());
-                    fieldShop.setText((String) tblDataInfo.getValueAt(selectedRow, 1));
-                    fieldRecreat.setText((String) tblDataInfo.getValueAt(selectedRow, 2));
+                    fieldName.setText((String) tblDataInfo.getValueAt(selectedRow, 1));
+                    fieldIva.setText((String) tblDataInfo.getValueAt(selectedRow, 2));
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo
@@ -217,19 +219,19 @@ public class vProdType {
             @Override
             public void actionPerformed(ActionEvent e) {
                 /// Usar el modelo para establecer los valores
-                mdlBenefit.setShop(fieldShop.getText());
-                mdlBenefit.setRecreat(fieldRecreat.getText());
+                mdlProdType.setName(fieldName.getText());
+                mdlProdType.setIva(Double.parseDouble(fieldIva.getText()));
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente
-                    dfltDataModel.setValueAt(mdlBenefit.getShop(), editingRowIndex, 1);
-                    dfltDataModel.setValueAt(mdlBenefit.getRecreat(), editingRowIndex, 2);
+                    dfltDataModel.setValueAt(mdlProdType.getName(), editingRowIndex, 1);
+                    dfltDataModel.setValueAt(mdlProdType.getIva(), editingRowIndex, 2);
                 } else {
                     // Crear nuevo registro
                     dfltDataModel.addRow(new Object[] {
                         nextId++, // ID autoincrementable
-                        mdlBenefit.getShop(),
-                        mdlBenefit.getRecreat()
+                        mdlProdType.getName(),
+                        mdlProdType.getIva(),
                     });
                 }
 
@@ -292,7 +294,7 @@ public class vProdType {
 
     // Limpiar los campos del formulario
     private static void clearFields() {
-        fieldShop.setText("");
-        fieldRecreat.setText("");
+        fieldName.setText("");
+        fieldIva.setText("");
     }
 }

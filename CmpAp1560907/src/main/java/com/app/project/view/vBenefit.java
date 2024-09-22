@@ -42,10 +42,12 @@ public class vBenefit {
     private static JPanel newField;
     private static JPanel newAction;
 
-    // Campos del formulario
+    // Etiquetas del formulario
     private static JLabel labelId;
     private static JLabel labelShop;
     private static JLabel labelRecreat;
+
+    // Campos del formulario
     private static JTextField fieldId;
     private static JTextField fieldShop;
     private static JTextField fieldRecreat;
@@ -229,7 +231,7 @@ public class vBenefit {
                     dfltDataModel.addRow(new Object[] {
                         nextId++, // ID autoincrementable
                         mdlBenefit.getShop(),
-                        mdlBenefit.getRecreat()
+                        mdlBenefit.getRecreat(),
                     });
                 }
 
