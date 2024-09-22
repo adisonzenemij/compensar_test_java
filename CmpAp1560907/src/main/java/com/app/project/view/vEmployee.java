@@ -4,6 +4,7 @@
  */
 package com.app.project.view;
 
+import com.app.project.model.mBenefit;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -19,8 +20,11 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.app.project.model.mEmployee;
+import com.app.project.model.mWorking;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -61,6 +65,7 @@ public class vEmployee {
     private static JTextField fieldTime;
     private static JTextField fieldBenefit;
     private static JTextField fieldWorking;
+    //private static JComboBox<String> fieldWorking;
 
     // Botones de los paneles
     private static JButton createBtn;
@@ -77,8 +82,8 @@ public class vEmployee {
     private static int editingRowIndex = -1;
     private static int selectedRow;
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mEmployee benefitMdl) {
-        mdlEmployee = benefitMdl; dfltDataModel = modelData;
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mEmployee employeeMdl) {
+        dfltDataModel = modelData; mdlEmployee = employeeMdl;
         // Crear un JTabbedPane
         if (tabbedPane == null) { tabbedPane = new JTabbedPane(); }
         
@@ -164,6 +169,7 @@ public class vEmployee {
 
         labelWorking = new JLabel("Jornada");
         fieldWorking = new JTextField();
+        //fieldWorking = new JComboBox<>();
         fieldWorking.setEditable(true); // Habilitar el campo
 
         newField.add(labelId); newField.add(fieldId);
@@ -266,6 +272,7 @@ public class vEmployee {
                 mdlEmployee.setTime(Integer.parseInt(fieldTime.getText()));
                 mdlEmployee.setBenefit(Integer.parseInt(fieldBenefit.getText()));
                 mdlEmployee.setWorking(Integer.parseInt(fieldWorking.getText()));
+                //mdlEmployee.setWorking(fieldWorking.getSelectedItem().toString());
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente

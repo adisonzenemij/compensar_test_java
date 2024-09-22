@@ -68,7 +68,10 @@ public class vProdType {
     private static int selectedRow;
 
     public static JTabbedPane tabbedPane(DefaultTableModel modelData, mProdType benefitMdl) {
-        mdlProdType = benefitMdl; dfltDataModel = modelData;
+        dfltDataModel = modelData; mdlProdType = benefitMdl;
+        System.out.println("Tipos: Modelo:" + " " + dfltDataModel);
+        System.out.println("Tipos: Datos:" + " " + mdlProdType);
+
         // Crear un JTabbedPane
         if (tabbedPane == null) { tabbedPane = new JTabbedPane(); }
         
@@ -80,7 +83,7 @@ public class vProdType {
         tblDataInfo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblDataInfo.setCellSelectionEnabled(false);
         tblDataInfo.setRowSelectionAllowed(true);
-        System.out.println("Beneficios: Registros:" + " " + dfltDataModel.getRowCount());
+        System.out.println("Tipos: Registros:" + " " + dfltDataModel.getRowCount());
         listPanel.add(new JScrollPane(tblDataInfo), BorderLayout.CENTER);
 
         // Formulario de acciones

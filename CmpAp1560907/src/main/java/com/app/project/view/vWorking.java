@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
 import com.app.project.model.mWorking;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -65,8 +67,11 @@ public class vWorking {
     private static int editingRowIndex = -1;
     private static int selectedRow;
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mWorking benefitMdl) {
-        mdlWorking = benefitMdl; dfltDataModel = modelData;
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mWorking workingMdl) {
+        dfltDataModel = modelData; mdlWorking = workingMdl;
+        System.out.println("Jornadas: Modelo:" + " " + dfltDataModel);
+        System.out.println("Jornadas: Datos:" + " " + mdlWorking);
+
         // Crear un JTabbedPane
         if (tabbedPane == null) { tabbedPane = new JTabbedPane(); }
         
@@ -78,7 +83,7 @@ public class vWorking {
         tblDataInfo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblDataInfo.setCellSelectionEnabled(false);
         tblDataInfo.setRowSelectionAllowed(true);
-        System.out.println("Beneficios: Registros:" + " " + dfltDataModel.getRowCount());
+        System.out.println("Jornadas: Registros:" + " " + dfltDataModel.getRowCount());
         listPanel.add(new JScrollPane(tblDataInfo), BorderLayout.CENTER);
 
         // Formulario de acciones
