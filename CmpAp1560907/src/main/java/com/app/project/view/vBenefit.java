@@ -73,9 +73,6 @@ public class vBenefit {
 
     public static JTabbedPane tabbedPane(DefaultTableModel modelData, mBenefit benefitMdl) {
         dfltDataModel = modelData; mdlBenefit = benefitMdl;
-        // Imprimir los datos del modelo y del objeto mBenefit
-        printModelData(dfltDataModel);
-        printBenefitData(mdlBenefit);
 
         // Crear un JTabbedPane
         if (tabbedPane == null) { tabbedPane = new JTabbedPane(); }
@@ -326,29 +323,5 @@ public class vBenefit {
         fieldRecreat.setText("");
         fieldAgeMin.setText("");
         fieldAgeMax.setText("");
-    }
-
-    public static void printModelData(DefaultTableModel model) {
-        int rowCount = model.getRowCount();
-        int columnCount = model.getColumnCount();
-        
-        System.out.println("Datos del modelo:");
-        for (int row = 0; row < rowCount; row++) {
-            for (int col = 0; col < columnCount; col++) {
-                System.out.print(model.getValueAt(row, col) + "\t");
-            }
-            // Salto de línea al final de cada fila
-            System.out.println();
-        }
-    }
-
-    public static void printBenefitData(mBenefit benefit) {
-        // Suponiendo que el objeto `mBenefit` tiene métodos `get` para acceder a sus datos
-        System.out.println("Datos del objeto mBenefit:");
-        System.out.println("Registro: " + benefit.getId());
-        System.out.println("Tienda: " + benefit.getShop());
-        System.out.println("Recreacion: " + benefit.getRecreat());
-        System.out.println("Minimo: " + benefit.getAgeMin());
-        System.out.println("Maximo: " + benefit.getAgeMax());
     }
 }

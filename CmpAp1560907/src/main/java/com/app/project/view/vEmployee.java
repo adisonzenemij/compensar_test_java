@@ -87,14 +87,8 @@ public class vEmployee {
 
     private static Map<Integer, String> workingMap = new HashMap<>();
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mEmployee employeeMdl, mWorking workingMdl) {
-        dfltDataModel = modelData;
-        mdlEmployee = employeeMdl;
-        mdlWorking = workingMdl;
-        // Imprimir los datos del modelo y del objeto mBenefit
-        printModelData(dfltDataModel);
-        printEmployeeData(mdlEmployee);
-        printWorkingData(mdlWorking);
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mEmployee employeeMdl) {
+        dfltDataModel = modelData; mdlEmployee = employeeMdl;
 
         // Crear un JTabbedPane
         if (tabbedPane == null) { tabbedPane = new JTabbedPane(); }
@@ -250,9 +244,28 @@ public class vEmployee {
                     fieldBenefit.setText((String) tblDataInfo.getValueAt(selectedRow, 6).toString());
                     //fieldWorking.setText((String) tblDataInfo.getValueAt(selectedRow, 7).toString());
 
-                    // Obtener el ID de la jornada (working)
-                    Integer workingId = (Integer) tblDataInfo.getValueAt(selectedRow, 7);
-                    fieldWorking.setSelectedItem(workingMap.get(workingId)); // Establecer el nombre correspondiente en el JComboBox
+                    // Obtener el nombre de la jornada y establecerlo en el JComboBox
+                    String selectedWorkingName = (String) tblDataInfo.getValueAt(selectedRow, 7).toString();
+                    fieldWorking.setSelectedItem(selectedWorkingName); // Esto selecciona el nombre directamente
+                    
+                    // Dentro de tu método btnUpdate() o donde lo necesites
+                    /*String selectedWorkingName = (String) tblDataInfo.getValueAt(selectedRow, 7).toString();
+                    Integer workingId = null;
+
+                    // Buscar el ID correspondiente al nombre
+                    for (Map.Entry<Integer, String> entry : workingMap.entrySet()) {
+                        if (entry.getValue().equals(selectedWorkingName)) {
+                            workingId = entry.getKey();
+                            break; // Salimos del bucle una vez encontrado
+                        }
+                    }
+
+                    if (workingId != null) {
+                        System.out.println("El ID correspondiente al nombre " + selectedWorkingName + " es: " + workingId);
+                        fieldWorking.setSelectedItem(workingMap.get(workingId));
+                    } else {
+                        System.out.println("No se encontró un ID para el nombre: " + selectedWorkingName);
+                    }*/
 
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
@@ -312,7 +325,7 @@ public class vEmployee {
                     dfltDataModel.setValueAt(mdlEmployee.getAge(), editingRowIndex, 4);
                     dfltDataModel.setValueAt(mdlEmployee.getTime(), editingRowIndex, 5);
                     dfltDataModel.setValueAt(mdlEmployee.getBenefit(), editingRowIndex, 6);
-                    dfltDataModel.setValueAt(mdlEmployee.getWorking(), editingRowIndex, 7);
+                    dfltDataModel.setValueAt(workingMap.get(mdlEmployee.getWorking()), editingRowIndex, 7);
                 } else {
                     // Crear nuevo registro
                     dfltDataModel.addRow(new Object[] {
@@ -323,7 +336,7 @@ public class vEmployee {
                         mdlEmployee.getAge(),
                         mdlEmployee.getTime(),
                         mdlEmployee.getBenefit(),
-                        mdlEmployee.getWorking(),
+                        workingMap.get(mdlEmployee.getWorking()),
                     });
                 }
 
@@ -399,33 +412,6 @@ public class vEmployee {
         fieldBenefit.setText("");
         //fieldWorking.setText("");
         fieldWorking.setSelectedIndex(-1);
-    }
-
-    public static void printModelData(DefaultTableModel model) {
-        int rowCount = model.getRowCount();
-        int columnCount = model.getColumnCount();
-        
-        System.out.println("Datos del modelo:");
-        for (int row = 0; row < rowCount; row++) {
-            for (int col = 0; col < columnCount; col++) {
-                System.out.print(model.getValueAt(row, col) + "\t");
-            }
-            // Salto de línea al final de cada fila
-            System.out.println();
-        }
-    }
-
-    public static void printEmployeeData(mEmployee dataMdl) {
-        // Suponiendo que el objeto `mEmployee` tiene métodos `get` para acceder a sus datos
-        System.out.println("Datos del objeto mEmployee:");
-        System.out.println("Registro: " + dataMdl.getId());
-    }
-
-    public static void printWorkingData(mWorking dataMdl) {
-        // Suponiendo que el objeto `mWorking` tiene métodos `get` para acceder a sus datos
-        System.out.println("Datos del objeto mWorking:");
-        System.out.println("Registro: " + dataMdl.getId());
-        System.out.println("Nombre: " + dataMdl.getName());
     }
 
     public static void workingList() {

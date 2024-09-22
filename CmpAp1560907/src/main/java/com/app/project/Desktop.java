@@ -126,6 +126,20 @@ public class Desktop {
             actProduct(desktopPane);
             actProdType(desktopPane);
             actWorking(desktopPane);
+
+            // Imprimir los datos del modelo
+            printDefaultData(dfltBenefit);
+            printDefaultData(dfltEmployee);
+            printDefaultData(dfltProdType);
+            printDefaultData(dfltProduct);
+            printDefaultData(dfltWorking);
+            
+            // Imprimir los datos del modelo
+            //printModelData(benefitModel);
+            //printModelData(employeeModel);
+            //printModelData(prodTypeModel);
+            //printModelData(productModel);
+            //printModelData(workingModel);
         }
     }
 
@@ -242,7 +256,7 @@ public class Desktop {
                 }
 
                 // Añadir el JTabbedPane con el modelo existente
-                tabbedPane = vEmployee.tabbedPane(dfltEmployee, employeeModel, workingModel);
+                tabbedPane = vEmployee.tabbedPane(dfltEmployee, employeeModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Hacer visible el nuevo JInternalFrame
@@ -447,5 +461,25 @@ public class Desktop {
                 frame.setLocation(frame.getX(), frame.getY());
             }
         });
+    }
+
+    public static void printDefaultData(DefaultTableModel model) {
+        int rowCount = model.getRowCount();
+        int columnCount = model.getColumnCount();
+        
+        System.out.println("Datos del modelo:");
+        for (int row = 0; row < rowCount; row++) {
+            for (int col = 0; col < columnCount; col++) {
+                System.out.print(model.getValueAt(row, col) + "\t");
+            }
+            // Salto de línea al final de cada fila
+            System.out.println();
+        }
+    }
+
+    public static void printModelData(mEmployee dataMdl) {
+        // Suponiendo que el objeto `mEmployee` tiene métodos `get` para acceder a sus datos
+        System.out.println("Datos del objeto mEmployee:");
+        System.out.println("Registro: " + dataMdl.getId());
     }
 }
