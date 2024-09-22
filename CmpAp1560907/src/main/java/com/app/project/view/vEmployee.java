@@ -4,23 +4,10 @@
  */
 package com.app.project.view;
 
-import com.app.project.model.mBenefit;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-
-import com.app.project.model.mEmployee;
-import com.app.project.model.mWorking;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
@@ -29,9 +16,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+
+import com.app.project.model.mBenefit;
+import com.app.project.model.mEmployee;
+import com.app.project.model.mWorking;
 
 /**
  *
@@ -227,8 +227,7 @@ public class vEmployee {
 
         newForm.add(newField, BorderLayout.NORTH);
         newForm.add(newAction, BorderLayout.SOUTH);
-
-        formTime();
+        fdTimeForm();
         workingList();
     }
 
@@ -485,7 +484,7 @@ public class vEmployee {
         }
     }
 
-    public static void formTime() {
+    public static void fdTimeForm() {
         // Añadir un ActionListener al campo fieldTime
         fieldTime.addFocusListener(new FocusAdapter() {
             @Override
