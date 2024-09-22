@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.app.project.model.mEmployee;
 import com.app.project.model.mWorking;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -199,7 +201,8 @@ public class vEmployee {
         newForm.add(newField, BorderLayout.NORTH);
         newForm.add(newAction, BorderLayout.SOUTH);
 
-        benefitList(); workingList();
+        formTime();
+        workingList();
     }
 
     // Estabelcer valores vacio del formulario
@@ -423,7 +426,7 @@ public class vEmployee {
         return employeeList;
     }
 
-    public static void benefitList() {
+    public static void benefitList(int valTime) {
         List<mBenefit> listOfBenefitData = vBenefit.getList();
         // Limpiar el JComboBox antes de agregar nuevos elementos
         fieldBenefit.removeAllItems();
@@ -431,10 +434,14 @@ public class vEmployee {
         benefitMap.clear();
     
         for (mBenefit benefit : listOfBenefitData) {
-            // Guardar la relación
-            benefitMap.put(benefit.getId(), benefit.getRebate());
-            // Añadir el valor al JComboBox
-            fieldBenefit.addItem(benefit.getRebate());
+            int ageMin = benefit.getAgeMin();
+            int ageMax = benefit.getAgeMax();
+            if (valTime >= ageMin && valTime <= ageMax) {
+                // Guardar la relación
+                benefitMap.put(benefit.getId(), benefit.getRebate());
+                // Añadir el valor al JComboBox
+                fieldBenefit.addItem(benefit.getRebate());
+            }
         }
     }
 
@@ -451,5 +458,22 @@ public class vEmployee {
             // Añadir el valor al JComboBox
             fieldWorking.addItem(working.getName());
         }
+    }
+
+    public static void formTime() {
+        // Añadir un ActionListener al campo fieldTime
+        fieldTime.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                // Obtener el valor del campo "Tiempo"
+                String timeValue = fieldTime.getText();
+                System.out.println("Valor del campo:" + " " + timeValue);
+                int timeFrmt = Integer.parseInt(timeValue);
+                System.out.println("Valor Formatead:" + " " + timeFrmt);
+                fieldBenefit.setSelectedIndex(-1);
+                // Consultar funcion
+                benefitList(timeFrmt);
+            }
+        });
     }
 }
