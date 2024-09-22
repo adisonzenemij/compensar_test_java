@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -66,8 +67,8 @@ public class vEmployee {
     private static JTextField fieldDocument;
     private static JTextField fieldNames;
     private static JTextField fieldSrnms;
-    private static JTextField fieldAge;
-    private static JTextField fieldTime;
+    private static JFormattedTextField fieldAge;
+    private static JFormattedTextField fieldTime;
     private static JComboBox<String> fieldBenefit;
     private static JComboBox<String> fieldWorking;
 
@@ -164,12 +165,22 @@ public class vEmployee {
         fieldSrnms.setEditable(true); // Habilitar el campo
 
         labelAge = new JLabel("Edad");
-        fieldAge = new JTextField();
+        //fieldAge = new JTextField();
+        //fieldAge.setEditable(true); // Habilitar el campo
+        fieldAge = new JFormattedTextField();
+        fieldAge.setColumns(10); // Establece el número de columnas
         fieldAge.setEditable(true); // Habilitar el campo
+        fieldAge.setValue(0); // Valor inicial
+        fieldAge.setFocusLostBehavior(JFormattedTextField.PERSIST); // Persistir valor
 
         labelTime = new JLabel("Tiempo");
-        fieldTime = new JTextField();
+        //fieldTime = new JTextField();
+        //fieldTime.setEditable(true); // Habilitar el campo
+        fieldTime = new JFormattedTextField();
+        fieldTime.setColumns(10); // Establece el número de columnas
         fieldTime.setEditable(true); // Habilitar el campo
+        fieldTime.setValue(0); // Valor inicial
+        fieldTime.setFocusLostBehavior(JFormattedTextField.PERSIST); // Persistir valor
 
         labelBenefit = new JLabel("Beneficio");
         fieldBenefit = new JComboBox<>();
@@ -178,6 +189,22 @@ public class vEmployee {
         labelWorking = new JLabel("Jornada");
         fieldWorking = new JComboBox<>();
         fieldWorking.setEditable(true); // Habilitar el campo
+
+        // Establecer el formato para que solo acepte números
+        fieldAge.setFormatterFactory(
+            new javax.swing.text.DefaultFormatterFactory(
+                new javax.swing.text.NumberFormatter(
+                    new java.text.DecimalFormat("#0")
+                )
+            )
+        );
+        fieldTime.setFormatterFactory(
+            new javax.swing.text.DefaultFormatterFactory(
+                new javax.swing.text.NumberFormatter(
+                    new java.text.DecimalFormat("#0")
+                )
+            )
+        );
 
         newField.add(labelId); newField.add(fieldId);
         newField.add(labelDocument); newField.add(fieldDocument);
@@ -231,8 +258,6 @@ public class vEmployee {
         updateBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //int selectedRow = tblDataInfo.getSelectedRow();
-                System.out.println("selectedRow" + selectedRow);
                 if (selectedRow >= 0) {
                     isEditing = true; // Modo edición activada
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
@@ -263,7 +288,7 @@ public class vEmployee {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = tblDataInfo.getSelectedRow();
-                if (selectedRow >= 0 || selectedRow != -1) {
+                if (selectedRow >= 0) {
                     dfltDataModel.removeRow(selectedRow);
                 }
             }
@@ -467,9 +492,9 @@ public class vEmployee {
             public void focusLost(FocusEvent e) {
                 // Obtener el valor del campo "Tiempo"
                 String timeValue = fieldTime.getText();
-                System.out.println("Valor del campo:" + " " + timeValue);
+                if (timeValue == null) { timeValue = "0"; }
+                if (timeValue.equals("")) { timeValue = "0"; }
                 int timeFrmt = Integer.parseInt(timeValue);
-                System.out.println("Valor Formatead:" + " " + timeFrmt);
                 fieldBenefit.setSelectedIndex(-1);
                 // Consultar funcion
                 benefitList(timeFrmt);

@@ -186,8 +186,6 @@ public class vProdType {
         updateBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //int selectedRow = tblDataInfo.getSelectedRow();
-                System.out.println("selectedRow" + selectedRow);
                 if (selectedRow >= 0) {
                     isEditing = true; // Modo edición activada
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
@@ -212,7 +210,7 @@ public class vProdType {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = tblDataInfo.getSelectedRow();
-                if (selectedRow >= 0 || selectedRow != -1) {
+                if (selectedRow >= 0) {
                     dfltDataModel.removeRow(selectedRow);
                 }
             }
