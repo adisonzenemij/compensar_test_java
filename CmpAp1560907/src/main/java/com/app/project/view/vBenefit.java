@@ -30,8 +30,16 @@ public class vBenefit {
     private static mBenefit mdlBenefit = new mBenefit();
 
     // Campos del formulario
+    private static JTextField fieldId;
     private static JTextField fieldShop;
     private static JTextField fieldRecreat;
+    
+    // Contador para generar ID autoincrementable
+    private static int nextId = 1;
+    // Controla si se está editando un registro
+    private static boolean isEditing = false;
+    // Índice de la fila que se está editando
+    private static int editingRowIndex = -1;
 
     public static JTabbedPane tabbedPane() {
         // Crear un JTabbedPane
@@ -79,25 +87,34 @@ public class vBenefit {
         // Crear un formulario para capturar valores
         JPanel newField = new JPanel(new GridLayout(10,2));
 
+        JLabel labelId = new JLabel("Registro");
+        fieldId = new JTextField();
+        fieldId.setEditable(false); // Bloquear el campo
+
         JLabel labelShop = new JLabel("Tienda");
         fieldShop = new JTextField();
+        fieldShop.setEditable(true); // Habilitar el campo
 
         JLabel labelRecreat = new JLabel("Recreación");
         fieldRecreat = new JTextField();
+        fieldRecreat.setEditable(true); // Habilitar el campo
 
+        newField.add(labelId); newField.add(fieldId);
         newField.add(labelShop); newField.add(fieldShop);
         newField.add(labelRecreat); newField.add(fieldRecreat);
 
         // Crear un panel para añadir botones de acciones
         JPanel newAction = new JPanel(new GridLayout(1,1));
+
+        // Botones del panel formulario
         JButton saveBtn = new JButton("Guardar Registro");
+        JButton cancelBtn = new JButton("Cancelar Registro");
+
         newAction.add(saveBtn);
+        newAction.add(cancelBtn);
 
         newForm.add(newField, BorderLayout.NORTH);
         newForm.add(newAction, BorderLayout.SOUTH);
-        
-        // Añadir el panel del formulario al JTabbedPane
-        tabbedPane.addTab("Formulario", newForm);
 
 
 
@@ -107,10 +124,17 @@ public class vBenefit {
         createBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                isEditing = false; // Edicion desactivada
                 // Limpiar campos del formulario
                 clearFields();
-                // Redigir a la pestaña indicada
-                tabbedPane.setSelectedIndex(1);
+                // Asignar el próximo ID
+                fieldId.setText(String.valueOf(nextId));
+                // Añadir la pestaña del formulario
+                tabbedPane.addTab("Formulario", newForm);
+                // Remover la pestaña establecida según su titulo
+                tabbedPane.removeTabAt(tabbedPane.indexOfTab("Información"));
+                // Seleccionar la pestaña establecida según su titulo
+                tabbedPane.setSelectedIndex(tabbedPane.indexOfTab("Formulario"));
             }
         });
 
@@ -120,11 +144,18 @@ public class vBenefit {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = tblBenefit.getSelectedRow();
                 if (selectedRow >= 0) {
+                    isEditing = true; // Modo edición activada
+                    editingRowIndex = selectedRow; // Guardar la fila que se está editando
                     // Llenar los campos con los valores seleccionados
+                    fieldId.setText((String) tblBenefit.getValueAt(selectedRow, 0).toString());
                     fieldShop.setText((String) tblBenefit.getValueAt(selectedRow, 1));
                     fieldRecreat.setText((String) tblBenefit.getValueAt(selectedRow, 2));
-                    // Redigir a la pestaña indicada
-                    tabbedPane.setSelectedIndex(1);
+                    // Añadir la pestaña del formulario
+                    tabbedPane.addTab("Formulario", newForm);
+                    // Remover la pestaña establecida según su titulo
+                    tabbedPane.removeTabAt(tabbedPane.indexOfTab("Información"));
+                    // Seleccionar la pestaña establecida según su titulo
+                    tabbedPane.setSelectedIndex(tabbedPane.indexOfTab("Formulario"));
                 }
             }
         });
@@ -144,26 +175,48 @@ public class vBenefit {
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Obtener los valores del formulario
-                String shop = fieldShop.getText();
-                String recreat = fieldRecreat.getText();
+                /// Usar el modelo para establecer los valores
+                mdlBenefit.setShop(fieldShop.getText());
+                mdlBenefit.setRecreat(fieldRecreat.getText());
 
-                // Usar el modelo para establecer los valores
-                mdlBenefit.setShop(shop);
-                mdlBenefit.setRecreat(recreat);
-                mdlBenefit.setId(0);  // Establecer un ID genérico por ahora
-
-                // Añadir el registro al JTable
-                dfltBenefit.addRow(new Object[]{
-                    mdlBenefit.getId(),
-                    mdlBenefit.getShop(),
-                    mdlBenefit.getRecreat(),
-                });
+                if (isEditing && editingRowIndex >= 0) {
+                    // Actualizar registro existente
+                    dfltBenefit.setValueAt(mdlBenefit.getShop(), editingRowIndex, 1);
+                    dfltBenefit.setValueAt(mdlBenefit.getRecreat(), editingRowIndex, 2);
+                } else {
+                    // Crear nuevo registro
+                    dfltBenefit.addRow(new Object[] {
+                        nextId++, // ID autoincrementable
+                        mdlBenefit.getShop(),
+                        mdlBenefit.getRecreat()
+                    });
+                }
 
                 // Limpiar campos del formulario
                 clearFields();
-                // Redigir a la pestaña indicada
-                tabbedPane.setSelectedIndex(0);
+
+                // Añadir la pestaña establecida según su titulo
+                tabbedPane.addTab("Información", listPanel);
+                // Remover la pestaña establecida según su titulo
+                tabbedPane.removeTabAt(tabbedPane.indexOfTab("Formulario"));
+                // Seleccionar la pestaña establecida según su titulo
+                tabbedPane.setSelectedIndex(tabbedPane.indexOfTab("Información"));
+            }
+        });
+
+        // Cancelar registro del formulario
+        cancelBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Limpiar campos del formulario
+                clearFields();
+
+                // Añadir la pestaña establecida según su titulo
+                tabbedPane.addTab("Información", listPanel);
+                // Remover la pestaña establecida según su titulo
+                tabbedPane.removeTabAt(tabbedPane.indexOfTab("Formulario"));
+                // Seleccionar la pestaña establecida según su titulo
+                tabbedPane.setSelectedIndex(tabbedPane.indexOfTab("Información"));
             }
         });
 
