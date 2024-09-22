@@ -222,7 +222,11 @@ public class Desktop {
                  if (benefitModel == null) {
                     benefitModel = new mBenefit();
                     String[] columns = vBenefit.tableColumn();
-                    dfltBenefit = new DefaultTableModel(columns, 0);
+                    //dfltBenefit = new DefaultTableModel(columns, 0);
+                    // Usar NonEditableTableModel en lugar de DefaultTableModel
+                    dfltBenefit = new NonEditableTableModel(
+                        new Object[0][columns.length], columns
+                    );
                 }
 
                 // Añadir el JTabbedPane con el modelo existente
@@ -273,7 +277,11 @@ public class Desktop {
                  if (employeeModel == null) {
                     employeeModel = new mEmployee();
                     String[] columns = vEmployee.tableColumn();
-                    dfltEmployee = new DefaultTableModel(columns, 0);
+                    //dfltEmployee = new DefaultTableModel(columns, 0);
+                    // Usar NonEditableTableModel en lugar de DefaultTableModel
+                    dfltEmployee = new NonEditableTableModel(
+                        new Object[0][columns.length], columns
+                    );
                 }
 
                 // Añadir el JTabbedPane con el modelo existente
@@ -317,7 +325,11 @@ public class Desktop {
                  if (prodTypeModel == null) {
                     prodTypeModel = new mProdType();
                     String[] columns = vProdType.tableColumn();
-                    dfltProdType = new DefaultTableModel(columns, 0);
+                    //dfltProdType = new DefaultTableModel(columns, 0);
+                    // Usar NonEditableTableModel en lugar de DefaultTableModel
+                    dfltProdType = new NonEditableTableModel(
+                        new Object[0][columns.length], columns
+                    );
                 }
 
                 // Añadir el JTabbedPane con el modelo existente
@@ -354,7 +366,11 @@ public class Desktop {
                  if (productModel == null) {
                     productModel = new mProduct();
                     String[] columns = vProduct.tableColumn();
-                    dfltProduct = new DefaultTableModel(columns, 0);
+                    //dfltProduct = new DefaultTableModel(columns, 0);
+                    // Usar NonEditableTableModel en lugar de DefaultTableModel
+                    dfltProduct = new NonEditableTableModel(
+                        new Object[0][columns.length], columns
+                    );
                 }
 
                 // Añadir el JTabbedPane con el modelo existente
@@ -391,7 +407,11 @@ public class Desktop {
                  if (workingModel == null) {
                     workingModel = new mWorking();
                     String[] columns = vWorking.tableColumn();
-                    dfltWorking = new DefaultTableModel(columns, 0);
+                    //dfltWorking = new DefaultTableModel(columns, 0);
+                    // Usar NonEditableTableModel en lugar de DefaultTableModel
+                    dfltWorking = new NonEditableTableModel(
+                        new Object[0][columns.length], columns
+                    );
                 }
 
                 // Añadir el JTabbedPane con el modelo existente
@@ -529,5 +549,17 @@ public class Desktop {
         // Suponiendo que el objeto `mEmployee` tiene métodos `get` para acceder a sus datos
         System.out.println("Datos del objeto mEmployee:");
         System.out.println("Registro: " + dataMdl.getId());
+    }
+
+    // Modelo de tabla no editable
+    public static class NonEditableTableModel extends DefaultTableModel {
+        public NonEditableTableModel(Object[][] data, Object[] columnNames) {
+            super(data, columnNames);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Hacer que las celdas no sean editables
+        }
     }
 }

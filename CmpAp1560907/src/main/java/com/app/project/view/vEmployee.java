@@ -489,14 +489,17 @@ public class vEmployee {
         fieldTime.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
+                // Reestablecer valor por defecto
+                fieldBenefit.setSelectedIndex(-1);
                 // Obtener el valor del campo "Tiempo"
                 String timeValue = fieldTime.getText();
-                if (timeValue == null) { timeValue = "0"; }
-                if (timeValue.equals("")) { timeValue = "0"; }
-                int timeFrmt = Integer.parseInt(timeValue);
-                fieldBenefit.setSelectedIndex(-1);
-                // Consultar funcion
-                benefitList(timeFrmt);
+                // Validar si el campo no está vacio
+                if (!timeValue.equals("")) {
+                    // Formatear valor del campo a valor entero
+                    int timeFrmt = Integer.parseInt(timeValue);
+                    // Consultar funcion
+                    benefitList(timeFrmt);
+                }
             }
         });
     }
