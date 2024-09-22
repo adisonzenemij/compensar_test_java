@@ -12,6 +12,8 @@ public class mBenefit {
     private int id;
     private String shop;
     private String recreat;
+    private int ageMin;
+    private int ageMax;
     
     // Getter y Setter para id
     public int getId() {
@@ -38,5 +40,23 @@ public class mBenefit {
 
     public void setRecreat(String recreat) {
         this.recreat = recreat;
+    }
+
+    // Getter y Setter para ageMin
+    public int getAgeMin() {
+        return ageMin;
+    }
+
+    public void setAgeMin(int ageMin) {
+        this.ageMin = ageMin;
+    }
+
+    // Getter y Setter para ageMax
+    public int getAgeMax() {
+        return ageMax;
+    }
+
+    public void setAgeMax(int ageMax) {
+        this.ageMax = ageMax;
     }
 }
