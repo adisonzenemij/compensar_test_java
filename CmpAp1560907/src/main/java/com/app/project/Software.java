@@ -15,9 +15,7 @@ import javax.swing.JTabbedPane;
  * @author adiso
  */
 public class Software {
-
     private static JFrame dataFrame;
-
     private static JPanel contentPanel;
 
     public static void main(String[] args) {
@@ -31,23 +29,16 @@ public class Software {
         dataFrame = new JFrame("Compensar: Aplicacion Software");
         dataFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         dataFrame.setSize(1000, 800);
-
-        // Desactivar la maximización
         // Deshabilitar el redimensionamiento
         dataFrame.setResizable(false);
-        
         // Crear el JDesktopPane
-        JDesktopPane desktopPane = new JDesktopPane();
-        
+        JDesktopPane desktopPane = new JDesktopPane();        
         // Añadir el JDesktopPane al marco
         dataFrame.add(desktopPane);
-        
         // Hacer visible el marco
         dataFrame.setVisible(true);
-        
         // Centrar el marco en la pantalla
         dataFrame.setLocationRelativeTo(null);
-        
         // Abrir internal frame
         Desktop.openInternal(desktopPane);
     }
@@ -56,7 +47,6 @@ public class Software {
         // Crear algunos paneles para las pestañas
         contentPanel = new JPanel();
         contentPanel.add(new JLabel("Contenido"));
-        
         // Añadir pestañas al tabbed pane
         tabbedPane.addTab("Pestaña", contentPanel);
     }
