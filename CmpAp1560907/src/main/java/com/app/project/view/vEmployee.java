@@ -158,7 +158,7 @@ public class vEmployee {
         fieldTime = new JTextField();
         fieldTime.setEditable(true); // Habilitar el campo
 
-        labelBenefit = new JLabel("Beneficios");
+        labelBenefit = new JLabel("Beneficio");
         fieldBenefit = new JTextField();
         fieldBenefit.setEditable(true); // Habilitar el campo
 

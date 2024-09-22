@@ -136,27 +136,27 @@ public class vProduct {
         fieldId = new JTextField();
         fieldId.setEditable(false); // Bloquear el campo
 
-        labelName = new JLabel("Tienda");
+        labelName = new JLabel("Nombre");
         fieldName = new JTextField();
         fieldName.setEditable(true); // Habilitar el campo
 
-        labelUnity = new JLabel("Recreación");
+        labelUnity = new JLabel("Unidad");
         fieldUnity = new JTextField();
         fieldUnity.setEditable(true); // Habilitar el campo
 
-        labelUnitary = new JLabel("Recreación");
+        labelUnitary = new JLabel("Valor Unitario");
         fieldUnitary = new JTextField();
         fieldUnitary.setEditable(true); // Habilitar el campo
 
-        labelIva = new JLabel("Tienda");
+        labelIva = new JLabel("IVA");
         fieldIva = new JTextField();
         fieldIva.setEditable(true); // Habilitar el campo
 
-        labelTotal = new JLabel("Recreación");
+        labelTotal = new JLabel("Total");
         fieldTotal = new JTextField();
         fieldTotal.setEditable(true); // Habilitar el campo
 
-        labelType = new JLabel("Recreación");
+        labelType = new JLabel("Tipo");
         fieldType = new JTextField();
         fieldType.setEditable(true); // Habilitar el campo
 

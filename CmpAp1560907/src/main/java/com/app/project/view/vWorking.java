@@ -45,12 +45,10 @@ public class vWorking {
     // Etiquetas del formulario
     private static JLabel labelId;
     private static JLabel labelName;
-    private static JLabel labelIva;
     
     // Campos del formulario
     private static JTextField fieldId;
     private static JTextField fieldName;
-    private static JTextField fieldIva;
 
     // Botones de los paneles
     private static JButton createBtn;
@@ -128,17 +126,12 @@ public class vWorking {
         fieldId = new JTextField();
         fieldId.setEditable(false); // Bloquear el campo
 
-        labelName = new JLabel("Tienda");
+        labelName = new JLabel("Nombre");
         fieldName = new JTextField();
         fieldName.setEditable(true); // Habilitar el campo
 
-        labelIva = new JLabel("Recreación");
-        fieldIva = new JTextField();
-        fieldIva.setEditable(true); // Habilitar el campo
-
         newField.add(labelId); newField.add(fieldId);
         newField.add(labelName); newField.add(fieldName);
-        newField.add(labelIva); newField.add(fieldIva);
 
         // Crear un panel para añadir botones de acciones
         newAction = new JPanel(new GridLayout(1,1));
@@ -188,7 +181,6 @@ public class vWorking {
                     // Llenar los campos con los valores seleccionados
                     fieldId.setText((String) tblDataInfo.getValueAt(selectedRow, 0).toString());
                     fieldName.setText((String) tblDataInfo.getValueAt(selectedRow, 1));
-                    fieldIva.setText((String) tblDataInfo.getValueAt(selectedRow, 2));
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo
@@ -220,18 +212,15 @@ public class vWorking {
             public void actionPerformed(ActionEvent e) {
                 /// Usar el modelo para establecer los valores
                 mdlWorking.setName(fieldName.getText());
-                mdlWorking.setIva(Integer.parseInt(fieldIva.getText()));
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente
                     dfltDataModel.setValueAt(mdlWorking.getName(), editingRowIndex, 1);
-                    dfltDataModel.setValueAt(mdlWorking.getIva(), editingRowIndex, 2);
                 } else {
                     // Crear nuevo registro
                     dfltDataModel.addRow(new Object[] {
                         nextId++, // ID autoincrementable
                         mdlWorking.getName(),
-                        mdlWorking.getIva(),
                     });
                 }
 
@@ -288,13 +277,11 @@ public class vWorking {
         return new String[] {
             "Registro",
             "Nombre",
-            "IVA",
         };
     }
 
     // Limpiar los campos del formulario
     private static void clearFields() {
         fieldName.setText("");
-        fieldIva.setText("");
     }
 }

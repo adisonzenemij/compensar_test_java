@@ -11,7 +11,6 @@ package com.app.project.model;
 public class mWorking {
     private int id;
     private String name;
-    private double iva;
     
     // Getter y Setter para id
     public int getId() {
@@ -29,14 +28,5 @@ public class mWorking {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    // Getter y Setter para iva
-    public double getIva() {
-        return iva;
-    }
-
-    public void setIva(double iva) {
-        this.iva = iva;
     }
 }

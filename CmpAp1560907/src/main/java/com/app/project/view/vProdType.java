@@ -128,11 +128,11 @@ public class vProdType {
         fieldId = new JTextField();
         fieldId.setEditable(false); // Bloquear el campo
 
-        labelName = new JLabel("Tienda");
+        labelName = new JLabel("Nombre");
         fieldName = new JTextField();
         fieldName.setEditable(true); // Habilitar el campo
 
-        labelIva = new JLabel("Recreación");
+        labelIva = new JLabel("IVA");
         fieldIva = new JTextField();
         fieldIva.setEditable(true); // Habilitar el campo
 

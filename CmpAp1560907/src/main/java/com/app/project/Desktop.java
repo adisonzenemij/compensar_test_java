@@ -260,7 +260,7 @@ public class Desktop {
             public void actionPerformed(ActionEvent e) {
                 // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
                 JInternalFrame dataFrame = new JInternalFrame(
-                    "Empleados",
+                    "Tipos",
                     true,
                     true,
                     true,
@@ -295,7 +295,7 @@ public class Desktop {
             public void actionPerformed(ActionEvent e) {
                 // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
                 JInternalFrame dataFrame = new JInternalFrame(
-                    "Empleados",
+                    "Productos",
                     true,
                     true,
                     true,
@@ -330,7 +330,7 @@ public class Desktop {
             public void actionPerformed(ActionEvent e) {
                 // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
                 JInternalFrame dataFrame = new JInternalFrame(
-                    "Empleados",
+                    "Jornadas",
                     true,
                     true,
                     true,
