@@ -242,7 +242,7 @@ public class Desktop {
                 }
 
                 // Añadir el JTabbedPane con el modelo existente
-                tabbedPane = vEmployee.tabbedPane(dfltEmployee, employeeModel);
+                tabbedPane = vEmployee.tabbedPane(dfltEmployee, employeeModel, workingModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Hacer visible el nuevo JInternalFrame

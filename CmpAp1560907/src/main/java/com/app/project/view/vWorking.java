@@ -289,4 +289,18 @@ public class vWorking {
     private static void clearFields() {
         fieldName.setText("");
     }
+
+    public static List<mWorking> getList() {
+        List<mWorking> workingList = new ArrayList<>();
+    
+        // Recorrer las filas del DefaultTableModel
+        for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
+            mWorking working = new mWorking();
+            working.setId((int) dfltDataModel.getValueAt(row, 0));
+            working.setName((String) dfltDataModel.getValueAt(row, 1));
+            workingList.add(working);
+        }
+    
+        return workingList;
+    }
 }

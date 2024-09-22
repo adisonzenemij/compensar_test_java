@@ -35,6 +35,7 @@ public class vEmployee {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
     private static mEmployee mdlEmployee;
+    private static mWorking mdlWorking;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -82,8 +83,15 @@ public class vEmployee {
     private static int editingRowIndex = -1;
     private static int selectedRow;
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mEmployee employeeMdl) {
-        dfltDataModel = modelData; mdlEmployee = employeeMdl;
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mEmployee employeeMdl, mWorking workingMdl) {
+        dfltDataModel = modelData;
+        mdlEmployee = employeeMdl;
+        mdlWorking = workingMdl;
+        // Imprimir los datos del modelo y del objeto mBenefit
+        printModelData(dfltDataModel);
+        printEmployeeData(mdlEmployee);
+        printWorkingData(mdlWorking);
+
         // Crear un JTabbedPane
         if (tabbedPane == null) { tabbedPane = new JTabbedPane(); }
         
@@ -110,6 +118,8 @@ public class vEmployee {
         btnCreate(); btnUpdate(); btnDelete();
         // Utilizar funcionalidades en la pestaña formulario
         btnSave(); btnCancel();
+
+        workingList();
 
         // Devolver el JTabbedPane
         return tabbedPane;
@@ -368,5 +378,39 @@ public class vEmployee {
         fieldTime.setText("");
         fieldBenefit.setText("");
         fieldWorking.setText("");
+    }
+
+    public static void printModelData(DefaultTableModel model) {
+        int rowCount = model.getRowCount();
+        int columnCount = model.getColumnCount();
+        
+        System.out.println("Datos del modelo:");
+        for (int row = 0; row < rowCount; row++) {
+            for (int col = 0; col < columnCount; col++) {
+                System.out.print(model.getValueAt(row, col) + "\t");
+            }
+            // Salto de línea al final de cada fila
+            System.out.println();
+        }
+    }
+
+    public static void printEmployeeData(mEmployee dataMdl) {
+        // Suponiendo que el objeto `mEmployee` tiene métodos `get` para acceder a sus datos
+        System.out.println("Datos del objeto mEmployee:");
+        System.out.println("Registro: " + dataMdl.getId());
+    }
+
+    public static void printWorkingData(mWorking dataMdl) {
+        // Suponiendo que el objeto `mWorking` tiene métodos `get` para acceder a sus datos
+        System.out.println("Datos del objeto mWorking:");
+        System.out.println("Registro: " + dataMdl.getId());
+        System.out.println("Nombre: " + dataMdl.getName());
+    }
+
+    public static void workingList() {
+        List<mWorking> listOfWorkingData = vWorking.getList();
+        for (mWorking working : listOfWorkingData) {
+            System.out.println("ID: " + working.getId() + ", Nombre: " + working.getName());
+        }
     }
 }
