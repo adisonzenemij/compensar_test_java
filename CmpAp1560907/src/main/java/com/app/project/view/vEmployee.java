@@ -199,7 +199,7 @@ public class vEmployee {
         newForm.add(newField, BorderLayout.NORTH);
         newForm.add(newAction, BorderLayout.SOUTH);
 
-        workingList();
+        benefitList(); workingList();
     }
 
     // Estabelcer valores vacio del formulario
@@ -291,7 +291,7 @@ public class vEmployee {
                 String benefitName = fieldBenefit.getSelectedItem().toString();
                 Integer benefitId = null;
 
-                for (Map.Entry<Integer, String> entry : workingMap.entrySet()) {
+                for (Map.Entry<Integer, String> entry : benefitMap.entrySet()) {
                     if (entry.getValue().equals(benefitName)) {
                         // Obtener el ID
                         benefitId = entry.getKey();
@@ -322,7 +322,7 @@ public class vEmployee {
                     dfltDataModel.setValueAt(mdlEmployee.getSrnms(), editingRowIndex, 3);
                     dfltDataModel.setValueAt(mdlEmployee.getAge(), editingRowIndex, 4);
                     dfltDataModel.setValueAt(mdlEmployee.getTime(), editingRowIndex, 5);
-                    dfltDataModel.setValueAt(workingMap.get(mdlEmployee.getBenefit()), editingRowIndex, 6);
+                    dfltDataModel.setValueAt(benefitMap.get(mdlEmployee.getBenefit()), editingRowIndex, 6);
                     dfltDataModel.setValueAt(workingMap.get(mdlEmployee.getWorking()), editingRowIndex, 7);
                 } else {
                     // Crear nuevo registro
@@ -333,7 +333,7 @@ public class vEmployee {
                         mdlEmployee.getSrnms(),
                         mdlEmployee.getAge(),
                         mdlEmployee.getTime(),
-                        workingMap.get(mdlEmployee.getBenefit()),
+                        benefitMap.get(mdlEmployee.getBenefit()),
                         workingMap.get(mdlEmployee.getWorking()),
                     });
                 }
