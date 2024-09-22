@@ -456,7 +456,7 @@ public class vEmployee {
         fieldBenefit.removeAllItems();
         // Limpiar el mapa antes de llenarlo
         benefitMap.clear();
-    
+        // Recorrer datos de la lista del mapeo
         for (mBenefit benefit : listOfBenefitData) {
             int mdAgeMin = benefit.getAgeMin();
             int mdAgeMax = benefit.getAgeMax();
@@ -475,7 +475,7 @@ public class vEmployee {
         fieldWorking.removeAllItems();
         // Limpiar el mapa antes de llenarlo
         workingMap.clear();
-    
+        // Recorrer datos de la lista del mapeo
         for (mWorking working : listOfWorkingData) {
             // Guardar la relación
             workingMap.put(working.getId(), working.getName());

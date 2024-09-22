@@ -276,6 +276,7 @@ public class vProduct {
                 
                 // Obtener el valor seleccionado y buscar el ID
                 String prodTypeData = fieldType.getSelectedItem().toString();
+                System.out.println("Valor prodTypeData:" + " " + prodTypeData);
                 Integer prodTypeId = null;
 
                 for (Map.Entry<Integer, String> entry : prodTypeMap.entrySet()) {
@@ -405,7 +406,7 @@ public class vProduct {
         fieldType.removeAllItems();
         // Limpiar el mapa antes de llenarlo
         prodTypeMap.clear();
-    
+        // Recorrer datos de la lista del mapeo
         for (mProdType prodType : listOfProdTypeData) {
             // Guardar la relación
             prodTypeMap.put(prodType.getId(), prodType.getName());
@@ -418,9 +419,7 @@ public class vProduct {
     public static double prodTypeFtIva(String valName) {
         double valIva = 0.0;
         List<mProdType> listOfProdTypeData = vProdType.getList();
-        // Limpiar el mapa antes de llenarlo
-        prodTypeMap.clear();
-    
+        // Recorrer datos de la lista del mapeo    
         for (mProdType prodType : listOfProdTypeData) {
             String mdName = prodType.getName();
             if (valName.equals(mdName)) {
@@ -438,7 +437,11 @@ public class vProduct {
             public void actionPerformed(ActionEvent e) {
                 // Obtener el valor del campo "tipo"
                 String typeValue = (String) fieldType.getSelectedItem();
-                System.out.println("Valor Campo:" + " " + typeValue);
+                // Validar si el campo está vacio
+                if (typeValue == null || typeValue.isEmpty()) {
+                    fieldTotal.setText("0.0%");
+                    fieldTotal.setText("0.00");
+                }
                 // Validar si el campo no está vacio
                 if (typeValue != null && !typeValue.isEmpty()) {
                     double ivaValue = prodTypeFtIva(typeValue);
