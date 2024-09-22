@@ -162,11 +162,11 @@ public class vProduct {
 
         labelIva = new JLabel("IVA");
         fieldIva = new JTextField();
-        fieldIva.setEditable(true); // Habilitar el campo
+        fieldIva.setEditable(false); // Bloquear el campo
 
         labelTotal = new JLabel("Total");
         fieldTotal = new JTextField();
-        fieldTotal.setEditable(true); // Habilitar el campo
+        fieldTotal.setEditable(false); // Bloquear el campo
 
         labelType = new JLabel("Tipo");
         fieldType = new JComboBox<>();

@@ -302,13 +302,6 @@ public class Desktop {
         btnProdType.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Validar si el modelo de beneficios tiene datos cargados
-                if (dfltProdType == null || dfltProdType.getRowCount() == 0) {
-                    String message = "Modulo tipos de productos no contiene datos";
-                    Message.mssgError(message);
-                    return; // Evita que el JInternalFrame se abra si no hay datos
-                }
-
                 // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
                 JInternalFrame dataFrame = new JInternalFrame(
                     "Tipos",
@@ -350,6 +343,13 @@ public class Desktop {
         btnProduct.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Validar si el modelo de beneficios tiene datos cargados
+                if (dfltProdType == null || dfltProdType.getRowCount() == 0) {
+                    String message = "Modulo tipos de productos no contiene datos";
+                    Message.mssgError(message);
+                    return; // Evita que el JInternalFrame se abra si no hay datos
+                }
+                
                 // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
                 JInternalFrame dataFrame = new JInternalFrame(
                     "Productos",
