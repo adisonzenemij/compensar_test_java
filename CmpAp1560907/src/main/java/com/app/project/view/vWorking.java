@@ -180,7 +180,7 @@ public class vWorking {
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
                     // Llenar los campos con los valores seleccionados
                     fieldId.setText((String) tblDataInfo.getValueAt(selectedRow, 0).toString());
-                    fieldName.setText((String) tblDataInfo.getValueAt(selectedRow, 1));
+                    fieldName.setText((String) tblDataInfo.getValueAt(selectedRow, 1).toString());
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo

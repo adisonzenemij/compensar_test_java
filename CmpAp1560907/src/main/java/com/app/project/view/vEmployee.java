@@ -222,13 +222,13 @@ public class vEmployee {
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
                     // Llenar los campos con los valores seleccionados
                     fieldId.setText((String) tblDataInfo.getValueAt(selectedRow, 0).toString());
-                    fieldDocument.setText((String) tblDataInfo.getValueAt(selectedRow, 1));
-                    fieldNames.setText((String) tblDataInfo.getValueAt(selectedRow, 2));
-                    fieldSrnms.setText((String) tblDataInfo.getValueAt(selectedRow, 3));
-                    fieldAge.setText((String) tblDataInfo.getValueAt(selectedRow, 4));
-                    fieldTime.setText((String) tblDataInfo.getValueAt(selectedRow, 5));
-                    fieldBenefit.setText((String) tblDataInfo.getValueAt(selectedRow, 6));
-                    fieldWorking.setText((String) tblDataInfo.getValueAt(selectedRow, 7));
+                    fieldDocument.setText((String) tblDataInfo.getValueAt(selectedRow, 1).toString());
+                    fieldNames.setText((String) tblDataInfo.getValueAt(selectedRow, 2).toString());
+                    fieldSrnms.setText((String) tblDataInfo.getValueAt(selectedRow, 3).toString());
+                    fieldAge.setText((String) tblDataInfo.getValueAt(selectedRow, 4).toString());
+                    fieldTime.setText((String) tblDataInfo.getValueAt(selectedRow, 5).toString());
+                    fieldBenefit.setText((String) tblDataInfo.getValueAt(selectedRow, 6).toString());
+                    fieldWorking.setText((String) tblDataInfo.getValueAt(selectedRow, 7).toString());
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo

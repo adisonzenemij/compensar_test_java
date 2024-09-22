@@ -215,12 +215,12 @@ public class vProduct {
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
                     // Llenar los campos con los valores seleccionados
                     fieldId.setText((String) tblDataInfo.getValueAt(selectedRow, 0).toString());
-                    fieldName.setText((String) tblDataInfo.getValueAt(selectedRow, 1));
-                    fieldUnity.setText((String) tblDataInfo.getValueAt(selectedRow, 2));
-                    fieldUnitary.setText((String) tblDataInfo.getValueAt(selectedRow, 3));
-                    fieldIva.setText((String) tblDataInfo.getValueAt(selectedRow, 4));
-                    fieldTotal.setText((String) tblDataInfo.getValueAt(selectedRow, 5));
-                    fieldType.setText((String) tblDataInfo.getValueAt(selectedRow, 6));
+                    fieldName.setText((String) tblDataInfo.getValueAt(selectedRow, 1).toString());
+                    fieldUnity.setText((String) tblDataInfo.getValueAt(selectedRow, 2).toString());
+                    fieldUnitary.setText((String) tblDataInfo.getValueAt(selectedRow, 3).toString());
+                    fieldIva.setText((String) tblDataInfo.getValueAt(selectedRow, 4).toString());
+                    fieldTotal.setText((String) tblDataInfo.getValueAt(selectedRow, 5).toString());
+                    fieldType.setText((String) tblDataInfo.getValueAt(selectedRow, 6).toString());
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo

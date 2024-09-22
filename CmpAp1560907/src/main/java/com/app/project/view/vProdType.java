@@ -187,8 +187,8 @@ public class vProdType {
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
                     // Llenar los campos con los valores seleccionados
                     fieldId.setText((String) tblDataInfo.getValueAt(selectedRow, 0).toString());
-                    fieldName.setText((String) tblDataInfo.getValueAt(selectedRow, 1));
-                    fieldIva.setText((String) tblDataInfo.getValueAt(selectedRow, 2));
+                    fieldName.setText((String) tblDataInfo.getValueAt(selectedRow, 1).toString());
+                    fieldIva.setText((String) tblDataInfo.getValueAt(selectedRow, 2).toString());
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo

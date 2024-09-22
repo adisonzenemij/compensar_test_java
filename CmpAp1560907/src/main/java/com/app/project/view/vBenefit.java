@@ -201,10 +201,10 @@ public class vBenefit {
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
                     // Llenar los campos con los valores seleccionados
                     fieldId.setText((String) tblDataInfo.getValueAt(selectedRow, 0).toString());
-                    fieldShop.setText((String) tblDataInfo.getValueAt(selectedRow, 1));
-                    fieldRecreat.setText((String) tblDataInfo.getValueAt(selectedRow, 2));
-                    fieldAgeMin.setText((String) tblDataInfo.getValueAt(selectedRow, 3));
-                    fieldAgeMax.setText((String) tblDataInfo.getValueAt(selectedRow, 4));
+                    fieldShop.setText((String) tblDataInfo.getValueAt(selectedRow, 1).toString());
+                    fieldRecreat.setText((String) tblDataInfo.getValueAt(selectedRow, 2).toString());
+                    fieldAgeMin.setText((String) tblDataInfo.getValueAt(selectedRow, 3).toString());
+                    fieldAgeMax.setText((String) tblDataInfo.getValueAt(selectedRow, 4).toString());
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo
