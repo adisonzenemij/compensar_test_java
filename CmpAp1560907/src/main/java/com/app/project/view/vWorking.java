@@ -8,6 +8,6 @@ package com.app.project.view;
  *
  * @author adiso
  */
-public class Working {
+public class vWorking {
     
 }

@@ -8,7 +8,7 @@ package com.app.project.model;
  *
  * @author adiso
  */
-public class ProdType {
+public class mProdType {
     private int id;
     private String name;
     private double iva;

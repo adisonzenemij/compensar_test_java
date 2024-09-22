@@ -8,7 +8,7 @@ package com.app.project.model;
  *
  * @author adiso
  */
-public class Benefit {
+public class mBenefit {
     private int id;
     private String shop;
     private String recreat;

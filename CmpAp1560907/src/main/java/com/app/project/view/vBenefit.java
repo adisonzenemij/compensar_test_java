@@ -5,12 +5,10 @@
 package com.app.project.view;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,13 +18,20 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.app.project.model.mBenefit;
+
 /**
  *
  * @author adiso
  */
-public class Benefit {
+public class vBenefit {
     private static JTable tblBenefit;
-    private static DefaultTableModel mdlBenefit;
+    private static DefaultTableModel dfltBenefit;
+    private static mBenefit mdlBenefit = new mBenefit();
+
+    // Campos del formulario
+    private static JTextField fieldShop;
+    private static JTextField fieldRecreat;
 
     public static JTabbedPane tabbedPane() {
         // Crear un JTabbedPane
@@ -43,8 +48,8 @@ public class Benefit {
 
         // Modelo para el registro de beneficios
         String[] columns = tableColumn(); // Obtener las columnas
-        mdlBenefit = new DefaultTableModel(columns, 0);
-        tblBenefit = new JTable(mdlBenefit);
+        dfltBenefit = new DefaultTableModel(columns, 0);
+        tblBenefit = new JTable(dfltBenefit);
         listPanel.add(new JScrollPane(tblBenefit), BorderLayout.CENTER);
 
         // Formulario de empleados
@@ -75,10 +80,10 @@ public class Benefit {
         JPanel newField = new JPanel(new GridLayout(10,2));
 
         JLabel labelShop = new JLabel("Tienda");
-        JTextField fieldShop = new JTextField();
+        fieldShop = new JTextField();
 
         JLabel labelRecreat = new JLabel("Recreación");
-        JTextField fieldRecreat = new JTextField();
+        fieldRecreat = new JTextField();
 
         newField.add(labelShop); newField.add(fieldShop);
         newField.add(labelRecreat); newField.add(fieldRecreat);
@@ -98,10 +103,14 @@ public class Benefit {
 
 
 
-        // Redireccionar al panel del formulario con valores vacios
+        // Redireccionar al panel del formulario
         createBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Limpiar campos del formulario
+                clearFields();
+                // Redigir a la pestaña indicada
+                tabbedPane.setSelectedIndex(1);
             }
         });
 
@@ -109,6 +118,14 @@ public class Benefit {
         updateBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int selectedRow = tblBenefit.getSelectedRow();
+                if (selectedRow >= 0) {
+                    // Llenar los campos con los valores seleccionados
+                    fieldShop.setText((String) tblBenefit.getValueAt(selectedRow, 1));
+                    fieldRecreat.setText((String) tblBenefit.getValueAt(selectedRow, 2));
+                    // Redigir a la pestaña indicada
+                    tabbedPane.setSelectedIndex(1);
+                }
             }
         });
 
@@ -116,6 +133,10 @@ public class Benefit {
         deleteBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int selectedRow = tblBenefit.getSelectedRow();
+                if (selectedRow >= 0) {
+                    dfltBenefit.removeRow(selectedRow);
+                }
             }
         });
 
@@ -123,16 +144,26 @@ public class Benefit {
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                id = 0;
-                shop = fieldShop.getText();
-                recreat = fieldRecreat.getText();
-                mdlBenefit.addRow(
-                    new Object[] {
-                        id,
-                        shop,
-                        recreat,
-                    }
-                );
+                // Obtener los valores del formulario
+                String shop = fieldShop.getText();
+                String recreat = fieldRecreat.getText();
+
+                // Usar el modelo para establecer los valores
+                mdlBenefit.setShop(shop);
+                mdlBenefit.setRecreat(recreat);
+                mdlBenefit.setId(0);  // Establecer un ID genérico por ahora
+
+                // Añadir el registro al JTable
+                dfltBenefit.addRow(new Object[]{
+                    mdlBenefit.getId(),
+                    mdlBenefit.getShop(),
+                    mdlBenefit.getRecreat(),
+                });
+
+                // Limpiar campos del formulario
+                clearFields();
+                // Redigir a la pestaña indicada
+                tabbedPane.setSelectedIndex(0);
             }
         });
 
@@ -145,11 +176,18 @@ public class Benefit {
         return tabbedPane;
     }
 
+    // Retornar columnas para la tabla
     public static String[] tableColumn() {
         return new String[] {
             "Registro",
             "Tienda",
             "Recreación",
         };
+    }
+
+    // Limpiar los campos del formulario
+    private static void clearFields() {
+        fieldShop.setText("");
+        fieldRecreat.setText("");
     }
 }

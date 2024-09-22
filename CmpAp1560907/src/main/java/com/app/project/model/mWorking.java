@@ -8,7 +8,7 @@ package com.app.project.model;
  *
  * @author adiso
  */
-public class Working {
+public class mWorking {
     private int id;
     private String name;
     private double iva;

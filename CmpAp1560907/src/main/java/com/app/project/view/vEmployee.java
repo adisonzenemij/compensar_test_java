@@ -12,7 +12,7 @@ import javax.swing.JTabbedPane;
  *
  * @author adiso
  */
-public class Employee {
+public class vEmployee {
     public static JTabbedPane tabbedPane() {
         // Crear un JTabbedPane
         JTabbedPane tabbedPane = new JTabbedPane();

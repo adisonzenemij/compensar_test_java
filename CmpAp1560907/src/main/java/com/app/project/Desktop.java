@@ -99,8 +99,8 @@ public class Desktop {
                 dataFrame.setSize(600, 400);
                 dataFrame.setLayout(new BorderLayout());
 
-                // Obtener el JTabbedPane desde Benefit
-                JTabbedPane tabbedPane = (JTabbedPane) Benefit.tabbedPane();
+                // Obtener el JTabbedPane desde vBenefit
+                JTabbedPane tabbedPane = (JTabbedPane) vBenefit.tabbedPane();
 
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
@@ -129,8 +129,8 @@ public class Desktop {
                 dataFrame.setSize(600, 400);
                 dataFrame.setLayout(new BorderLayout());
 
-                // Obtener el JTabbedPane desde Employee
-                JTabbedPane tabbedPane = (JTabbedPane) Employee.tabbedPane();
+                // Obtener el JTabbedPane desde vEmployee
+                JTabbedPane tabbedPane = (JTabbedPane) vEmployee.tabbedPane();
 
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);

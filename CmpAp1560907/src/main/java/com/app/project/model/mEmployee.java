@@ -8,7 +8,7 @@ package com.app.project.model;
  *
  * @author adiso
  */
-public class Employee {
+public class mEmployee {
     private int id;
     private String document;
     private String names;

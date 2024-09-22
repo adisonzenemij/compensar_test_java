@@ -8,7 +8,7 @@ package com.app.project.model;
  *
  * @author adiso
  */
-public class Product {
+public class mProduct {
     private int id;
     private String name;
     private int unity;
