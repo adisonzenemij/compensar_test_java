@@ -32,6 +32,8 @@ import java.util.Map;
 import javax.swing.ListSelectionModel;
 
 import com.app.project.Format;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /**
  *
@@ -197,6 +199,8 @@ public class vProduct {
         newForm.add(newAction, BorderLayout.SOUTH);
 
         prodTypeList();
+        fdUnityForm();
+        fdUnitaryForm();
         fdTypeForm();
     }
 
@@ -430,29 +434,55 @@ public class vProduct {
         return valIva;
     }
 
+    // Actualizar IVA y Total cuando se pierde el foco en el campo Unity
+    public static void fdUnityForm() {
+        fieldUnity.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                updateIvaAndTotal();
+            }
+        });
+    }
+    
+    // Actualizar IVA y Total cuando se pierde el foco en el campo Unitary
+    public static void fdUnitaryForm() {
+        fieldUnitary.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                updateIvaAndTotal();
+            }
+        });
+    }
+    
+    // Actualizar IVA y Total cuando se cambia el tipo de producto
     public static void fdTypeForm() {
-        // Añadir un ActionListener al campo fieldType
         fieldType.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Obtener el valor del campo "tipo"
-                String typeValue = (String) fieldType.getSelectedItem();
-                // Validar si el campo está vacio
-                if (typeValue == null || typeValue.isEmpty()) {
-                    fieldTotal.setText("0.0%");
-                    fieldTotal.setText("0.00");
-                }
-                // Validar si el campo no está vacio
-                if (typeValue != null && !typeValue.isEmpty()) {
-                    double ivaValue = prodTypeFtIva(typeValue);
-                    System.out.println("Valor Iva:" + " " + ivaValue);
-                    fieldIva.setText(calculateVat(ivaValue));
-                    double totalValue = calculateTotal(ivaValue);
-                    fieldTotal.setText(String.valueOf(totalValue));
-                    fieldTotal.setText(Format.decimalToTwo(totalValue));
-                }
+                updateIvaAndTotal();
             }
         });
+    }
+
+    // Nueva función para actualizar IVA y Total
+    public static void updateIvaAndTotal() {
+        // Obtener el valor del campo "tipo"
+        String typeValue = (String) fieldType.getSelectedItem();
+    
+        // Validar si el campo "tipo" está vacio
+        if (typeValue == null || typeValue.isEmpty()) {
+            fieldIva.setText("0%");
+            fieldTotal.setText("0.00");
+            return; // Salir si no hay tipo seleccionado
+        }
+    
+        // Obtener y calcular el valor del IVA
+        double ivaValue = prodTypeFtIva(typeValue);
+        fieldIva.setText(calculateVat(ivaValue));
+    
+        // Calcular y formatear el valor total
+        double totalValue = calculateTotal(ivaValue);
+        fieldTotal.setText(Format.decimalToTwo(totalValue));
     }
 
     public static String calculateVat(double ivaValue) {
