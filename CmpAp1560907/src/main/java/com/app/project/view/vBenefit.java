@@ -29,10 +29,30 @@ public class vBenefit {
     private static DefaultTableModel dfltBenefit;
     private static mBenefit mdlBenefit = new mBenefit();
 
+    // JTabbedPane del internal frame
+    private static JTabbedPane tabbedPane;
+
+    // Paneles del internal frame
+    private static JPanel listPanel;
+    private static JPanel actionPanel;
+    private static JPanel newForm;
+    private static JPanel newField;
+    private static JPanel newAction;
+
     // Campos del formulario
+    private static JLabel labelId;
+    private static JLabel labelShop;
+    private static JLabel labelRecreat;
     private static JTextField fieldId;
     private static JTextField fieldShop;
     private static JTextField fieldRecreat;
+
+    // Botones de los paneles
+    private static JButton createBtn;
+    private static JButton updateBtn;
+    private static JButton deleteBtn;
+    private static JButton saveBtn;
+    private static JButton cancelBtn;
     
     // Contador para generar ID autoincrementable
     private static int nextId = 1;
@@ -43,16 +63,10 @@ public class vBenefit {
 
     public static JTabbedPane tabbedPane() {
         // Crear un JTabbedPane
-        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane = new JTabbedPane();
         
-
-
-
-
         // Crear un panel para una pestaña
-        JPanel listPanel = new JPanel(new BorderLayout());
-        // Ajuste para que el JLabel esté en la parte superior
-        //listPanel.add(new JLabel("Registros"), BorderLayout.NORTH);
+        listPanel = new JPanel(new BorderLayout());
 
         // Modelo para el registro de beneficios
         String[] columns = tableColumn(); // Obtener las columnas
@@ -61,12 +75,12 @@ public class vBenefit {
         listPanel.add(new JScrollPane(tblBenefit), BorderLayout.CENTER);
 
         // Formulario de empleados
-        JPanel actionPanel = new JPanel(new GridLayout(1,3));
+        actionPanel = new JPanel(new GridLayout(1,3));
 
         // Botones del panel principal
-        JButton createBtn = new JButton("Añadir Registro");
-        JButton updateBtn = new JButton("Actualizar Registro");
-        JButton deleteBtn = new JButton("Eliminar Registro");
+        createBtn = new JButton("Añadir Registro");
+        updateBtn = new JButton("Actualizar Registro");
+        deleteBtn = new JButton("Eliminar Registro");
 
         actionPanel.add(createBtn);
         actionPanel.add(updateBtn);
@@ -77,25 +91,34 @@ public class vBenefit {
         // Añadir los paneles al JTabbedPane
         tabbedPane.addTab("Información", listPanel);
 
+        // Utilizar el formulario
+        formData();
+        // Adicionar botones en la pestaña principal
+        btnCreate(); btnUpdate(); btnDelete();
+        // Adicionar botones en la pestaña formulario
+        btnSave(); btnCancel();
 
+        // Devolver el JTabbedPane
+        return tabbedPane;
+    }
 
-
+    // Formulario del respectivo modelo
+    public static void formData() {
+        // Crear un formulario para capturar valores
+        newForm = new JPanel(new BorderLayout());
 
         // Crear un formulario para capturar valores
-        JPanel newForm = new JPanel(new BorderLayout());
+        newField = new JPanel(new GridLayout(10,2));
 
-        // Crear un formulario para capturar valores
-        JPanel newField = new JPanel(new GridLayout(10,2));
-
-        JLabel labelId = new JLabel("Registro");
+        labelId = new JLabel("Registro");
         fieldId = new JTextField();
         fieldId.setEditable(false); // Bloquear el campo
 
-        JLabel labelShop = new JLabel("Tienda");
+        labelShop = new JLabel("Tienda");
         fieldShop = new JTextField();
         fieldShop.setEditable(true); // Habilitar el campo
 
-        JLabel labelRecreat = new JLabel("Recreación");
+        labelRecreat = new JLabel("Recreación");
         fieldRecreat = new JTextField();
         fieldRecreat.setEditable(true); // Habilitar el campo
 
@@ -104,22 +127,21 @@ public class vBenefit {
         newField.add(labelRecreat); newField.add(fieldRecreat);
 
         // Crear un panel para añadir botones de acciones
-        JPanel newAction = new JPanel(new GridLayout(1,1));
+        newAction = new JPanel(new GridLayout(1,1));
 
         // Botones del panel formulario
-        JButton saveBtn = new JButton("Guardar Registro");
-        JButton cancelBtn = new JButton("Cancelar Registro");
+        saveBtn = new JButton("Guardar Registro");
+        cancelBtn = new JButton("Cancelar Registro");
 
         newAction.add(saveBtn);
         newAction.add(cancelBtn);
 
         newForm.add(newField, BorderLayout.NORTH);
         newForm.add(newAction, BorderLayout.SOUTH);
+    }
 
-
-
-
-
+    // Estabelcer valores vacio del formulario
+    public static void btnCreate() {
         // Redireccionar al panel del formulario
         createBtn.addActionListener(new ActionListener() {
             @Override
@@ -137,8 +159,10 @@ public class vBenefit {
                 tabbedPane.setSelectedIndex(tabbedPane.indexOfTab("Formulario"));
             }
         });
+    }
 
-        // Redireccionar al panel del formulario con valores llenos
+    // Actualizar el formulario con valores del modelo
+    public static void btnUpdate() {
         updateBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -159,8 +183,10 @@ public class vBenefit {
                 }
             }
         });
+    }
 
-        // Eliminar el registro seleccionado del modelo
+    // Eliminar el registro seleccionado del modelo
+    public static void btnDelete() {
         deleteBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -170,8 +196,10 @@ public class vBenefit {
                 }
             }
         });
+    }
 
-        // Almacenar registro en el modelo
+    // Almacenar registro en el modelo
+    public static void btnSave() {
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -203,8 +231,10 @@ public class vBenefit {
                 tabbedPane.setSelectedIndex(tabbedPane.indexOfTab("Información"));
             }
         });
+    }
 
-        // Cancelar registro del formulario
+    // Cancelar registro del formulario
+    public static void btnCancel() {
         cancelBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -219,14 +249,6 @@ public class vBenefit {
                 tabbedPane.setSelectedIndex(tabbedPane.indexOfTab("Información"));
             }
         });
-
-
-
-
-
-
-        // Devolver el JTabbedPane
-        return tabbedPane;
     }
 
     // Retornar columnas para la tabla
