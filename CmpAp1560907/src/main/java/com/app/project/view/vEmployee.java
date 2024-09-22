@@ -23,7 +23,9 @@ import com.app.project.model.mEmployee;
 import com.app.project.model.mWorking;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.ListSelectionModel;
 
@@ -65,8 +67,8 @@ public class vEmployee {
     private static JTextField fieldAge;
     private static JTextField fieldTime;
     private static JTextField fieldBenefit;
-    private static JTextField fieldWorking;
-    //private static JComboBox<String> fieldWorking;
+    //private static JTextField fieldWorking;
+    private static JComboBox<String> fieldWorking;
 
     // Botones de los paneles
     private static JButton createBtn;
@@ -82,6 +84,8 @@ public class vEmployee {
     // Índice de la fila que se está editando
     private static int editingRowIndex = -1;
     private static int selectedRow;
+
+    private static Map<Integer, String> workingMap = new HashMap<>();
 
     public static JTabbedPane tabbedPane(DefaultTableModel modelData, mEmployee employeeMdl, mWorking workingMdl) {
         dfltDataModel = modelData;
@@ -118,8 +122,6 @@ public class vEmployee {
         btnCreate(); btnUpdate(); btnDelete();
         // Utilizar funcionalidades en la pestaña formulario
         btnSave(); btnCancel();
-
-        workingList();
 
         // Devolver el JTabbedPane
         return tabbedPane;
@@ -178,8 +180,8 @@ public class vEmployee {
         fieldBenefit.setEditable(true); // Habilitar el campo
 
         labelWorking = new JLabel("Jornada");
-        fieldWorking = new JTextField();
-        //fieldWorking = new JComboBox<>();
+        //fieldWorking = new JTextField();
+        fieldWorking = new JComboBox<>();
         fieldWorking.setEditable(true); // Habilitar el campo
 
         newField.add(labelId); newField.add(fieldId);
@@ -203,6 +205,8 @@ public class vEmployee {
 
         newForm.add(newField, BorderLayout.NORTH);
         newForm.add(newAction, BorderLayout.SOUTH);
+
+        workingList();
     }
 
     // Estabelcer valores vacio del formulario
@@ -244,7 +248,12 @@ public class vEmployee {
                     fieldAge.setText((String) tblDataInfo.getValueAt(selectedRow, 4).toString());
                     fieldTime.setText((String) tblDataInfo.getValueAt(selectedRow, 5).toString());
                     fieldBenefit.setText((String) tblDataInfo.getValueAt(selectedRow, 6).toString());
-                    fieldWorking.setText((String) tblDataInfo.getValueAt(selectedRow, 7).toString());
+                    //fieldWorking.setText((String) tblDataInfo.getValueAt(selectedRow, 7).toString());
+
+                    // Obtener el ID de la jornada (working)
+                    Integer workingId = (Integer) tblDataInfo.getValueAt(selectedRow, 7);
+                    fieldWorking.setSelectedItem(workingMap.get(workingId)); // Establecer el nombre correspondiente en el JComboBox
+
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo
@@ -281,8 +290,19 @@ public class vEmployee {
                 mdlEmployee.setAge(Integer.parseInt(fieldAge.getText()));
                 mdlEmployee.setTime(Integer.parseInt(fieldTime.getText()));
                 mdlEmployee.setBenefit(Integer.parseInt(fieldBenefit.getText()));
-                mdlEmployee.setWorking(Integer.parseInt(fieldWorking.getText()));
-                //mdlEmployee.setWorking(fieldWorking.getSelectedItem().toString());
+                //mdlEmployee.setWorking(Integer.parseInt(fieldWorking.getText()));
+                
+                // Obtener el nombre seleccionado y buscar el ID
+                String selectedName = fieldWorking.getSelectedItem().toString();
+                Integer workingId = null;
+
+                for (Map.Entry<Integer, String> entry : workingMap.entrySet()) {
+                    if (entry.getValue().equals(selectedName)) {
+                        workingId = entry.getKey(); // Obtener el ID
+                        break;
+                    }
+                }
+                mdlEmployee.setWorking(workingId); // Guardar el ID en el modelo
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente
@@ -377,7 +397,8 @@ public class vEmployee {
         fieldAge.setText("");
         fieldTime.setText("");
         fieldBenefit.setText("");
-        fieldWorking.setText("");
+        //fieldWorking.setText("");
+        fieldWorking.setSelectedIndex(-1);
     }
 
     public static void printModelData(DefaultTableModel model) {
@@ -409,8 +430,13 @@ public class vEmployee {
 
     public static void workingList() {
         List<mWorking> listOfWorkingData = vWorking.getList();
+        fieldWorking.removeAllItems(); // Limpiar el JComboBox antes de agregar nuevos elementos
+        workingMap.clear(); // Limpiar el mapa antes de llenarlo
+    
         for (mWorking working : listOfWorkingData) {
             System.out.println("ID: " + working.getId() + ", Nombre: " + working.getName());
+            workingMap.put(working.getId(), working.getName()); // Guardar la relación
+            fieldWorking.addItem(working.getName()); // Añadir solo el nombre al JComboBox
         }
     }
 }
