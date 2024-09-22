@@ -38,7 +38,6 @@ public class vEmployee {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
     private static mEmployee mdlEmployee;
-    private static mWorking mdlWorking;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -241,14 +240,8 @@ public class vEmployee {
                     fieldSrnms.setText((String) tblDataInfo.getValueAt(selectedRow, 3).toString());
                     fieldAge.setText((String) tblDataInfo.getValueAt(selectedRow, 4).toString());
                     fieldTime.setText((String) tblDataInfo.getValueAt(selectedRow, 5).toString());
-
-                    // Obtener el valor de la atributo y establecerlo en el JComboBox
-                    String selectedBenefitName = (String) tblDataInfo.getValueAt(selectedRow, 6).toString();
-                    fieldBenefit.setSelectedItem(selectedBenefitName);
-
-                    // Obtener el valor de la atributo y establecerlo en el JComboBox
-                    String selectedWorkingName = (String) tblDataInfo.getValueAt(selectedRow, 7).toString();
-                    fieldWorking.setSelectedItem(selectedWorkingName);
+                    fieldBenefit.setSelectedItem((String) tblDataInfo.getValueAt(selectedRow, 6).toString());
+                    fieldWorking.setSelectedItem((String) tblDataInfo.getValueAt(selectedRow, 7).toString());
 
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
@@ -285,15 +278,13 @@ public class vEmployee {
                 mdlEmployee.setSrnms(fieldSrnms.getText());
                 mdlEmployee.setAge(Integer.parseInt(fieldAge.getText()));
                 mdlEmployee.setTime(Integer.parseInt(fieldTime.getText()));
-                //mdlEmployee.setBenefit(Integer.parseInt(fieldBenefit.getText()));
-                //mdlEmployee.setWorking(Integer.parseInt(fieldWorking.getText()));
                 
-                // Obtener el nombre seleccionado y buscar el ID
-                String benefitName = fieldBenefit.getSelectedItem().toString();
+                // Obtener el valor seleccionado y buscar el ID
+                String benefitData = fieldBenefit.getSelectedItem().toString();
                 Integer benefitId = null;
 
                 for (Map.Entry<Integer, String> entry : benefitMap.entrySet()) {
-                    if (entry.getValue().equals(benefitName)) {
+                    if (entry.getValue().equals(benefitData)) {
                         // Obtener el ID
                         benefitId = entry.getKey();
                         break;
@@ -302,12 +293,12 @@ public class vEmployee {
                 // Guardar el ID en el modelo
                 mdlEmployee.setBenefit(benefitId);
                 
-                // Obtener el nombre seleccionado y buscar el ID
-                String workingName = fieldWorking.getSelectedItem().toString();
+                // Obtener el valor seleccionado y buscar el ID
+                String workingData = fieldWorking.getSelectedItem().toString();
                 Integer workingId = null;
 
                 for (Map.Entry<Integer, String> entry : workingMap.entrySet()) {
-                    if (entry.getValue().equals(workingName)) {
+                    if (entry.getValue().equals(workingData)) {
                         // Obtener el ID
                         workingId = entry.getKey();
                         break;
@@ -434,8 +425,10 @@ public class vEmployee {
 
     public static void benefitList() {
         List<mBenefit> listOfBenefitData = vBenefit.getList();
-        fieldBenefit.removeAllItems(); // Limpiar el JComboBox antes de agregar nuevos elementos
-        benefitMap.clear(); // Limpiar el mapa antes de llenarlo
+        // Limpiar el JComboBox antes de agregar nuevos elementos
+        fieldBenefit.removeAllItems();
+        // Limpiar el mapa antes de llenarlo
+        benefitMap.clear();
     
         for (mBenefit benefit : listOfBenefitData) {
             // Guardar la relación
@@ -447,8 +440,10 @@ public class vEmployee {
 
     public static void workingList() {
         List<mWorking> listOfWorkingData = vWorking.getList();
-        fieldWorking.removeAllItems(); // Limpiar el JComboBox antes de agregar nuevos elementos
-        workingMap.clear(); // Limpiar el mapa antes de llenarlo
+        // Limpiar el JComboBox antes de agregar nuevos elementos
+        fieldWorking.removeAllItems();
+        // Limpiar el mapa antes de llenarlo
+        workingMap.clear();
     
         for (mWorking working : listOfWorkingData) {
             // Guardar la relación

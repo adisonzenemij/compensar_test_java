@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -18,11 +19,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.app.project.model.mProdType;
 import com.app.project.model.mProduct;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ListSelectionModel;
 
@@ -61,7 +65,7 @@ public class vProduct {
     private static JTextField fieldUnitary;
     private static JTextField fieldIva;
     private static JTextField fieldTotal;
-    private static JTextField fieldType;
+    private static JComboBox<String> fieldType;
 
     // Botones de los paneles
     private static JButton createBtn;
@@ -77,6 +81,8 @@ public class vProduct {
     // Índice de la fila que se está editando
     private static int editingRowIndex = -1;
     private static int selectedRow;
+
+    private static Map<Integer, String> prodTypeMap = new HashMap<>();
 
     public static JTabbedPane tabbedPane(DefaultTableModel modelData, mProduct benefitMdl) {
         dfltDataModel = modelData; mdlProduct = benefitMdl;
@@ -163,7 +169,7 @@ public class vProduct {
         fieldTotal.setEditable(true); // Habilitar el campo
 
         labelType = new JLabel("Tipo");
-        fieldType = new JTextField();
+        fieldType = new JComboBox<>();
         fieldType.setEditable(true); // Habilitar el campo
 
         newField.add(labelId); newField.add(fieldId);
@@ -186,6 +192,8 @@ public class vProduct {
 
         newForm.add(newField, BorderLayout.NORTH);
         newForm.add(newAction, BorderLayout.SOUTH);
+
+        prodTypeList();
     }
 
     // Estabelcer valores vacio del formulario
@@ -226,7 +234,8 @@ public class vProduct {
                     fieldUnitary.setText((String) tblDataInfo.getValueAt(selectedRow, 3).toString());
                     fieldIva.setText((String) tblDataInfo.getValueAt(selectedRow, 4).toString());
                     fieldTotal.setText((String) tblDataInfo.getValueAt(selectedRow, 5).toString());
-                    fieldType.setText((String) tblDataInfo.getValueAt(selectedRow, 6).toString());
+                    fieldType.setSelectedItem((String) tblDataInfo.getValueAt(selectedRow, 6).toString());
+
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo
@@ -262,7 +271,20 @@ public class vProduct {
                 mdlProduct.setUnitary(Integer.parseInt(fieldUnitary.getText()));
                 mdlProduct.setIva(Double.parseDouble(fieldIva.getText()));
                 mdlProduct.setTotal(Double.parseDouble(fieldTotal.getText()));
-                mdlProduct.setType(Integer.parseInt(fieldType.getText()));
+                
+                // Obtener el valor seleccionado y buscar el ID
+                String prodTypeData = fieldType.getSelectedItem().toString();
+                Integer prodTypeId = null;
+
+                for (Map.Entry<Integer, String> entry : prodTypeMap.entrySet()) {
+                    if (entry.getValue().equals(prodTypeData)) {
+                        // Obtener el ID
+                        prodTypeId = entry.getKey();
+                        break;
+                    }
+                }
+                // Guardar el ID en el modelo
+                mdlProduct.setType(prodTypeId);
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente
@@ -271,7 +293,7 @@ public class vProduct {
                     dfltDataModel.setValueAt(mdlProduct.getUnitary(), editingRowIndex, 3);
                     dfltDataModel.setValueAt(mdlProduct.getIva(), editingRowIndex, 4);
                     dfltDataModel.setValueAt(mdlProduct.getTotal(), editingRowIndex, 5);
-                    dfltDataModel.setValueAt(mdlProduct.getType(), editingRowIndex, 6);
+                    dfltDataModel.setValueAt(prodTypeMap.get(mdlProduct.getType()), editingRowIndex, 6);
                 } else {
                     // Crear nuevo registro
                     dfltDataModel.addRow(new Object[] {
@@ -281,7 +303,7 @@ public class vProduct {
                         mdlProduct.getUnitary(),
                         mdlProduct.getIva(),
                         mdlProduct.getTotal(),
-                        mdlProduct.getType(),
+                        prodTypeMap.get(mdlProduct.getType()),
                     });
                 }
 
@@ -353,7 +375,7 @@ public class vProduct {
         fieldUnitary.setText("");
         fieldIva.setText("");
         fieldTotal.setText("");
-        fieldType.setText("");
+        fieldType.setSelectedIndex(-1);
     }
 
     public static List<mProduct> getList() {
@@ -373,5 +395,20 @@ public class vProduct {
         }
     
         return productList;
+    }
+
+    public static void prodTypeList() {
+        List<mProdType> listOfProdTypeData = vProdType.getList();
+        // Limpiar el JComboBox antes de agregar nuevos elementos
+        fieldType.removeAllItems();
+        // Limpiar el mapa antes de llenarlo
+        prodTypeMap.clear();
+    
+        for (mProdType prodType : listOfProdTypeData) {
+            // Guardar la relación
+            prodTypeMap.put(prodType.getId(), prodType.getName());
+            // Añadir el valor al JComboBox
+            fieldType.addItem(prodType.getName());
+        }
     }
 }

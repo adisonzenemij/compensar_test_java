@@ -32,6 +32,7 @@ import com.app.project.model.mEmployee;
 import com.app.project.model.mProdType;
 import com.app.project.model.mProduct;
 import com.app.project.model.mWorking;
+import java.awt.Dimension;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -128,11 +129,11 @@ public class Desktop {
             actWorking(desktopPane);
 
             // Imprimir los datos del modelo
-            printDefaultData(dfltBenefit);
-            printDefaultData(dfltEmployee);
-            printDefaultData(dfltProdType);
-            printDefaultData(dfltProduct);
-            printDefaultData(dfltWorking);
+            //printDefaultData(dfltBenefit);
+            //printDefaultData(dfltEmployee);
+            //printDefaultData(dfltProdType);
+            //printDefaultData(dfltProduct);
+            //printDefaultData(dfltWorking);
             
             // Imprimir los datos del modelo
             //printModelData(benefitModel);
@@ -224,6 +225,8 @@ public class Desktop {
                 tabbedPane = vBenefit.tabbedPane(dfltBenefit, benefitModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
+                // Centrando el JInternalFrame en el JDesktopPane
+                centerFrame(dataFrame, desktopPane);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -259,6 +262,8 @@ public class Desktop {
                 tabbedPane = vEmployee.tabbedPane(dfltEmployee, employeeModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
+                // Centrando el JInternalFrame en el JDesktopPane
+                centerFrame(dataFrame, desktopPane);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -294,6 +299,8 @@ public class Desktop {
                 tabbedPane = vProdType.tabbedPane(dfltProdType, prodTypeModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
+                // Centrando el JInternalFrame en el JDesktopPane
+                centerFrame(dataFrame, desktopPane);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -329,6 +336,8 @@ public class Desktop {
                 tabbedPane = vProduct.tabbedPane(dfltProduct, productModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
+                // Centrando el JInternalFrame en el JDesktopPane
+                centerFrame(dataFrame, desktopPane);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -364,6 +373,8 @@ public class Desktop {
                 tabbedPane = vWorking.tabbedPane(dfltWorking, workingModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
+                // Centrando el JInternalFrame en el JDesktopPane
+                centerFrame(dataFrame, desktopPane);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -461,6 +472,20 @@ public class Desktop {
                 frame.setLocation(frame.getX(), frame.getY());
             }
         });
+    }
+
+    // Método para centrar el JInternalFrame dentro del JDesktopPane
+    private static void centerFrame(JInternalFrame frame, JDesktopPane desktopPane) {
+        // Obtener el tamaño del JDesktopPane y del JInternalFrame
+        Dimension desktopSize = desktopPane.getSize();
+        Dimension frameSize = frame.getSize();
+    
+        // Calcular las coordenadas para centrar el JInternalFrame
+        int x = (desktopSize.width - frameSize.width) / 2;
+        int y = (desktopSize.height - frameSize.height) / 2;
+    
+        // Establecer la ubicación centrada
+        frame.setLocation(x, y);
     }
 
     public static void printDefaultData(DefaultTableModel model) {
