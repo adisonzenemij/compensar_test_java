@@ -16,6 +16,10 @@ import javax.swing.JTabbedPane;
  */
 public class Software {
 
+    private static JFrame dataFrame;
+
+    private static JPanel contentPanel;
+
     public static void main(String[] args) {
         System.out.println("App Software");
         //Compensar.test();
@@ -24,80 +28,36 @@ public class Software {
     
     public static void desktop() {
         // Crear el marco principal
-        JFrame frame = new JFrame("Compensar: Aplicacion Software");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 800);
+        dataFrame = new JFrame("Compensar: Aplicacion Software");
+        dataFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        dataFrame.setSize(1000, 800);
 
         // Desactivar la maximización
         // Deshabilitar el redimensionamiento
-        frame.setResizable(false);
+        dataFrame.setResizable(false);
         
         // Crear el JDesktopPane
         JDesktopPane desktopPane = new JDesktopPane();
         
         // Añadir el JDesktopPane al marco
-        frame.add(desktopPane);
+        dataFrame.add(desktopPane);
         
         // Hacer visible el marco
-        frame.setVisible(true);
+        dataFrame.setVisible(true);
         
         // Centrar el marco en la pantalla
-        frame.setLocationRelativeTo(null);
+        dataFrame.setLocationRelativeTo(null);
         
-        // Abrir JInternalFrame
+        // Abrir internal frame
         Desktop.openInternal(desktopPane);
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public static void desktop_() {
-        // Crear el marco principal
-        JFrame frame = new JFrame("Compensar: Aplicacion Software");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
-        
-        // Crear el JDesktopPane
-        JDesktopPane desktopPane = new JDesktopPane();
-        
-        // Crear el JTabbedPane
-        JTabbedPane tabbedPane = new JTabbedPane();
-        
-        // Llamar a la función para agregar pestañas
-        addTabs(tabbedPane);
-        
-        // Ajustar el tamaño y posición del JTabbedPane
-        tabbedPane.setBounds(0, 0, 800, 600); // Ajustar según sea necesario
-        
-        // Añadir el JTabbedPane al JDesktopPane
-        desktopPane.add(tabbedPane);
-        
-        // Añadir el JDesktopPane al marco
-        frame.add(desktopPane);
-        
-        // Centrar el marco en la pantalla
-        frame.setLocationRelativeTo(null);
-        
-        // Hacer visible el marco
-        frame.setVisible(true);
     }
     
     public static void addTabs(JTabbedPane tabbedPane) {
         // Crear algunos paneles para las pestañas
-        JPanel panel1 = new JPanel();
-        panel1.add(new JLabel("Contenido de la Pestaña 1"));
+        contentPanel = new JPanel();
+        contentPanel.add(new JLabel("Contenido"));
         
-        JPanel panel2 = new JPanel();
-        panel2.add(new JLabel("Contenido de la Pestaña 2"));
-        
-        // Añadir pestañas al JTabbedPane
-        tabbedPane.addTab("Pestaña 1", panel1);
-        tabbedPane.addTab("Pestaña 2", panel2);
+        // Añadir pestañas al tabbed pane
+        tabbedPane.addTab("Pestaña", contentPanel);
     }
 }

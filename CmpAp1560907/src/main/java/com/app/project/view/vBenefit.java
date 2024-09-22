@@ -74,32 +74,37 @@ public class vBenefit {
         tblBenefit = new JTable(dfltBenefit);
         listPanel.add(new JScrollPane(tblBenefit), BorderLayout.CENTER);
 
-        // Formulario de empleados
-        actionPanel = new JPanel(new GridLayout(1,3));
-
-        // Botones del panel principal
-        createBtn = new JButton("Añadir Registro");
-        updateBtn = new JButton("Actualizar Registro");
-        deleteBtn = new JButton("Eliminar Registro");
-
-        actionPanel.add(createBtn);
-        actionPanel.add(updateBtn);
-        actionPanel.add(deleteBtn);
-
-        listPanel.add(actionPanel, BorderLayout.SOUTH);
+        // Formulario de acciones
+        infoAction();
 
         // Añadir los paneles al JTabbedPane
         tabbedPane.addTab("Información", listPanel);
 
         // Utilizar el formulario
         formData();
-        // Adicionar botones en la pestaña principal
+        // Utilizar funcionalidades en la pestaña principal
         btnCreate(); btnUpdate(); btnDelete();
-        // Adicionar botones en la pestaña formulario
+        // Utilizar funcionalidades en la pestaña formulario
         btnSave(); btnCancel();
 
         // Devolver el JTabbedPane
         return tabbedPane;
+    }
+
+    // Formulario del respectivo modelo
+    public static void infoAction() {
+        // Formulario de acciones
+        actionPanel = new JPanel(new GridLayout(1,3));
+        // Botones del panel principal
+        createBtn = new JButton("Añadir Registro");
+        updateBtn = new JButton("Actualizar Registro");
+        deleteBtn = new JButton("Eliminar Registro");
+        // Adicionar botones al panel
+        actionPanel.add(createBtn);
+        actionPanel.add(updateBtn);
+        actionPanel.add(deleteBtn);
+        // Añadir panel a otro panel con borde
+        listPanel.add(actionPanel, BorderLayout.SOUTH);
     }
 
     // Formulario del respectivo modelo
