@@ -23,6 +23,7 @@ import com.app.project.model.mEmployee;
 import com.app.project.model.mWorking;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -411,17 +412,36 @@ public class vEmployee {
         fieldWorking.setSelectedIndex(-1);
     }
 
+    public static List<mEmployee> getList() {
+        List<mEmployee> employeeList = new ArrayList<>();
+    
+        // Recorrer las filas del DefaultTableModel
+        for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
+            mEmployee employee = new mEmployee();
+            employee.setId((int) dfltDataModel.getValueAt(row, 0));
+            employee.setDocument((String) dfltDataModel.getValueAt(row, 1));
+            employee.setNames((String) dfltDataModel.getValueAt(row, 2));
+            employee.setSrnms((String) dfltDataModel.getValueAt(row, 3));
+            employee.setAge((int) dfltDataModel.getValueAt(row, 4));
+            employee.setTime((int) dfltDataModel.getValueAt(row, 5));
+            employee.setBenefit((int) dfltDataModel.getValueAt(row, 6));
+            employee.setWorking((int) dfltDataModel.getValueAt(row, 7));
+            employeeList.add(employee);
+        }
+    
+        return employeeList;
+    }
+
     public static void benefitList() {
         List<mBenefit> listOfBenefitData = vBenefit.getList();
         fieldBenefit.removeAllItems(); // Limpiar el JComboBox antes de agregar nuevos elementos
         benefitMap.clear(); // Limpiar el mapa antes de llenarlo
     
         for (mBenefit benefit : listOfBenefitData) {
-            System.out.println("ID: " + benefit.getId() + ", Tienda: " + benefit.getShop());
             // Guardar la relación
-            benefitMap.put(benefit.getId(), benefit.getShop());
+            benefitMap.put(benefit.getId(), benefit.getRebate());
             // Añadir el valor al JComboBox
-            fieldBenefit.addItem(benefit.getShop());
+            fieldBenefit.addItem(benefit.getRebate());
         }
     }
 
@@ -431,7 +451,6 @@ public class vEmployee {
         workingMap.clear(); // Limpiar el mapa antes de llenarlo
     
         for (mWorking working : listOfWorkingData) {
-            System.out.println("ID: " + working.getId() + ", Nombre: " + working.getName());
             // Guardar la relación
             workingMap.put(working.getId(), working.getName());
             // Añadir el valor al JComboBox

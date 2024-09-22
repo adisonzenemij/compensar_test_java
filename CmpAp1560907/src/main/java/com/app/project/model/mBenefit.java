@@ -10,8 +10,7 @@ package com.app.project.model;
  */
 public class mBenefit {
     private int id;
-    private String shop;
-    private String recreat;
+    private String rebate;
     private int ageMin;
     private int ageMax;
     
@@ -24,22 +23,13 @@ public class mBenefit {
         this.id = id;
     }
 
-    // Getter y Setter para shop
-    public String getShop() {
-        return shop;
+    // Getter y Setter para rebate
+    public String getRebate() {
+        return rebate;
     }
 
-    public void setShop(String shop) {
-        this.shop = shop;
-    }
-
-    // Getter y Setter para center
-    public String getRecreat() {
-        return recreat;
-    }
-
-    public void setRecreat(String recreat) {
-        this.recreat = recreat;
+    public void setRebate(String rebate) {
+        this.rebate = rebate;
     }
 
     // Getter y Setter para ageMin

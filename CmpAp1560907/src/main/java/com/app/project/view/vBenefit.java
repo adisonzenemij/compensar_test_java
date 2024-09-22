@@ -46,15 +46,13 @@ public class vBenefit {
 
     // Etiquetas del formulario
     private static JLabel labelId;
-    private static JLabel labelShop;
-    private static JLabel labelRecreat;
+    private static JLabel labelRebate;
     private static JLabel labelAgeMin;
     private static JLabel labelAgeMax;
 
     // Campos del formulario
     private static JTextField fieldId;
-    private static JTextField fieldShop;
-    private static JTextField fieldRecreat;
+    private static JTextField fieldRebate;
     private static JTextField fieldAgeMin;
     private static JTextField fieldAgeMax;
 
@@ -135,13 +133,9 @@ public class vBenefit {
         fieldId = new JTextField();
         fieldId.setEditable(false); // Bloquear el campo
 
-        labelShop = new JLabel("Tienda");
-        fieldShop = new JTextField();
-        fieldShop.setEditable(true); // Habilitar el campo
-
-        labelRecreat = new JLabel("Recreación");
-        fieldRecreat = new JTextField();
-        fieldRecreat.setEditable(true); // Habilitar el campo
+        labelRebate = new JLabel("Descuento");
+        fieldRebate = new JTextField();
+        fieldRebate.setEditable(true); // Habilitar el campo
 
         labelAgeMin = new JLabel("Minimo");
         fieldAgeMin = new JTextField();
@@ -152,8 +146,7 @@ public class vBenefit {
         fieldAgeMax.setEditable(true); // Habilitar el campo
 
         newField.add(labelId); newField.add(fieldId);
-        newField.add(labelShop); newField.add(fieldShop);
-        newField.add(labelRecreat); newField.add(fieldRecreat);
+        newField.add(labelRebate); newField.add(fieldRebate);
         newField.add(labelAgeMin); newField.add(fieldAgeMin);
         newField.add(labelAgeMax); newField.add(fieldAgeMax);
 
@@ -204,10 +197,9 @@ public class vBenefit {
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
                     // Llenar los campos con los valores seleccionados
                     fieldId.setText((String) tblDataInfo.getValueAt(selectedRow, 0).toString());
-                    fieldShop.setText((String) tblDataInfo.getValueAt(selectedRow, 1).toString());
-                    fieldRecreat.setText((String) tblDataInfo.getValueAt(selectedRow, 2).toString());
-                    fieldAgeMin.setText((String) tblDataInfo.getValueAt(selectedRow, 3).toString());
-                    fieldAgeMax.setText((String) tblDataInfo.getValueAt(selectedRow, 4).toString());
+                    fieldRebate.setText((String) tblDataInfo.getValueAt(selectedRow, 1).toString());
+                    fieldAgeMin.setText((String) tblDataInfo.getValueAt(selectedRow, 2).toString());
+                    fieldAgeMax.setText((String) tblDataInfo.getValueAt(selectedRow, 3).toString());
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo
@@ -238,23 +230,20 @@ public class vBenefit {
             @Override
             public void actionPerformed(ActionEvent e) {
                 /// Usar el modelo para establecer los valores
-                mdlBenefit.setShop(fieldShop.getText());
-                mdlBenefit.setRecreat(fieldRecreat.getText());
+                mdlBenefit.setRebate(fieldRebate.getText());
                 mdlBenefit.setAgeMin(Integer.parseInt(fieldAgeMin.getText()));
                 mdlBenefit.setAgeMax(Integer.parseInt(fieldAgeMax.getText()));
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente
-                    dfltDataModel.setValueAt(mdlBenefit.getShop(), editingRowIndex, 1);
-                    dfltDataModel.setValueAt(mdlBenefit.getRecreat(), editingRowIndex, 2);
-                    dfltDataModel.setValueAt(mdlBenefit.getAgeMin(), editingRowIndex, 3);
-                    dfltDataModel.setValueAt(mdlBenefit.getAgeMax(), editingRowIndex, 4);
+                    dfltDataModel.setValueAt(mdlBenefit.getRebate(), editingRowIndex, 1);
+                    dfltDataModel.setValueAt(mdlBenefit.getAgeMin(), editingRowIndex, 2);
+                    dfltDataModel.setValueAt(mdlBenefit.getAgeMax(), editingRowIndex, 3);
                 } else {
                     // Crear nuevo registro
                     dfltDataModel.addRow(new Object[] {
                         nextId++, // ID autoincrementable
-                        mdlBenefit.getShop(),
-                        mdlBenefit.getRecreat(),
+                        mdlBenefit.getRebate(),
                         mdlBenefit.getAgeMin(),
                         mdlBenefit.getAgeMax(),
                     });
@@ -312,8 +301,7 @@ public class vBenefit {
     public static String[] tableColumn() {
         return new String[] {
             "Registro",
-            "Tienda",
-            "Recreación",
+            "Descuento",
             "Minimo",
             "Maximo",
         };
@@ -321,8 +309,7 @@ public class vBenefit {
 
     // Limpiar los campos del formulario
     private static void clearFields() {
-        fieldShop.setText("");
-        fieldRecreat.setText("");
+        fieldRebate.setText("");
         fieldAgeMin.setText("");
         fieldAgeMax.setText("");
     }
@@ -334,10 +321,9 @@ public class vBenefit {
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
             mBenefit benefit = new mBenefit();
             benefit.setId((int) dfltDataModel.getValueAt(row, 0));
-            benefit.setShop((String) dfltDataModel.getValueAt(row, 1));
-            benefit.setRecreat((String) dfltDataModel.getValueAt(row, 2));
-            benefit.setAgeMin((int) dfltDataModel.getValueAt(row, 3));
-            benefit.setAgeMax((int) dfltDataModel.getValueAt(row, 4));
+            benefit.setRebate((String) dfltDataModel.getValueAt(row, 1));
+            benefit.setAgeMin((int) dfltDataModel.getValueAt(row, 2));
+            benefit.setAgeMax((int) dfltDataModel.getValueAt(row, 3));
             benefitList.add(benefit);
         }
     

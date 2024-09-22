@@ -21,6 +21,9 @@ import javax.swing.table.DefaultTableModel;
 import com.app.project.model.mProduct;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ListSelectionModel;
 
 /**
@@ -351,5 +354,24 @@ public class vProduct {
         fieldIva.setText("");
         fieldTotal.setText("");
         fieldType.setText("");
+    }
+
+    public static List<mProduct> getList() {
+        List<mProduct> productList = new ArrayList<>();
+    
+        // Recorrer las filas del DefaultTableModel
+        for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
+            mProduct product = new mProduct();
+            product.setId((int) dfltDataModel.getValueAt(row, 0));
+            product.setName((String) dfltDataModel.getValueAt(row, 1));
+            product.setUnity((int) dfltDataModel.getValueAt(row, 2));
+            product.setUnitary((int) dfltDataModel.getValueAt(row, 3));
+            product.setIva((double) dfltDataModel.getValueAt(row, 4));
+            product.setTotal((double) dfltDataModel.getValueAt(row, 5));
+            product.setType((int) dfltDataModel.getValueAt(row, 6));
+            productList.add(product);
+        }
+    
+        return productList;
     }
 }

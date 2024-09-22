@@ -21,6 +21,9 @@ import javax.swing.table.DefaultTableModel;
 import com.app.project.model.mProdType;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ListSelectionModel;
 
 /**
@@ -299,5 +302,20 @@ public class vProdType {
     private static void clearFields() {
         fieldName.setText("");
         fieldIva.setText("");
+    }
+
+    public static List<mProdType> getList() {
+        List<mProdType> prodTypeList = new ArrayList<>();
+    
+        // Recorrer las filas del DefaultTableModel
+        for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
+            mProdType prodType = new mProdType();
+            prodType.setId((int) dfltDataModel.getValueAt(row, 0));
+            prodType.setName((String) dfltDataModel.getValueAt(row, 1));
+            prodType.setIva((double) dfltDataModel.getValueAt(row, 2));
+            prodTypeList.add(prodType);
+        }
+    
+        return prodTypeList;
     }
 }
