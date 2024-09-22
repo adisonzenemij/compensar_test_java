@@ -66,8 +66,7 @@ public class vEmployee {
     private static JTextField fieldSrnms;
     private static JTextField fieldAge;
     private static JTextField fieldTime;
-    private static JTextField fieldBenefit;
-    //private static JTextField fieldWorking;
+    private static JComboBox<String> fieldBenefit;
     private static JComboBox<String> fieldWorking;
 
     // Botones de los paneles
@@ -85,6 +84,7 @@ public class vEmployee {
     private static int editingRowIndex = -1;
     private static int selectedRow;
 
+    private static Map<Integer, String> benefitMap = new HashMap<>();
     private static Map<Integer, String> workingMap = new HashMap<>();
 
     public static JTabbedPane tabbedPane(DefaultTableModel modelData, mEmployee employeeMdl) {
@@ -170,11 +170,10 @@ public class vEmployee {
         fieldTime.setEditable(true); // Habilitar el campo
 
         labelBenefit = new JLabel("Beneficio");
-        fieldBenefit = new JTextField();
+        fieldBenefit = new JComboBox<>();
         fieldBenefit.setEditable(true); // Habilitar el campo
 
         labelWorking = new JLabel("Jornada");
-        //fieldWorking = new JTextField();
         fieldWorking = new JComboBox<>();
         fieldWorking.setEditable(true); // Habilitar el campo
 
@@ -241,31 +240,14 @@ public class vEmployee {
                     fieldSrnms.setText((String) tblDataInfo.getValueAt(selectedRow, 3).toString());
                     fieldAge.setText((String) tblDataInfo.getValueAt(selectedRow, 4).toString());
                     fieldTime.setText((String) tblDataInfo.getValueAt(selectedRow, 5).toString());
-                    fieldBenefit.setText((String) tblDataInfo.getValueAt(selectedRow, 6).toString());
-                    //fieldWorking.setText((String) tblDataInfo.getValueAt(selectedRow, 7).toString());
 
-                    // Obtener el nombre de la jornada y establecerlo en el JComboBox
+                    // Obtener el valor de la atributo y establecerlo en el JComboBox
+                    String selectedBenefitName = (String) tblDataInfo.getValueAt(selectedRow, 6).toString();
+                    fieldBenefit.setSelectedItem(selectedBenefitName);
+
+                    // Obtener el valor de la atributo y establecerlo en el JComboBox
                     String selectedWorkingName = (String) tblDataInfo.getValueAt(selectedRow, 7).toString();
-                    fieldWorking.setSelectedItem(selectedWorkingName); // Esto selecciona el nombre directamente
-                    
-                    // Dentro de tu método btnUpdate() o donde lo necesites
-                    /*String selectedWorkingName = (String) tblDataInfo.getValueAt(selectedRow, 7).toString();
-                    Integer workingId = null;
-
-                    // Buscar el ID correspondiente al nombre
-                    for (Map.Entry<Integer, String> entry : workingMap.entrySet()) {
-                        if (entry.getValue().equals(selectedWorkingName)) {
-                            workingId = entry.getKey();
-                            break; // Salimos del bucle una vez encontrado
-                        }
-                    }
-
-                    if (workingId != null) {
-                        System.out.println("El ID correspondiente al nombre " + selectedWorkingName + " es: " + workingId);
-                        fieldWorking.setSelectedItem(workingMap.get(workingId));
-                    } else {
-                        System.out.println("No se encontró un ID para el nombre: " + selectedWorkingName);
-                    }*/
+                    fieldWorking.setSelectedItem(selectedWorkingName);
 
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
@@ -302,20 +284,36 @@ public class vEmployee {
                 mdlEmployee.setSrnms(fieldSrnms.getText());
                 mdlEmployee.setAge(Integer.parseInt(fieldAge.getText()));
                 mdlEmployee.setTime(Integer.parseInt(fieldTime.getText()));
-                mdlEmployee.setBenefit(Integer.parseInt(fieldBenefit.getText()));
+                //mdlEmployee.setBenefit(Integer.parseInt(fieldBenefit.getText()));
                 //mdlEmployee.setWorking(Integer.parseInt(fieldWorking.getText()));
                 
                 // Obtener el nombre seleccionado y buscar el ID
-                String selectedName = fieldWorking.getSelectedItem().toString();
-                Integer workingId = null;
+                String benefitName = fieldBenefit.getSelectedItem().toString();
+                Integer benefitId = null;
 
                 for (Map.Entry<Integer, String> entry : workingMap.entrySet()) {
-                    if (entry.getValue().equals(selectedName)) {
-                        workingId = entry.getKey(); // Obtener el ID
+                    if (entry.getValue().equals(benefitName)) {
+                        // Obtener el ID
+                        benefitId = entry.getKey();
                         break;
                     }
                 }
-                mdlEmployee.setWorking(workingId); // Guardar el ID en el modelo
+                // Guardar el ID en el modelo
+                mdlEmployee.setBenefit(benefitId);
+                
+                // Obtener el nombre seleccionado y buscar el ID
+                String workingName = fieldWorking.getSelectedItem().toString();
+                Integer workingId = null;
+
+                for (Map.Entry<Integer, String> entry : workingMap.entrySet()) {
+                    if (entry.getValue().equals(workingName)) {
+                        // Obtener el ID
+                        workingId = entry.getKey();
+                        break;
+                    }
+                }
+                // Guardar el ID en el modelo
+                mdlEmployee.setWorking(workingId);
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente
@@ -324,7 +322,7 @@ public class vEmployee {
                     dfltDataModel.setValueAt(mdlEmployee.getSrnms(), editingRowIndex, 3);
                     dfltDataModel.setValueAt(mdlEmployee.getAge(), editingRowIndex, 4);
                     dfltDataModel.setValueAt(mdlEmployee.getTime(), editingRowIndex, 5);
-                    dfltDataModel.setValueAt(mdlEmployee.getBenefit(), editingRowIndex, 6);
+                    dfltDataModel.setValueAt(workingMap.get(mdlEmployee.getBenefit()), editingRowIndex, 6);
                     dfltDataModel.setValueAt(workingMap.get(mdlEmployee.getWorking()), editingRowIndex, 7);
                 } else {
                     // Crear nuevo registro
@@ -335,7 +333,7 @@ public class vEmployee {
                         mdlEmployee.getSrnms(),
                         mdlEmployee.getAge(),
                         mdlEmployee.getTime(),
-                        mdlEmployee.getBenefit(),
+                        workingMap.get(mdlEmployee.getBenefit()),
                         workingMap.get(mdlEmployee.getWorking()),
                     });
                 }
@@ -409,9 +407,22 @@ public class vEmployee {
         fieldSrnms.setText("");
         fieldAge.setText("");
         fieldTime.setText("");
-        fieldBenefit.setText("");
-        //fieldWorking.setText("");
+        fieldBenefit.setSelectedIndex(-1);
         fieldWorking.setSelectedIndex(-1);
+    }
+
+    public static void benefitList() {
+        List<mBenefit> listOfBenefitData = vBenefit.getList();
+        fieldBenefit.removeAllItems(); // Limpiar el JComboBox antes de agregar nuevos elementos
+        benefitMap.clear(); // Limpiar el mapa antes de llenarlo
+    
+        for (mBenefit benefit : listOfBenefitData) {
+            System.out.println("ID: " + benefit.getId() + ", Tienda: " + benefit.getShop());
+            // Guardar la relación
+            benefitMap.put(benefit.getId(), benefit.getShop());
+            // Añadir el valor al JComboBox
+            fieldBenefit.addItem(benefit.getShop());
+        }
     }
 
     public static void workingList() {
@@ -421,8 +432,10 @@ public class vEmployee {
     
         for (mWorking working : listOfWorkingData) {
             System.out.println("ID: " + working.getId() + ", Nombre: " + working.getName());
-            workingMap.put(working.getId(), working.getName()); // Guardar la relación
-            fieldWorking.addItem(working.getName()); // Añadir solo el nombre al JComboBox
+            // Guardar la relación
+            workingMap.put(working.getId(), working.getName());
+            // Añadir el valor al JComboBox
+            fieldWorking.addItem(working.getName());
         }
     }
 }

@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
 import com.app.project.model.mBenefit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -323,5 +325,22 @@ public class vBenefit {
         fieldRecreat.setText("");
         fieldAgeMin.setText("");
         fieldAgeMax.setText("");
+    }
+
+    public static List<mBenefit> getList() {
+        List<mBenefit> benefitList = new ArrayList<>();
+    
+        // Recorrer las filas del DefaultTableModel
+        for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
+            mBenefit benefit = new mBenefit();
+            benefit.setId((int) dfltDataModel.getValueAt(row, 0));
+            benefit.setShop((String) dfltDataModel.getValueAt(row, 1));
+            benefit.setRecreat((String) dfltDataModel.getValueAt(row, 2));
+            benefit.setAgeMin((int) dfltDataModel.getValueAt(row, 3));
+            benefit.setAgeMax((int) dfltDataModel.getValueAt(row, 4));
+            benefitList.add(benefit);
+        }
+    
+        return benefitList;
     }
 }
