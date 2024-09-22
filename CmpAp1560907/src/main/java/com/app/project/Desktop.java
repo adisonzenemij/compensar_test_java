@@ -40,6 +40,8 @@ import javax.swing.table.DefaultTableModel;
  * @author adiso
  */
 public class Desktop {
+    // Destokp Panel de la aplicacion principal
+    private static JDesktopPane desktopPane;
 
     // Mantener una referencia al JInternalFrame
     private static JInternalFrame dataFrame;
@@ -78,7 +80,8 @@ public class Desktop {
     private static JLabel labelDevelop;
     private static JLabel labelWebMain;
 
-    public static void openInternal(JDesktopPane desktopPane) {
+    public static void openInternal(JDesktopPane paneDesktop) {
+        desktopPane = paneDesktop;
         // Crear solo si no existe
         if (dataFrame == null || !dataFrame.isVisible()) {
             // Crear un JInternalFrame para contener los botones
@@ -90,9 +93,9 @@ public class Desktop {
                 false  // Minimizar
             );
 
-            internalSize(dataFrame, desktopPane);
-            disableComponent(dataFrame, desktopPane);
-            disableInternal(dataFrame);
+            internalSize(dataFrame);
+            disableComponent();
+            disableInternal();
 
             // Establecer el layout & centrar los componentes
             dataFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -122,11 +125,11 @@ public class Desktop {
             // Forzar repaint del desktopPane
             desktopPane.repaint();
 
-            actBenefit(desktopPane);
-            actEmployee(desktopPane);
-            actProduct(desktopPane);
-            actProdType(desktopPane);
-            actWorking(desktopPane);
+            actBenefit();
+            actEmployee();
+            actProduct();
+            actProdType();
+            actWorking();
 
             // Imprimir los datos del modelo
             //printDefaultData(dfltBenefit);
@@ -199,7 +202,7 @@ public class Desktop {
         dataFrame.add(labelWebMain);
     }
 
-    public static void actBenefit(JDesktopPane desktopPane) {
+    public static void actBenefit() {
         btnBenefit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -226,7 +229,7 @@ public class Desktop {
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane
-                centerFrame(dataFrame, desktopPane);
+                centerFrame(dataFrame);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -236,7 +239,7 @@ public class Desktop {
         });
     }
 
-    public static void actEmployee(JDesktopPane desktopPane) {
+    public static void actEmployee() {
         btnEmployee.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -263,7 +266,7 @@ public class Desktop {
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane
-                centerFrame(dataFrame, desktopPane);
+                centerFrame(dataFrame);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -273,7 +276,7 @@ public class Desktop {
         });
     }
 
-    public static void actProdType(JDesktopPane desktopPane) {
+    public static void actProdType() {
         btnProdType.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -300,7 +303,7 @@ public class Desktop {
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane
-                centerFrame(dataFrame, desktopPane);
+                centerFrame(dataFrame);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -310,7 +313,7 @@ public class Desktop {
         });
     }
 
-    public static void actProduct(JDesktopPane desktopPane) {
+    public static void actProduct() {
         btnProduct.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -337,7 +340,7 @@ public class Desktop {
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane
-                centerFrame(dataFrame, desktopPane);
+                centerFrame(dataFrame);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -347,7 +350,7 @@ public class Desktop {
         });
     }
 
-    public static void actWorking(JDesktopPane desktopPane) {
+    public static void actWorking() {
         btnWorking.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -374,7 +377,7 @@ public class Desktop {
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane
-                centerFrame(dataFrame, desktopPane);
+                centerFrame(dataFrame);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -385,8 +388,7 @@ public class Desktop {
     }
 
     public static void internalSize(
-        JInternalFrame intFrame,
-        JDesktopPane desktopPane
+        JInternalFrame intFrame
     ) {
         // Calcular el tamaño del internal frame como un porcentaje del JDesktopPane
         int frameWidth = (int) (desktopPane.getWidth() * 0.5);
@@ -411,71 +413,68 @@ public class Desktop {
         return dtButton;
     }
 
-    private static void disableComponent(
-        JInternalFrame intFrame,
-        JDesktopPane desktopPane
-    ) {
+    private static void disableComponent() {
         // Obtener el tamaño actual del JInternalFrame
-        int frameWidth = intFrame.getWidth();
-        int frameHeight = intFrame.getHeight();
+        int frameWidth = dataFrame.getWidth();
+        int frameHeight = dataFrame.getHeight();
     
         // Calcular la posición centrada
         int x = (desktopPane.getWidth() - frameWidth) / 2;
         int y = (desktopPane.getHeight() - frameHeight) / 2;
     
         // Deshabilitar el movimiento del JInternalFrame
-        intFrame.addComponentListener(new ComponentAdapter() {
+        dataFrame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentMoved(ComponentEvent e) {
                 // Restablecer la posición
-                intFrame.setLocation(x, y);
+                dataFrame.setLocation(x, y);
             }
         });
     }
 
-    private static void disableInternal(JInternalFrame frame) {
+    private static void disableInternal() {
         // Quitar el borde del iframe
         //frame.setBorder(BorderFactory.createEmptyBorder());
 
         // Evitar que se mueva el internal frame
-        frame.addMouseListener(new MouseAdapter() {
+        dataFrame.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 // Cancelar el movimiento
-                frame.setLocation(0, 0);
+                dataFrame.setLocation(0, 0);
             }
         });
 
-        frame.addMouseMotionListener(new MouseAdapter() {
+        dataFrame.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 // Cancelar el movimiento
-                frame.setLocation(0, 0);
+                dataFrame.setLocation(0, 0);
             }
         });
 
         // Añadir un MouseListener que ignore los eventos de movimiento
-        frame.addMouseListener(new MouseAdapter() {
+        dataFrame.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 // Cancelar el movimiento
                 // Mantener la posición actual
-                frame.setLocation(frame.getX(), frame.getY());
+                dataFrame.setLocation(dataFrame.getX(), dataFrame.getY());
             }
         });
 
-        frame.addMouseMotionListener(new MouseAdapter() {
+        dataFrame.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 // Cancelar el movimiento
                 // Mantener la posición actual
-                frame.setLocation(frame.getX(), frame.getY());
+                dataFrame.setLocation(dataFrame.getX(), dataFrame.getY());
             }
         });
     }
 
     // Método para centrar el JInternalFrame dentro del JDesktopPane
-    private static void centerFrame(JInternalFrame frame, JDesktopPane desktopPane) {
+    private static void centerFrame(JInternalFrame frame) {
         // Obtener el tamaño del JDesktopPane y del JInternalFrame
         Dimension desktopSize = desktopPane.getSize();
         Dimension frameSize = frame.getSize();
