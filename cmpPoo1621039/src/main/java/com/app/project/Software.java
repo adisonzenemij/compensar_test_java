@@ -11,13 +11,14 @@ import java.util.Scanner;
  * @author adiso
  */
 public class Software {
-    
+    // Utilizacion del scanner global en el codigo
     private static Scanner sc = new Scanner(System.in);
-
+    // Incializacion de variables globales
     private static int cntStudent;
     private static String[] stNames;
     private static double[] stNote;
     
+    /* Funcion principal para validar si el usuario digita la cantidad de estudiantes correctos */
     public static void main(String[] args) {
         do {
             System.out.print("Ingrese el número de estudiantes: ");
@@ -29,12 +30,14 @@ public class Software {
             
         } while (cntStudent < 1 || cntStudent > 5);
         sc.nextLine();
-        
+        // Llamar funciones para capturar los estudiates y sus notas
         cptData();
         cptNote();
+        // Imprimir el resultado final del promedio y estudiantes por debajo del promedio
         printData();
     }
     
+    /* Funcion para capturar los datos de los estudiantes segun la cantidad de estudiantes */
     public static void cptData() {
         stNames = new String[cntStudent];
         
@@ -44,6 +47,8 @@ public class Software {
         }
     }
     
+    // Funcion para capturar las notas de los estudiantes segun la cantidad de estudiantes
+    // Adicional se añade validacion para saber si la nota del estudiante está en el rango de 1 y 10
     public static void cptNote() {
         stNote = new double[cntStudent];
         
@@ -61,6 +66,8 @@ public class Software {
         }
     }
     
+    // Funcion para imprimir el promedio de la nota calculada
+    // Imprimir estudiantes que esten por debajo del promedio
     public static void printData() {
         double avrg = average();
         System.out.println("Promedio del curso: " + avrg);
@@ -74,10 +81,10 @@ public class Software {
                     "Nota: " + stNote[i] + " "
                 );
             }
-            
         }
     }
     
+    // Funcion para calcular el promedio segun la cantidad de estudiantes y sus notas
     public static double average() {
         double sum = 0;
         for (int i = 0; i < cntStudent; i++) {
@@ -85,5 +92,4 @@ public class Software {
         }
         return sum / cntStudent;
     }
-    
 }
