@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.app.project;
 
 import java.util.Scanner;
 
-/**
- *
- * @author adiso
- */
 public class Software {
     // Utilizacion del scanner global en el codigo
     private static Scanner sc = new Scanner(System.in);
