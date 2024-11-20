@@ -7,6 +7,7 @@ public class SavageAnimal extends Animal {
     // Propiedad peligro
     private String danger;
 
+    // Constructor
     public SavageAnimal(
         String nombre,
         int edad,
@@ -28,10 +29,12 @@ public class SavageAnimal extends Animal {
         this.danger = danger;
     }
 
+    // Metodo o comportamiento del animal salvaje
     public void cazar() {
         System.out.println(getName() + " está cazando.");
     }
-
+    
+    // Metodo o comportamiento del animal salvaje
     public void defender() {
         System.out.println(getName() + " está defendiendo.");
     }

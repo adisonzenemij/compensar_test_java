@@ -11,6 +11,7 @@ public class Animal {
     // Propiedad color
     private String color;
 
+    // Constructor
     public Animal(
         String name,
         int age,

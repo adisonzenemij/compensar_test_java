@@ -7,6 +7,7 @@ public class DomesticAnimal extends Animal {
     // Propiedad sociable
     private boolean sociable;
 
+    // Constructor
     public DomesticAnimal(
         String nombre,
         int edad,
@@ -28,11 +29,13 @@ public class DomesticAnimal extends Animal {
         this.sociable = sociable;
     }
 
+    // Metodo o comportamiento del animal domestico
     public void interactuar() {
-        System.out.println(getName() + " está interactuando con humanos.");
+        System.out.println(getName() + " está interactuando.");
     }
 
+    // Metodo o comportamiento del animal domestico
     public void obedecer() {
-        System.out.println(getName() + " está obedeciendo un comando.");
+        System.out.println(getName() + " está obedeciendo.");
     }
 }
