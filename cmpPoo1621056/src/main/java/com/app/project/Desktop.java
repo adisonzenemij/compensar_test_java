@@ -68,6 +68,7 @@ public class Desktop {
     private static JLabel labelDevelop;
     private static JLabel labelWebMain;
 
+    // Constructor
     private Desktop() {}
 
     public static void openInternal(JDesktopPane paneDesktop) {
@@ -76,7 +77,7 @@ public class Desktop {
         if (dataFrame == null || !dataFrame.isVisible()) {
             // Crear un JInternalFrame para contener los botones
             dataFrame = new JInternalFrame(
-                "",
+                "", // Titulo
                 false, // No redimensionar
                 false, // No cerrar
                 false, // No maximizar
@@ -202,7 +203,6 @@ public class Desktop {
                         0
                     );
                     String[] columns = VGrease.tableColumn();
-                    //dfltBenefit = new DefaultTableModel(columns, 0);
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
                     dfltGrease = new NonEditableTableModel(
                         new Object[0][columns.length], columns
@@ -254,7 +254,6 @@ public class Desktop {
                         0
                     );
                     String[] columns = VHydrate.tableColumn();
-                    //dfltBenefit = new DefaultTableModel(columns, 0);
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
                     dfltHydrate = new NonEditableTableModel(
                         new Object[0][columns.length], columns
@@ -295,7 +294,6 @@ public class Desktop {
                  if (userDataModel == null) {
                     userDataModel = new MUserData(0, "root", "root");
                     String[] columns = VUserData.tableColumn();
-                    //dfltBenefit = new DefaultTableModel(columns, 0);
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
                     dfltUserData = new NonEditableTableModel(
                         new Object[0][columns.length], columns
@@ -347,7 +345,6 @@ public class Desktop {
                         0
                     );
                     String[] columns = VVegetal.tableColumn();
-                    //dfltBenefit = new DefaultTableModel(columns, 0);
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
                     dfltVegetal = new NonEditableTableModel(
                         new Object[0][columns.length], columns
@@ -384,15 +381,8 @@ public class Desktop {
     }
 
     public static JButton addButtons(String title) {
-        JButton dtButton = new JButton(title);
-        dtButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Ejecutar función
-            }
-        });
         // Devolver el botón creado
-        return dtButton;
+        return new JButton(title);
     }
 
     private static void disableComponent(
@@ -484,12 +474,6 @@ public class Desktop {
             System.out.println();
         }
     }
-
-    /*public static void printModelData(mEmployee dataMdl) {
-        // Suponiendo que el objeto `mEmployee` tiene métodos `get` para acceder a sus datos
-        System.out.println("Datos del objeto mEmployee:");
-        System.out.println("Registro: " + dataMdl.getId());
-    }*/
 
     // Modelo de tabla no editable
     public static class NonEditableTableModel extends DefaultTableModel {
