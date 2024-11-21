@@ -24,7 +24,6 @@ import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 
-import com.app.project.models.MAliment;
 import com.app.project.models.MGrease;
 import com.app.project.models.MHydrate;
 import com.app.project.models.MUserData;
@@ -89,10 +88,19 @@ public class Desktop {
             disableInternal(dataFrame);
 
             // Establecer el layout & centrar los componentes
-            dataFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
+            dataFrame.setLayout(
+                new FlowLayout(
+                    FlowLayout.CENTER
+                )
+            );
 
             // Cambiar el layout a BoxLayout en el eje Y
-            dataFrame.setLayout(new BoxLayout(dataFrame.getContentPane(), BoxLayout.Y_AXIS));
+            dataFrame.setLayout(
+                new BoxLayout(
+                    dataFrame.getContentPane(),
+                    BoxLayout.Y_AXIS
+                )
+            );
 
             titleWelcome();
             // Añadir espacio entre títulos
