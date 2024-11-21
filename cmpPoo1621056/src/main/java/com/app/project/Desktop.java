@@ -327,6 +327,7 @@ public class Desktop {
         btnVegetal.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                userAccess();
                 // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
                 JInternalFrame dataFrame = new JInternalFrame(
                     "Frutas y Verduras",
@@ -372,6 +373,50 @@ public class Desktop {
                 dataFrame.moveToFront();
             }
         });
+    }
+
+    public static void userAccess() {
+        // Validar la captura del valor ingresado
+        String dLogin = Access.validateLogin();
+        System.out.println("Usuario:" + " " + dLogin);
+    
+        if (dLogin.isEmpty()) {
+            System.out.println("Operación Cancelada");
+            return; // Salir si se cancela
+        }
+    
+        /*if (!dLogin.isEmpty()) {
+            System.out.println("Usuario Capturado");
+            if (Access.processLogin(dLogin)) {
+                System.out.println("Usuario Correcto");
+            } else {
+                System.out.println("Credenciales Inválidas");
+            }
+        }*/
+
+        // Validar la captura del valor ingresado
+        String dPass = Access.validatePass();
+        System.out.println("Contraseña:" + " " + dPass);
+    
+        if (dPass.isEmpty()) {
+            System.out.println("Operación Cancelada");
+            return; // Salir si se cancela
+        }
+
+        /*if (!dPass.isEmpty()) {
+            System.out.println("Contraseña Capturada");
+            if (Access.processPass(dPass)) {
+                System.out.println("Contraseña Correcta");
+            } else {
+                System.out.println("Credenciales Inválidas");
+            }
+        }*/
+    
+        if (Access.processData(dLogin, dPass)) {
+            System.out.println("Acceso Concedido");
+        } else {
+            System.out.println("Credenciales Inválidas");
+        }
     }
 
     public static void internalSize(

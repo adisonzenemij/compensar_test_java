@@ -33,4 +33,23 @@ null,
             JOptionPane.WARNING_MESSAGE // Tipo de mensaje
         );
     }
+    
+    public static void mssgField(String data) {
+        JOptionPane.showMessageDialog(
+null,
+            "Campo (" + data + ") Obligatorio.", // Mensaje de ayuda
+        "Application Software", // Título de la ventana
+            JOptionPane.WARNING_MESSAGE // Tipo de mensaje
+        );
+    }
+    
+    public static String cptrData(String field) {
+        String value = JOptionPane.showInputDialog(
+        null,
+        field,
+        "Application Software", // Título de la ventana
+            JOptionPane.QUESTION_MESSAGE // Tipo de mensaje
+        );
+        return value;
+    }
 }

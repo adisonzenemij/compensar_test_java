@@ -62,6 +62,9 @@ public class VUserData {
     private static int editingRowIndex = -1;
     private static int selectedRow;
 
+    // Constructor
+    private VUserData() {}
+
     public static JTabbedPane tabbedPane(DefaultTableModel modelData, MUserData userDataMdl) {
         dfltDataModel = modelData; mdlUserData = userDataMdl;
 
