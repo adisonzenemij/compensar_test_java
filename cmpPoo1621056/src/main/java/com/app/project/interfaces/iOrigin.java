@@ -5,19 +5,15 @@ import java.util.List;
 
 // Interfaz de origen
 public interface iOrigin {
-    // Metodo para conocer su elaboracion
-    //elaboration: enero hasta diciembre
-    
-    // Meotodo para conocer su proceso
-    //proccess: tradicional, industrial
-
     // Método para obtener una lista de elaboraciones
     List<String> getElaboration();
+
+    // Métodos para añadir elementos a la lista
+    void addElaboration(String elaboration);
 
     // Método para obtener una lista de procesos
     List<String> getProccess();
 
-    // Métodos para añadir elementos a cada lista
-    void addElaboration(String elaboration);
+    // Métodos para añadir elementos a la lista
     void addProccess(String proccess);
 }

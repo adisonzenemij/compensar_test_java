@@ -8,7 +8,7 @@ public interface iMake {
     // Método para obtener una lista de lugares
     List<String> getCountry();
 
-    // Métodos para añadir elementos a cada lista
+    // Métodos para añadir elementos a la lista
     void addCountry(String country);
 
     // Método para verificar si el producto es orgánico
