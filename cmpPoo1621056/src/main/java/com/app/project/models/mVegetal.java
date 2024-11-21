@@ -2,8 +2,9 @@
 package com.app.project.models;
 
 public class mVegetal extends mAliment {
-    private String vitamin;
     private String color;
+    private String size;
+    private String vitamin;
     
     // Constructor
     public mVegetal(
@@ -12,29 +13,43 @@ public class mVegetal extends mAliment {
         String detail,
         double price,
         
-        String vitamin,
-        String color
+        String color,
+        String size,
+        String vitamin
     ) {
         super(id, name, detail, price);
-        this.vitamin = vitamin;
         this.color = color;
-    }
-    
-    // Getter and Setter for vitamin
-    public String getVitamin() {
-        return vitamin;
-    }
-
-    public void setVitamin(String vitamin) {
+        this.size = size;
         this.vitamin = vitamin;
     }
 
-    // Getter and Setter for color
+    // Retornar valores de color
     public String getColor() {
         return color;
     }
 
+    // Mapear valores de color
     public void setColor(String color) {
         this.color = color;
+    }
+
+    // Retornar valores de tamaño
+    public String getSize() {
+        return size;
+    }
+
+    // Mapear valores de tamaño
+    public void setSize(String size) {
+        this.size = size;
+    }
+    
+    // Retornar valores de vitamina
+    public String getVitamin() {
+        return vitamin;
+    }
+
+    // Mapear valores de vitamina
+    public void setVitamin(String vitamin) {
+        this.vitamin = vitamin;
     }
 }

@@ -17,29 +17,32 @@ public class mUserData {
         this.password = password;
     }
     
-    // Getter and Setter for id
+    // Retornar valores de id
     public int getId() {
         return id;
     }
 
+    // Mapear valores de id
     public void setId(int id) {
         this.id = id;
     }
 
-    // Getter and Setter for login
+    // Retornar valores de acceso
     public String getLogin() {
         return login;
     }
 
+    // Mapear valores de acceso
     public void setLogin(String login) {
         this.login = login;
     }
 
-    // Getter and Setter for password
+    // Retornar valores de clave
     public String getPassword() {
         return password;
     }
 
+    // Mapear valores de clave
     public void setPassword(String password) {
         this.password = password;
     }

@@ -75,7 +75,7 @@ public class Desktop {
     private static JButton btnProdType;
     private static JButton btnWorking;
 
-    // Titulos para el interna frame principal
+    // Titulos para el internal frame principal
     private static JLabel labelTitle;
     private static JLabel labelDevelop;
     private static JLabel labelWebMain;

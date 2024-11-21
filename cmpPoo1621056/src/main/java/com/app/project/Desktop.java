@@ -41,17 +41,34 @@ public class Desktop {
     // Mantener una referencia al JTabbedPane
     private static JTabbedPane tabbedPane;
 
-    // Datos para el modelo de beneficios
+    // Datos para el modelo de grasas
+    private static mGrease greaseModel;
+    private static DefaultTableModel dfltGrease;
+
+    // Datos para el modelo de hidratos
+    private static mHydrate hydrateModel;
+    private static DefaultTableModel dfltHydrate;
+
+    // Datos para el modelo de usuarios
     private static mUserData userDataModel;
     private static DefaultTableModel dfltUserData;
 
-    // Botones para llamar internal frame
-    private static JButton btnUserData;
+    // Datos para el modelo de vegetales
+    private static mVegetal vegetalModel;
+    private static DefaultTableModel dfltVegetal;
 
-    // Titulos para el interna frame principal
+    // Botones para llamar internal frame
+    private static JButton btnGrease;
+    private static JButton btnHydrate;
+    private static JButton btnUserData;
+    private static JButton btnVegetal;
+
+    // Titulos para el internal frame principal
     private static JLabel labelTitle;
     private static JLabel labelDevelop;
     private static JLabel labelWebMain;
+
+    private Desktop() {}
 
     public static void openInternal(JDesktopPane paneDesktop) {
         desktopPane = paneDesktop;
@@ -98,31 +115,37 @@ public class Desktop {
             // Forzar repaint del desktopPane
             desktopPane.repaint();
 
+            actGrease();
+            actHydrate();
             actUserData();
+            actVegetal();
         }
     }
 
     public static void buttonAction() {
         // Crear y añadir botones al internal frame
         btnUserData = addButtons("Usuarios");
+        btnGrease = addButtons("Grasas");
+        btnHydrate = addButtons("Hidratos de Carbono");
+        btnVegetal = addButtons("Frutas y Verduras");
 
         // Centrar botones al internal frame
         btnUserData.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnGrease.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnHydrate.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnVegetal.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Añadir los botones
         dataFrame.add(btnUserData);
         // Espacio entre los botones
-        dataFrame.add(Box.createVerticalStrut(10));
-        /*dataFrame.add(btnEmployee);
+        dataFrame.add(Box.createVerticalStrut(20));
+        dataFrame.add(btnGrease);
         // Espacio entre los botones
         dataFrame.add(Box.createVerticalStrut(10));
-        dataFrame.add(btnProduct);
+        dataFrame.add(btnHydrate);
         // Espacio entre los botones
         dataFrame.add(Box.createVerticalStrut(10));
-        dataFrame.add(btnProdType);
-        // Espacio entre los botones
-        dataFrame.add(Box.createVerticalStrut(10));
-        dataFrame.add(btnWorking);*/
+        dataFrame.add(btnVegetal);
     }
 
     public static void titleWelcome() {
@@ -147,6 +170,88 @@ public class Desktop {
         labelWebMain.setFont(new Font("Arial", Font.BOLD, 12));
         labelWebMain.setAlignmentX(Component.CENTER_ALIGNMENT);
         dataFrame.add(labelWebMain);
+    }
+
+    public static void actGrease() {
+        btnGrease.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
+                JInternalFrame dataFrame = new JInternalFrame(
+                    "Grasas",
+                    true,
+                    true,
+                    true,
+                    true
+                );
+                dataFrame.setSize(500, 500);
+                dataFrame.setLayout(new BorderLayout());
+
+                // Verificar si el modelo ya existe, si no, inicializarlo
+                 if (greaseModel == null) {
+                    greaseModel = new mGrease(0, "", "", 0, "", "", "");
+                    String[] columns = vGrease.tableColumn();
+                    //dfltBenefit = new DefaultTableModel(columns, 0);
+                    // Usar NonEditableTableModel en lugar de DefaultTableModel
+                    dfltGrease = new NonEditableTableModel(
+                        new Object[0][columns.length], columns
+                    );
+                }
+
+                // Añadir el JTabbedPane con el modelo existente
+                tabbedPane = vGrease.tabbedPane(dfltGrease, greaseModel);
+                // Añadir el JTabbedPane al nuevo JInternalFrame
+                dataFrame.add(tabbedPane, BorderLayout.CENTER);
+                // Centrando el JInternalFrame en el JDesktopPane
+                centerFrame(dataFrame);
+                // Hacer visible el nuevo JInternalFrame
+                dataFrame.setVisible(true);
+                // Añadir el nuevo internal frame
+                desktopPane.add(dataFrame);
+                dataFrame.moveToFront();
+            }
+        });
+    }
+
+    public static void actHydrate() {
+        btnHydrate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
+                JInternalFrame dataFrame = new JInternalFrame(
+                    "Usuarios",
+                    true,
+                    true,
+                    true,
+                    true
+                );
+                dataFrame.setSize(500, 500);
+                dataFrame.setLayout(new BorderLayout());
+
+                // Verificar si el modelo ya existe, si no, inicializarlo
+                 if (hydrateModel == null) {
+                    hydrateModel = new mHydrate(0, "", "", 0, "", "", "");
+                    String[] columns = vHydrate.tableColumn();
+                    //dfltBenefit = new DefaultTableModel(columns, 0);
+                    // Usar NonEditableTableModel en lugar de DefaultTableModel
+                    dfltHydrate = new NonEditableTableModel(
+                        new Object[0][columns.length], columns
+                    );
+                }
+
+                // Añadir el JTabbedPane con el modelo existente
+                tabbedPane = vHydrate.tabbedPane(dfltHydrate, hydrateModel);
+                // Añadir el JTabbedPane al nuevo JInternalFrame
+                dataFrame.add(tabbedPane, BorderLayout.CENTER);
+                // Centrando el JInternalFrame en el JDesktopPane
+                centerFrame(dataFrame);
+                // Hacer visible el nuevo JInternalFrame
+                dataFrame.setVisible(true);
+                // Añadir el nuevo internal frame
+                desktopPane.add(dataFrame);
+                dataFrame.moveToFront();
+            }
+        });
     }
 
     public static void actUserData() {
@@ -177,6 +282,47 @@ public class Desktop {
 
                 // Añadir el JTabbedPane con el modelo existente
                 tabbedPane = vUserData.tabbedPane(dfltUserData, userDataModel);
+                // Añadir el JTabbedPane al nuevo JInternalFrame
+                dataFrame.add(tabbedPane, BorderLayout.CENTER);
+                // Centrando el JInternalFrame en el JDesktopPane
+                centerFrame(dataFrame);
+                // Hacer visible el nuevo JInternalFrame
+                dataFrame.setVisible(true);
+                // Añadir el nuevo internal frame
+                desktopPane.add(dataFrame);
+                dataFrame.moveToFront();
+            }
+        });
+    }
+
+    public static void actVegetal() {
+        btnVegetal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
+                JInternalFrame dataFrame = new JInternalFrame(
+                    "Usuarios",
+                    true,
+                    true,
+                    true,
+                    true
+                );
+                dataFrame.setSize(500, 500);
+                dataFrame.setLayout(new BorderLayout());
+
+                // Verificar si el modelo ya existe, si no, inicializarlo
+                 if (vegetalModel == null) {
+                    vegetalModel = new mVegetal(0, "", "", 0, "", "", "");
+                    String[] columns = vVegetal.tableColumn();
+                    //dfltBenefit = new DefaultTableModel(columns, 0);
+                    // Usar NonEditableTableModel en lugar de DefaultTableModel
+                    dfltVegetal = new NonEditableTableModel(
+                        new Object[0][columns.length], columns
+                    );
+                }
+
+                // Añadir el JTabbedPane con el modelo existente
+                tabbedPane = vVegetal.tabbedPane(dfltVegetal, vegetalModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane

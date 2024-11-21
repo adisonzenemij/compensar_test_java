@@ -14,20 +14,22 @@ public class mGroup {
         this.name = name;
     }
     
-    // Getter y Setter para id
+    // Retornar valores de id
     public int getId() {
         return id;
     }
 
+    // Mapear valores de id
     public void setId(int id) {
         this.id = id;
     }
 
-    // Getter y Setter para rebate
+    // Retornar valores de nombre
     public String getName() {
         return name;
     }
 
+    // Mapear valores de nombre
     public void setName(String name) {
         this.name = name;
     }
