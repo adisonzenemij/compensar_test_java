@@ -7,25 +7,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import com.app.project.models.MUserData;
+
 public class Software {
-
-    private static JFrame dataFrame;
-    private static JPanel contentPanel;
-
     public static void main(String[] args) {
-        System.out.println("App Software");
-        desktop();
+        access();
     }
     
-    public static void desktop() {
+    public static void access() {
+        // Inicializar el modelo de usuario
+        MUserData.initializeModel();
         // Crear el marco principal
-        dataFrame = new JFrame("Compensar: Aplicacion Software");
+        JFrame dataFrame = new JFrame("Compensar: Aplicacion Software");
         dataFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         dataFrame.setSize(1000, 800);
         // Deshabilitar el redimensionamiento
         dataFrame.setResizable(false);
         // Crear el JDesktopPane
-        JDesktopPane desktopPane = new JDesktopPane();        
+        JDesktopPane desktopPane = new JDesktopPane();
         // Añadir el JDesktopPane al marco
         dataFrame.add(desktopPane);
         // Hacer visible el marco
@@ -33,12 +32,12 @@ public class Software {
         // Centrar el marco en la pantalla
         dataFrame.setLocationRelativeTo(null);
         // Abrir internal frame
-        Desktop.openInternal(desktopPane);
+        Access.openInternal(desktopPane);
     }
     
     public static void addTabs(JTabbedPane tabbedPane) {
         // Crear algunos paneles para las pestañas
-        contentPanel = new JPanel();
+        JPanel contentPanel = new JPanel();
         contentPanel.add(new JLabel("Contenido"));
         // Añadir pestañas al tabbed pane
         tabbedPane.addTab("Pestaña", contentPanel);

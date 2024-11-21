@@ -28,6 +28,8 @@ import com.app.project.entities.EGrease;
 import com.app.project.entities.EHydrate;
 import com.app.project.entities.EUserData;
 import com.app.project.entities.EVegetal;
+import com.app.project.models.MUserData;
+
 import java.awt.Dimension;
 import javax.swing.table.DefaultTableModel;
 
@@ -61,6 +63,7 @@ public class Desktop {
     private static JButton btnHydrate;
     private static JButton btnUserData;
     private static JButton btnVegetal;
+    private static JButton btnLogout;
 
     // Titulos para el internal frame principal
     private static JLabel labelTitle;
@@ -83,9 +86,9 @@ public class Desktop {
                 false  // Minimizar
             );
 
-            internalSize(dataFrame);
-            disableComponent(dataFrame);
-            disableInternal(dataFrame);
+            Utility.internalSize(desktopPane, dataFrame);
+            Utility.disableComponent(desktopPane, dataFrame);
+            Utility.disableInternal(dataFrame);
 
             // Establecer el layout & centrar los componentes
             dataFrame.setLayout(
@@ -128,26 +131,29 @@ public class Desktop {
             actHydrate();
             actUserData();
             actVegetal();
+            actLogout();
         }
     }
 
     public static void buttonAction() {
         // Crear y añadir botones al internal frame
-        btnUserData = addButtons("Usuarios");
-        btnGrease = addButtons("Grasas");
-        btnHydrate = addButtons("Hidratos de Carbono");
-        btnVegetal = addButtons("Frutas y Verduras");
+        btnUserData = Utility.addButtons("Usuarios");
+        btnGrease = Utility.addButtons("Grasas");
+        btnHydrate = Utility.addButtons("Hidratos de Carbono");
+        btnVegetal = Utility.addButtons("Frutas y Verduras");
+        btnLogout = Utility.addButtons("Cerrar Sesión");
 
         // Centrar botones al internal frame
         btnUserData.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnGrease.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnHydrate.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnVegetal.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnLogout.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Añadir los botones
         dataFrame.add(btnUserData);
         // Espacio entre los botones
-        dataFrame.add(Box.createVerticalStrut(50));
+        dataFrame.add(Box.createVerticalStrut(20));
         dataFrame.add(btnGrease);
         // Espacio entre los botones
         dataFrame.add(Box.createVerticalStrut(10));
@@ -155,6 +161,9 @@ public class Desktop {
         // Espacio entre los botones
         dataFrame.add(Box.createVerticalStrut(10));
         dataFrame.add(btnVegetal);
+        // Espacio entre los botones
+        dataFrame.add(Box.createVerticalStrut(20));
+        dataFrame.add(btnLogout);
     }
 
     public static void titleWelcome() {
@@ -212,7 +221,7 @@ public class Desktop {
                     );
                     String[] columns = VGrease.tableColumn();
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
-                    dfltGrease = new NonEditableTableModel(
+                    dfltGrease = new Utility.NonEditableTableModel(
                         new Object[0][columns.length], columns
                     );
                 }
@@ -222,7 +231,7 @@ public class Desktop {
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane
-                centerFrame(dataFrame);
+                Utility.centerFrame(desktopPane, dataFrame);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -263,7 +272,7 @@ public class Desktop {
                     );
                     String[] columns = VHydrate.tableColumn();
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
-                    dfltHydrate = new NonEditableTableModel(
+                    dfltHydrate = new Utility.NonEditableTableModel(
                         new Object[0][columns.length], columns
                     );
                 }
@@ -273,7 +282,7 @@ public class Desktop {
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane
-                centerFrame(dataFrame);
+                Utility.centerFrame(desktopPane, dataFrame);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -298,22 +307,67 @@ public class Desktop {
                 dataFrame.setSize(500, 500);
                 dataFrame.setLayout(new BorderLayout());
 
-                // Verificar si el modelo ya existe, si no, inicializarlo
-                 if (userDataModel == null) {
-                    userDataModel = new EUserData(0, "root", "root");
-                    String[] columns = VUserData.tableColumn();
-                    // Usar NonEditableTableModel en lugar de DefaultTableModel
-                    dfltUserData = new NonEditableTableModel(
-                        new Object[0][columns.length], columns
-                    );
+
+
+
+
+
+
+                // Asegúrate de que el modelo de datos está inicializado correctamente
+                // Aquí estamos obteniendo el modelo de datos ya inicializado desde MUserData
+                dfltUserData = MUserData.getModel();
+
+                // Verificar si el modelo ha sido correctamente inicializado
+                if (dfltUserData == null) {
+                    System.out.println("Error: El modelo de usuarios no está inicializado.");
+                    return; // Salir de la función si el modelo no está inicializado
                 }
 
-                // Añadir el JTabbedPane con el modelo existente
+                //MUserData.initializeUserData();
+
+                userDataModel = MUserData.initalData();
+
+                // Verificar si la entidad userDataModel (mdlUserData) está correctamente inicializada
+                if (userDataModel == null) {
+                    System.out.println("Error: La entidad de datos de usuario no está inicializada.");
+                    return; // Salir de la función si la entidad no está inicializada
+                }
+
+                // Añadir el JTabbedPane con el modelo de datos a la interfaz
                 tabbedPane = VUserData.tabbedPane(dfltUserData, userDataModel);
+
+
+
+
+
+                // Obtener el modelo inicializado desde MUserData
+                //DefaultTableModel userModel = MUserData.getModel();
+                //dfltUserData = MUserData.getModel();
+
+                // Verificar si el modelo ya existe, si no, inicializarlo
+                /*if (userDataModel == null) {
+                    System.out.println("Modelo Usuarios Inicializado");
+                    //userDataModel = new EUserData(0, "root", "root");
+                    String[] columns = VUserData.tableColumn();
+                    // Usar NonEditableTableModel en lugar de DefaultTableModel
+                    dfltUserData = new Utility.NonEditableTableModel(
+                        new Object[0][columns.length], columns
+                    );
+                }*/
+                //dfltUserData = MUserData.getModel();
+
+                /*if (userDataModel == null) {
+                    userDataModel = new EUserData(0, "root", "root"); // Inicialización del objeto mdlUserData
+                }*/
+
+                // Añadir el JTabbedPane con el modelo
+                //tabbedPane = VUserData.tabbedPane(dfltUserData, null);
+                // Añadir el JTabbedPane con el modelo existente
+                //tabbedPane = VUserData.tabbedPane(dfltUserData, userDataModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane
-                centerFrame(dataFrame);
+                Utility.centerFrame(desktopPane, dataFrame);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -327,7 +381,6 @@ public class Desktop {
         btnVegetal.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                userAccess();
                 // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
                 JInternalFrame dataFrame = new JInternalFrame(
                     "Frutas y Verduras",
@@ -355,7 +408,7 @@ public class Desktop {
                     );
                     String[] columns = VVegetal.tableColumn();
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
-                    dfltVegetal = new NonEditableTableModel(
+                    dfltVegetal = new Utility.NonEditableTableModel(
                         new Object[0][columns.length], columns
                     );
                 }
@@ -365,7 +418,7 @@ public class Desktop {
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane
-                centerFrame(dataFrame);
+                Utility.centerFrame(desktopPane, dataFrame);
                 // Hacer visible el nuevo JInternalFrame
                 dataFrame.setVisible(true);
                 // Añadir el nuevo internal frame
@@ -375,51 +428,20 @@ public class Desktop {
         });
     }
 
-    public static void userAccess() {
-        // Validar la captura del valor ingresado
-        String dLogin = Access.validateLogin();
-        System.out.println("Usuario:" + " " + dLogin);
-    
-        if (dLogin.isEmpty()) {
-            System.out.println("Operación Cancelada");
-            return; // Salir si se cancela
-        }
-    
-        /*if (!dLogin.isEmpty()) {
-            System.out.println("Usuario Capturado");
-            if (Access.processLogin(dLogin)) {
-                System.out.println("Usuario Correcto");
-            } else {
-                System.out.println("Credenciales Inválidas");
+    public static void actLogout() {
+        btnLogout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Ocultar el JInternalFrame de acceso
+                if (dataFrame != null && dataFrame.isVisible()) {
+                    dataFrame.setVisible(false);
+                }
+                Access.openInternal(desktopPane);
             }
-        }*/
-
-        // Validar la captura del valor ingresado
-        String dPass = Access.validatePass();
-        System.out.println("Contraseña:" + " " + dPass);
-    
-        if (dPass.isEmpty()) {
-            System.out.println("Operación Cancelada");
-            return; // Salir si se cancela
-        }
-
-        /*if (!dPass.isEmpty()) {
-            System.out.println("Contraseña Capturada");
-            if (Access.processPass(dPass)) {
-                System.out.println("Contraseña Correcta");
-            } else {
-                System.out.println("Credenciales Inválidas");
-            }
-        }*/
-    
-        if (Access.processData(dLogin, dPass)) {
-            System.out.println("Acceso Concedido");
-        } else {
-            System.out.println("Credenciales Inválidas");
-        }
+        });
     }
 
-    public static void internalSize(
+    /*public static void internalSize(
         JInternalFrame intFrame
     ) {
         // Calcular el tamaño del internal frame como un porcentaje del JDesktopPane
@@ -538,5 +560,5 @@ public class Desktop {
         public boolean isCellEditable(int row, int column) {
             return false; // Hacer que las celdas no sean editables
         }
-    }
+    }*/
 }
