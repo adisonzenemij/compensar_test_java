@@ -1,8 +1,6 @@
 
 package com.app.project.models;
 
-import java.util.Date;
-
 import com.app.project.interfaces.IProperty;
 
 public class MGrease extends MAliment implements IProperty {

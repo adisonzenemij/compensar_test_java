@@ -1,8 +1,6 @@
 
 package com.app.project.models;
 
-import java.util.Date;
-
 import com.app.project.interfaces.IProperty;
 
 public class MVegetal extends MAliment implements IProperty {
@@ -13,7 +11,6 @@ public class MVegetal extends MAliment implements IProperty {
     private double temperature;
     private double humidity;
     private String condition;
-    private Date expiration;
     
     // Constructor
     public MVegetal(
