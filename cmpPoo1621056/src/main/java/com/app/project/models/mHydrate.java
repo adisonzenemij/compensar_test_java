@@ -11,7 +11,7 @@ public class mHydrate extends mAliment {
         int id,
         String name,
         String detail,
-        double price,
+        int price,
         
         String benefit,
         String calorie,

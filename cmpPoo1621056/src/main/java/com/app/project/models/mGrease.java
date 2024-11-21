@@ -11,7 +11,7 @@ public class mGrease extends mAliment {
         int id,
         String name,
         String detail,
-        double price,
+        int price,
         
         String density,
         String origin,
@@ -42,7 +42,7 @@ public class mGrease extends mAliment {
     public void setOrigin(String origin) {
         this.origin = origin;
     }
-
+    
     // Retornar valores de estado
     public String getState() {
         return state;

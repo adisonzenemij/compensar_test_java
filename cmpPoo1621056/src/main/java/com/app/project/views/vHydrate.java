@@ -15,17 +15,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.app.project.models.mUserData;
+import com.app.project.models.mHydrate;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ListSelectionModel;
 
-public class vUserData {
+public class vHydrate {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
-    private static mUserData mdlUserData;
+    private static mHydrate mdlHydrate;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -39,13 +39,21 @@ public class vUserData {
 
     // Etiquetas del formulario
     private static JLabel labelId;
-    private static JLabel labelLogin;
-    private static JLabel labelPassword;
+    private static JLabel labelName;
+    private static JLabel labelDetail;
+    private static JLabel labelPrice;
+    private static JLabel labelBenefit;
+    private static JLabel labelCalorie;
+    private static JLabel labelNutrient;
 
     // Campos del formulario
     private static JTextField fieldId;
-    private static JTextField fieldLogin;
-    private static JTextField fieldPassword;
+    private static JTextField fieldName;
+    private static JTextField fieldDetail;
+    private static JTextField fieldPrice;
+    private static JTextField fieldBenefit;
+    private static JTextField fieldCalorie;
+    private static JTextField fieldNutrient;
 
     // Botones de los paneles
     private static JButton createBtn;
@@ -62,8 +70,8 @@ public class vUserData {
     private static int editingRowIndex = -1;
     private static int selectedRow;
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mUserData userDataMdl) {
-        dfltDataModel = modelData; mdlUserData = userDataMdl;
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mHydrate hydrateMdl) {
+        dfltDataModel = modelData; mdlHydrate = hydrateMdl;
 
         // Crear un JTabbedPane
         if (tabbedPane == null) { tabbedPane = new JTabbedPane(); }
@@ -124,17 +132,37 @@ public class vUserData {
         fieldId = new JTextField();
         fieldId.setEditable(false); // Bloquear el campo
 
-        labelLogin = new JLabel("Acceso");
-        fieldLogin = new JTextField();
-        fieldLogin.setEditable(true); // Habilitar el campo
+        labelName = new JLabel("Nombre");
+        fieldName = new JTextField();
+        fieldName.setEditable(true); // Habilitar el campo
 
-        labelPassword = new JLabel("Clave");
-        fieldPassword = new JTextField();
-        fieldPassword.setEditable(true); // Habilitar el campo
+        labelDetail = new JLabel("Detalle");
+        fieldDetail = new JTextField();
+        fieldDetail.setEditable(true); // Habilitar el campo
+
+        labelPrice = new JLabel("Precio");
+        fieldPrice = new JTextField();
+        fieldPrice.setEditable(true); // Habilitar el campo
+
+        labelBenefit = new JLabel("Beneficio");
+        fieldBenefit = new JTextField();
+        fieldBenefit.setEditable(true); // Habilitar el campo
+
+        labelCalorie = new JLabel("Caloria");
+        fieldCalorie = new JTextField();
+        fieldCalorie.setEditable(true); // Habilitar el campo
+
+        labelNutrient = new JLabel("Nutriente");
+        fieldNutrient = new JTextField();
+        fieldNutrient.setEditable(true); // Habilitar el campo
 
         newField.add(labelId); newField.add(fieldId);
-        newField.add(labelLogin); newField.add(fieldLogin);
-        newField.add(labelPassword); newField.add(fieldPassword);
+        newField.add(labelName); newField.add(fieldName);
+        newField.add(labelDetail); newField.add(fieldDetail);
+        newField.add(labelPrice); newField.add(fieldPrice);
+        newField.add(labelBenefit); newField.add(fieldBenefit);
+        newField.add(labelCalorie); newField.add(fieldCalorie);
+        newField.add(labelNutrient); newField.add(fieldNutrient);
 
         // Crear un panel para añadir botones de acciones
         newAction = new JPanel(new GridLayout(1,1));
@@ -181,8 +209,12 @@ public class vUserData {
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
                     // Llenar los campos con los valores seleccionados
                     fieldId.setText((String) tblDataInfo.getValueAt(selectedRow, 0).toString());
-                    fieldLogin.setText((String) tblDataInfo.getValueAt(selectedRow, 1).toString());
-                    fieldPassword.setText((String) tblDataInfo.getValueAt(selectedRow, 2).toString());
+                    fieldName.setText((String) tblDataInfo.getValueAt(selectedRow, 1).toString());
+                    fieldDetail.setText((String) tblDataInfo.getValueAt(selectedRow, 2).toString());
+                    fieldPrice.setText((String) tblDataInfo.getValueAt(selectedRow, 3).toString());
+                    fieldBenefit.setText((String) tblDataInfo.getValueAt(selectedRow, 4).toString());
+                    fieldCalorie.setText((String) tblDataInfo.getValueAt(selectedRow, 5).toString());
+                    fieldNutrient.setText((String) tblDataInfo.getValueAt(selectedRow, 6).toString());
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo
@@ -213,19 +245,31 @@ public class vUserData {
             @Override
             public void actionPerformed(ActionEvent e) {
                 /// Usar el modelo para establecer los valores
-                mdlUserData.setLogin(fieldLogin.getText());
-                mdlUserData.setPassword(fieldPassword.getText());
+                mdlHydrate.setName(fieldName.getText());
+                mdlHydrate.setDetail(fieldDetail.getText());
+                mdlHydrate.setPrice(Integer.parseInt(fieldPrice.getText()));
+                mdlHydrate.setBenefit(fieldBenefit.getText());
+                mdlHydrate.setCalorie(fieldCalorie.getText());
+                mdlHydrate.setNutrient(fieldNutrient.getText());
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente
-                    dfltDataModel.setValueAt(mdlUserData.getLogin(), editingRowIndex, 1);
-                    dfltDataModel.setValueAt(mdlUserData.getPassword(), editingRowIndex, 2);
+                    dfltDataModel.setValueAt(mdlHydrate.getName(), editingRowIndex, 1);
+                    dfltDataModel.setValueAt(mdlHydrate.getDetail(), editingRowIndex, 2);
+                    dfltDataModel.setValueAt(mdlHydrate.getPrice(), editingRowIndex, 3);
+                    dfltDataModel.setValueAt(mdlHydrate.getBenefit(), editingRowIndex, 4);
+                    dfltDataModel.setValueAt(mdlHydrate.getCalorie(), editingRowIndex, 5);
+                    dfltDataModel.setValueAt(mdlHydrate.getNutrient(), editingRowIndex, 6);
                 } else {
                     // Crear nuevo registro
                     dfltDataModel.addRow(new Object[] {
                         nextId++, // ID autoincrementable
-                        mdlUserData.getLogin(),
-                        mdlUserData.getPassword(),
+                        mdlHydrate.getName(),
+                        mdlHydrate.getDetail(),
+                        mdlHydrate.getPrice(),
+                        mdlHydrate.getBenefit(),
+                        mdlHydrate.getCalorie(),
+                        mdlHydrate.getNutrient(),
                     });
                 }
 
@@ -281,49 +325,69 @@ public class vUserData {
     public static String[] tableColumn() {
         return new String[] {
             "Registro",
-            "Acceso",
-            "Clave",
+            "Nombre",
+            "Detalle",
+            "Precio",
+            "Beneficio",
+            "Caloria",
+            "Nutriente",
         };
     }
 
     // Limpiar los campos del formulario
     private static void clearFields() {
-        fieldLogin.setText("");
-        fieldPassword.setText("");
+        fieldName.setText("");
+        fieldDetail.setText("");
+        fieldPrice.setText("");
+        fieldBenefit.setText("");
+        fieldCalorie.setText("");
+        fieldNutrient.setText("");
     }
 
-    /*public static List<mUserData> getList() {
-        List<mUserData> userDataList = new ArrayList<>();
+    /*public static List<mHydrate> getList() {
+        List<mHydrate> hydrateList = new ArrayList<>();
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
-            mUserData userData = new mUserData();
-            userData.setId((int) dfltDataModel.getValueAt(row, 0));
-            userData.setLogin((String) dfltDataModel.getValueAt(row, 1));
-            userData.setPassword((String) dfltDataModel.getValueAt(row, 2));
-            userDataList.add(userData);
+            mHydrate hydrate = new mHydrate();
+            hydrate.setId((int) dfltDataModel.getValueAt(row, 0));
+            hydrate.setLogin((String) dfltDataModel.getValueAt(row, 1));
+            hydrate.setPassword((String) dfltDataModel.getValueAt(row, 2));
+            hydrateList.add(hydrate);
         }
     
-        return userDataList;
+        return hydrateList;
     }*/
 
-    public static List<mUserData> getList() {
-        List<mUserData> userDataList = new ArrayList<>();
+    public static List<mHydrate> getList() {
+        List<mHydrate> hydrateList = new ArrayList<>();
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
             // Obtener valores directamente del modelo
             int id = (int) dfltDataModel.getValueAt(row, 0);
-            String login = (String) dfltDataModel.getValueAt(row, 1);
-            String password = (String) dfltDataModel.getValueAt(row, 2);
+            String name = (String) dfltDataModel.getValueAt(row, 1);
+            String detail = (String) dfltDataModel.getValueAt(row, 2);
+            int price = (int) dfltDataModel.getValueAt(row, 3);
+            String benefit = (String) dfltDataModel.getValueAt(row, 4);
+            String calorie = (String) dfltDataModel.getValueAt(row, 5);
+            String nutrient = (String) dfltDataModel.getValueAt(row, 6);
     
             // Crear una instancia del modelo usando el constructor
-            mUserData userData = new mUserData(id, login, password);
+            mHydrate hydrate = new mHydrate(
+                id,
+                name,
+                detail,
+                price,
+                benefit,
+                calorie,
+                nutrient
+            );
     
             // Agregar el objeto a la lista
-            userDataList.add(userData);
+            hydrateList.add(hydrate);
         }
     
-        return userDataList;
+        return hydrateList;
     }
 }

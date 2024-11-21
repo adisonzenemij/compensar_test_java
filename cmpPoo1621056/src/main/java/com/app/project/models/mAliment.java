@@ -5,14 +5,14 @@ public class mAliment {
     private int id;
     private String name;
     private String detail;
-    private double price;
+    private int price;
     
     // Constructor
     public mAliment(
         int id,
         String name,
         String detail,
-        double price
+        int price
     ) {
         this.id = id;
         this.name = name;
@@ -48,11 +48,11 @@ public class mAliment {
     }
 
     // Getter and Setter for price
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 }

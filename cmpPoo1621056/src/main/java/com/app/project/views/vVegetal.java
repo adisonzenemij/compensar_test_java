@@ -15,17 +15,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.app.project.models.mUserData;
+import com.app.project.models.mVegetal;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ListSelectionModel;
 
-public class vUserData {
+public class vVegetal {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
-    private static mUserData mdlUserData;
+    private static mVegetal mdlVegetal;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -39,13 +39,21 @@ public class vUserData {
 
     // Etiquetas del formulario
     private static JLabel labelId;
-    private static JLabel labelLogin;
-    private static JLabel labelPassword;
+    private static JLabel labelName;
+    private static JLabel labelDetail;
+    private static JLabel labelPrice;
+    private static JLabel labelColor;
+    private static JLabel labelSize;
+    private static JLabel labelVitamin;
 
     // Campos del formulario
     private static JTextField fieldId;
-    private static JTextField fieldLogin;
-    private static JTextField fieldPassword;
+    private static JTextField fieldName;
+    private static JTextField fieldDetail;
+    private static JTextField fieldPrice;
+    private static JTextField fieldColor;
+    private static JTextField fieldSize;
+    private static JTextField fieldVitamin;
 
     // Botones de los paneles
     private static JButton createBtn;
@@ -62,8 +70,8 @@ public class vUserData {
     private static int editingRowIndex = -1;
     private static int selectedRow;
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mUserData userDataMdl) {
-        dfltDataModel = modelData; mdlUserData = userDataMdl;
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mVegetal vegetalMdl) {
+        dfltDataModel = modelData; mdlVegetal = vegetalMdl;
 
         // Crear un JTabbedPane
         if (tabbedPane == null) { tabbedPane = new JTabbedPane(); }
@@ -124,17 +132,37 @@ public class vUserData {
         fieldId = new JTextField();
         fieldId.setEditable(false); // Bloquear el campo
 
-        labelLogin = new JLabel("Acceso");
-        fieldLogin = new JTextField();
-        fieldLogin.setEditable(true); // Habilitar el campo
+        labelName = new JLabel("Nombre");
+        fieldName = new JTextField();
+        fieldName.setEditable(true); // Habilitar el campo
 
-        labelPassword = new JLabel("Clave");
-        fieldPassword = new JTextField();
-        fieldPassword.setEditable(true); // Habilitar el campo
+        labelDetail = new JLabel("Detalle");
+        fieldDetail = new JTextField();
+        fieldDetail.setEditable(true); // Habilitar el campo
+
+        labelPrice = new JLabel("Precio");
+        fieldPrice = new JTextField();
+        fieldPrice.setEditable(true); // Habilitar el campo
+
+        labelColor = new JLabel("Color");
+        fieldColor = new JTextField();
+        fieldColor.setEditable(true); // Habilitar el campo
+
+        labelSize = new JLabel("Tamaño");
+        fieldSize = new JTextField();
+        fieldSize.setEditable(true); // Habilitar el campo
+
+        labelVitamin = new JLabel("Vitamina");
+        fieldVitamin = new JTextField();
+        fieldVitamin.setEditable(true); // Habilitar el campo
 
         newField.add(labelId); newField.add(fieldId);
-        newField.add(labelLogin); newField.add(fieldLogin);
-        newField.add(labelPassword); newField.add(fieldPassword);
+        newField.add(labelName); newField.add(fieldName);
+        newField.add(labelDetail); newField.add(fieldDetail);
+        newField.add(labelPrice); newField.add(fieldPrice);
+        newField.add(labelColor); newField.add(fieldColor);
+        newField.add(labelSize); newField.add(fieldSize);
+        newField.add(labelVitamin); newField.add(fieldVitamin);
 
         // Crear un panel para añadir botones de acciones
         newAction = new JPanel(new GridLayout(1,1));
@@ -181,8 +209,12 @@ public class vUserData {
                     editingRowIndex = selectedRow; // Guardar la fila que se está editando
                     // Llenar los campos con los valores seleccionados
                     fieldId.setText((String) tblDataInfo.getValueAt(selectedRow, 0).toString());
-                    fieldLogin.setText((String) tblDataInfo.getValueAt(selectedRow, 1).toString());
-                    fieldPassword.setText((String) tblDataInfo.getValueAt(selectedRow, 2).toString());
+                    fieldName.setText((String) tblDataInfo.getValueAt(selectedRow, 1).toString());
+                    fieldDetail.setText((String) tblDataInfo.getValueAt(selectedRow, 2).toString());
+                    fieldPrice.setText((String) tblDataInfo.getValueAt(selectedRow, 3).toString());
+                    fieldColor.setText((String) tblDataInfo.getValueAt(selectedRow, 4).toString());
+                    fieldSize.setText((String) tblDataInfo.getValueAt(selectedRow, 5).toString());
+                    fieldVitamin.setText((String) tblDataInfo.getValueAt(selectedRow, 6).toString());
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo
@@ -213,19 +245,31 @@ public class vUserData {
             @Override
             public void actionPerformed(ActionEvent e) {
                 /// Usar el modelo para establecer los valores
-                mdlUserData.setLogin(fieldLogin.getText());
-                mdlUserData.setPassword(fieldPassword.getText());
+                mdlVegetal.setName(fieldName.getText());
+                mdlVegetal.setDetail(fieldDetail.getText());
+                mdlVegetal.setPrice(Integer.parseInt(fieldPrice.getText()));
+                mdlVegetal.setColor(fieldColor.getText());
+                mdlVegetal.setSize(fieldSize.getText());
+                mdlVegetal.setVitamin(fieldVitamin.getText());
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente
-                    dfltDataModel.setValueAt(mdlUserData.getLogin(), editingRowIndex, 1);
-                    dfltDataModel.setValueAt(mdlUserData.getPassword(), editingRowIndex, 2);
+                    dfltDataModel.setValueAt(mdlVegetal.getName(), editingRowIndex, 1);
+                    dfltDataModel.setValueAt(mdlVegetal.getDetail(), editingRowIndex, 2);
+                    dfltDataModel.setValueAt(mdlVegetal.getPrice(), editingRowIndex, 3);
+                    dfltDataModel.setValueAt(mdlVegetal.getColor(), editingRowIndex, 4);
+                    dfltDataModel.setValueAt(mdlVegetal.getSize(), editingRowIndex, 5);
+                    dfltDataModel.setValueAt(mdlVegetal.getVitamin(), editingRowIndex, 6);
                 } else {
                     // Crear nuevo registro
                     dfltDataModel.addRow(new Object[] {
                         nextId++, // ID autoincrementable
-                        mdlUserData.getLogin(),
-                        mdlUserData.getPassword(),
+                        mdlVegetal.getName(),
+                        mdlVegetal.getDetail(),
+                        mdlVegetal.getPrice(),
+                        mdlVegetal.getColor(),
+                        mdlVegetal.getSize(),
+                        mdlVegetal.getVitamin(),
                     });
                 }
 
@@ -281,49 +325,69 @@ public class vUserData {
     public static String[] tableColumn() {
         return new String[] {
             "Registro",
-            "Acceso",
-            "Clave",
+            "Nombre",
+            "Detalle",
+            "Precio",
+            "Color",
+            "Tamaño",
+            "Vitamina",
         };
     }
 
     // Limpiar los campos del formulario
     private static void clearFields() {
-        fieldLogin.setText("");
-        fieldPassword.setText("");
+        fieldName.setText("");
+        fieldDetail.setText("");
+        fieldPrice.setText("");
+        fieldColor.setText("");
+        fieldSize.setText("");
+        fieldVitamin.setText("");
     }
 
-    /*public static List<mUserData> getList() {
-        List<mUserData> userDataList = new ArrayList<>();
+    /*public static List<mVegetal> getList() {
+        List<mVegetal> vegetalList = new ArrayList<>();
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
-            mUserData userData = new mUserData();
-            userData.setId((int) dfltDataModel.getValueAt(row, 0));
-            userData.setLogin((String) dfltDataModel.getValueAt(row, 1));
-            userData.setPassword((String) dfltDataModel.getValueAt(row, 2));
-            userDataList.add(userData);
+            mVegetal vegetal = new mVegetal();
+            vegetal.setId((int) dfltDataModel.getValueAt(row, 0));
+            vegetal.setLogin((String) dfltDataModel.getValueAt(row, 1));
+            vegetal.setPassword((String) dfltDataModel.getValueAt(row, 2));
+            vegetalList.add(vegetal);
         }
     
-        return userDataList;
+        return vegetalList;
     }*/
 
-    public static List<mUserData> getList() {
-        List<mUserData> userDataList = new ArrayList<>();
+    public static List<mVegetal> getList() {
+        List<mVegetal> vegetalList = new ArrayList<>();
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
             // Obtener valores directamente del modelo
             int id = (int) dfltDataModel.getValueAt(row, 0);
-            String login = (String) dfltDataModel.getValueAt(row, 1);
-            String password = (String) dfltDataModel.getValueAt(row, 2);
+            String name = (String) dfltDataModel.getValueAt(row, 1);
+            String detail = (String) dfltDataModel.getValueAt(row, 2);
+            int price = (int) dfltDataModel.getValueAt(row, 3);
+            String color = (String) dfltDataModel.getValueAt(row, 4);
+            String size = (String) dfltDataModel.getValueAt(row, 5);
+            String viamin = (String) dfltDataModel.getValueAt(row, 6);
     
             // Crear una instancia del modelo usando el constructor
-            mUserData userData = new mUserData(id, login, password);
+            mVegetal vegetal = new mVegetal(
+                id,
+                name,
+                detail,
+                price,
+                color,
+                size,
+                viamin
+            );
     
             // Agregar el objeto a la lista
-            userDataList.add(userData);
+            vegetalList.add(vegetal);
         }
     
-        return userDataList;
+        return vegetalList;
     }
 }

@@ -11,7 +11,7 @@ public class mVegetal extends mAliment {
         int id,
         String name,
         String detail,
-        double price,
+        int price,
         
         String color,
         String size,
