@@ -84,7 +84,7 @@ public class vVegetal {
         tblDataInfo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblDataInfo.setCellSelectionEnabled(false);
         tblDataInfo.setRowSelectionAllowed(true);
-        System.out.println("Usuarios: Registros:" + " " + dfltDataModel.getRowCount());
+        System.out.println("Frutas y Verduras: Registros:" + " " + dfltDataModel.getRowCount());
         listPanel.add(new JScrollPane(tblDataInfo), BorderLayout.CENTER);
 
         // Formulario de acciones
