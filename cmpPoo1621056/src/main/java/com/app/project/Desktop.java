@@ -24,11 +24,11 @@ import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 
-import com.app.project.models.mAliment;
-import com.app.project.models.mGrease;
-import com.app.project.models.mHydrate;
-import com.app.project.models.mUserData;
-import com.app.project.models.mVegetal;
+import com.app.project.models.MAliment;
+import com.app.project.models.MGrease;
+import com.app.project.models.MHydrate;
+import com.app.project.models.MUserData;
+import com.app.project.models.MVegetal;
 import java.awt.Dimension;
 import javax.swing.table.DefaultTableModel;
 
@@ -42,19 +42,19 @@ public class Desktop {
     private static JTabbedPane tabbedPane;
 
     // Datos para el modelo de grasas
-    private static mGrease greaseModel;
+    private static MGrease greaseModel;
     private static DefaultTableModel dfltGrease;
 
     // Datos para el modelo de hidratos
-    private static mHydrate hydrateModel;
+    private static MHydrate hydrateModel;
     private static DefaultTableModel dfltHydrate;
 
     // Datos para el modelo de usuarios
-    private static mUserData userDataModel;
+    private static MUserData userDataModel;
     private static DefaultTableModel dfltUserData;
 
     // Datos para el modelo de vegetales
-    private static mVegetal vegetalModel;
+    private static MVegetal vegetalModel;
     private static DefaultTableModel dfltVegetal;
 
     // Botones para llamar internal frame
@@ -189,8 +189,8 @@ public class Desktop {
 
                 // Verificar si el modelo ya existe, si no, inicializarlo
                  if (greaseModel == null) {
-                    greaseModel = new mGrease(0, "", "", 0, "", "", "");
-                    String[] columns = vGrease.tableColumn();
+                    greaseModel = new MGrease(0, "", "", 0, "", "", "");
+                    String[] columns = VGrease.tableColumn();
                     //dfltBenefit = new DefaultTableModel(columns, 0);
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
                     dfltGrease = new NonEditableTableModel(
@@ -199,7 +199,7 @@ public class Desktop {
                 }
 
                 // Añadir el JTabbedPane con el modelo existente
-                tabbedPane = vGrease.tabbedPane(dfltGrease, greaseModel);
+                tabbedPane = VGrease.tabbedPane(dfltGrease, greaseModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane
@@ -230,8 +230,8 @@ public class Desktop {
 
                 // Verificar si el modelo ya existe, si no, inicializarlo
                  if (hydrateModel == null) {
-                    hydrateModel = new mHydrate(0, "", "", 0, "", "", "");
-                    String[] columns = vHydrate.tableColumn();
+                    hydrateModel = new MHydrate(0, "", "", 0, "", "", "");
+                    String[] columns = VHydrate.tableColumn();
                     //dfltBenefit = new DefaultTableModel(columns, 0);
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
                     dfltHydrate = new NonEditableTableModel(
@@ -240,7 +240,7 @@ public class Desktop {
                 }
 
                 // Añadir el JTabbedPane con el modelo existente
-                tabbedPane = vHydrate.tabbedPane(dfltHydrate, hydrateModel);
+                tabbedPane = VHydrate.tabbedPane(dfltHydrate, hydrateModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane
@@ -271,8 +271,8 @@ public class Desktop {
 
                 // Verificar si el modelo ya existe, si no, inicializarlo
                  if (userDataModel == null) {
-                    userDataModel = new mUserData(0, "root", "root");
-                    String[] columns = vUserData.tableColumn();
+                    userDataModel = new MUserData(0, "root", "root");
+                    String[] columns = VUserData.tableColumn();
                     //dfltBenefit = new DefaultTableModel(columns, 0);
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
                     dfltUserData = new NonEditableTableModel(
@@ -281,7 +281,7 @@ public class Desktop {
                 }
 
                 // Añadir el JTabbedPane con el modelo existente
-                tabbedPane = vUserData.tabbedPane(dfltUserData, userDataModel);
+                tabbedPane = VUserData.tabbedPane(dfltUserData, userDataModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane
@@ -312,8 +312,8 @@ public class Desktop {
 
                 // Verificar si el modelo ya existe, si no, inicializarlo
                  if (vegetalModel == null) {
-                    vegetalModel = new mVegetal(0, "", "", 0, "", "", "");
-                    String[] columns = vVegetal.tableColumn();
+                    vegetalModel = new MVegetal(0, "", "", 0, "", "", "");
+                    String[] columns = VVegetal.tableColumn();
                     //dfltBenefit = new DefaultTableModel(columns, 0);
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
                     dfltVegetal = new NonEditableTableModel(
@@ -322,7 +322,7 @@ public class Desktop {
                 }
 
                 // Añadir el JTabbedPane con el modelo existente
-                tabbedPane = vVegetal.tabbedPane(dfltVegetal, vegetalModel);
+                tabbedPane = VVegetal.tabbedPane(dfltVegetal, vegetalModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane

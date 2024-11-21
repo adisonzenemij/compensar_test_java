@@ -2,7 +2,7 @@
 package com.app.project.interfaces;
 
 // Interfaz de almacenar
-public interface iStore {
+public interface IStore {
     // Método para obtener la temperatura
     double getTemperature();
 

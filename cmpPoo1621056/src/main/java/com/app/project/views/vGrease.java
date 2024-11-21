@@ -15,17 +15,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.app.project.models.mGrease;
+import com.app.project.models.MGrease;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ListSelectionModel;
 
-public class vGrease {
+public class VGrease {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
-    private static mGrease mdlGrease;
+    private static MGrease mdlGrease;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -70,7 +70,7 @@ public class vGrease {
     private static int editingRowIndex = -1;
     private static int selectedRow;
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mGrease greaseMdl) {
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, MGrease greaseMdl) {
         dfltDataModel = modelData; mdlGrease = greaseMdl;
 
         // Crear un JTabbedPane
@@ -349,7 +349,7 @@ public class vGrease {
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
-            mGrease grease = new mGrease();
+            MGrease grease = new MGrease();
             grease.setId((int) dfltDataModel.getValueAt(row, 0));
             grease.setLogin((String) dfltDataModel.getValueAt(row, 1));
             grease.setPassword((String) dfltDataModel.getValueAt(row, 2));
@@ -359,8 +359,8 @@ public class vGrease {
         return greaseList;
     }*/
 
-    public static List<mGrease> getList() {
-        List<mGrease> greaseList = new ArrayList<>();
+    public static List<MGrease> getList() {
+        List<MGrease> greaseList = new ArrayList<>();
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
@@ -374,7 +374,7 @@ public class vGrease {
             String state = (String) dfltDataModel.getValueAt(row, 6);
     
             // Crear una instancia del modelo usando el constructor
-            mGrease grease = new mGrease(
+            MGrease grease = new MGrease(
                 id,
                 name,
                 detail,

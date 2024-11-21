@@ -1,13 +1,13 @@
 
 package com.app.project.models;
 
-public class mVegetal extends mAliment {
+public class MVegetal extends MAliment {
     private String color;
     private String size;
     private String vitamin;
     
     // Constructor
-    public mVegetal(
+    public MVegetal(
         int id,
         String name,
         String detail,

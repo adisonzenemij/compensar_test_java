@@ -1,14 +1,14 @@
 
 package com.app.project.models;
 
-public class mAliment {
+public class MAliment {
     private int id;
     private String name;
     private String detail;
     private int price;
     
     // Constructor
-    public mAliment(
+    public MAliment(
         int id,
         String name,
         String detail,

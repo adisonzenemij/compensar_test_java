@@ -4,7 +4,7 @@ package com.app.project.interfaces;
 import java.util.List;
 
 // Interfaz de origen
-public interface iOrigin {
+public interface IOrigin {
     // Método para obtener una lista de elaboraciones
     List<String> getElaboration();
 

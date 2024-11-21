@@ -1,13 +1,13 @@
 
 package com.app.project.models;
 
-public class mGrease extends mAliment {
+public class MGrease extends MAliment {
     private String density;
     private String origin;
     private String state;
     
     // Constructor
-    public mGrease(
+    public MGrease(
         int id,
         String name,
         String detail,

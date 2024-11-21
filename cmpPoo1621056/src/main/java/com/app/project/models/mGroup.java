@@ -1,12 +1,12 @@
 
 package com.app.project.models;
 
-public class mGroup {
+public class MGroup {
     private int id;
     private String name;
     
     // Constructor
-    public mGroup(
+    public MGroup(
             int id,
             String name
     ) {

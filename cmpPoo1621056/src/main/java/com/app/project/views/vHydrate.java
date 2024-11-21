@@ -15,17 +15,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.app.project.models.mHydrate;
+import com.app.project.models.MHydrate;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ListSelectionModel;
 
-public class vHydrate {
+public class VHydrate {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
-    private static mHydrate mdlHydrate;
+    private static MHydrate mdlHydrate;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -70,7 +70,7 @@ public class vHydrate {
     private static int editingRowIndex = -1;
     private static int selectedRow;
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mHydrate hydrateMdl) {
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, MHydrate hydrateMdl) {
         dfltDataModel = modelData; mdlHydrate = hydrateMdl;
 
         // Crear un JTabbedPane
@@ -349,7 +349,7 @@ public class vHydrate {
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
-            mHydrate hydrate = new mHydrate();
+            MHydrate hydrate = new MHydrate();
             hydrate.setId((int) dfltDataModel.getValueAt(row, 0));
             hydrate.setLogin((String) dfltDataModel.getValueAt(row, 1));
             hydrate.setPassword((String) dfltDataModel.getValueAt(row, 2));
@@ -359,8 +359,8 @@ public class vHydrate {
         return hydrateList;
     }*/
 
-    public static List<mHydrate> getList() {
-        List<mHydrate> hydrateList = new ArrayList<>();
+    public static List<MHydrate> getList() {
+        List<MHydrate> hydrateList = new ArrayList<>();
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
@@ -374,7 +374,7 @@ public class vHydrate {
             String nutrient = (String) dfltDataModel.getValueAt(row, 6);
     
             // Crear una instancia del modelo usando el constructor
-            mHydrate hydrate = new mHydrate(
+            MHydrate hydrate = new MHydrate(
                 id,
                 name,
                 detail,

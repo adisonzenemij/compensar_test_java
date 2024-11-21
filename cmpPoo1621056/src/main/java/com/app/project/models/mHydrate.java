@@ -1,13 +1,13 @@
 
 package com.app.project.models;
 
-public class mHydrate extends mAliment {
+public class MHydrate extends MAliment {
     private String benefit;
     private String calorie;
     private String nutrient;
     
     // Constructor
-    public mHydrate(
+    public MHydrate(
         int id,
         String name,
         String detail,

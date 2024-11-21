@@ -15,17 +15,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.app.project.models.mUserData;
+import com.app.project.models.MUserData;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ListSelectionModel;
 
-public class vUserData {
+public class VUserData {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
-    private static mUserData mdlUserData;
+    private static MUserData mdlUserData;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -62,7 +62,7 @@ public class vUserData {
     private static int editingRowIndex = -1;
     private static int selectedRow;
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mUserData userDataMdl) {
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, MUserData userDataMdl) {
         dfltDataModel = modelData; mdlUserData = userDataMdl;
 
         // Crear un JTabbedPane
@@ -297,7 +297,7 @@ public class vUserData {
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
-            mUserData userData = new mUserData();
+            MUserData userData = new MUserData();
             userData.setId((int) dfltDataModel.getValueAt(row, 0));
             userData.setLogin((String) dfltDataModel.getValueAt(row, 1));
             userData.setPassword((String) dfltDataModel.getValueAt(row, 2));
@@ -307,8 +307,8 @@ public class vUserData {
         return userDataList;
     }*/
 
-    public static List<mUserData> getList() {
-        List<mUserData> userDataList = new ArrayList<>();
+    public static List<MUserData> getList() {
+        List<MUserData> userDataList = new ArrayList<>();
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
@@ -318,7 +318,7 @@ public class vUserData {
             String password = (String) dfltDataModel.getValueAt(row, 2);
     
             // Crear una instancia del modelo usando el constructor
-            mUserData userData = new mUserData(id, login, password);
+            MUserData userData = new MUserData(id, login, password);
     
             // Agregar el objeto a la lista
             userDataList.add(userData);

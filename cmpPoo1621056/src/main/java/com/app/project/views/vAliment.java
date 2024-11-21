@@ -1,6 +1,6 @@
 
 package com.app.project.views;
 
-public class vAliment {
+public class VAliment {
     
 }

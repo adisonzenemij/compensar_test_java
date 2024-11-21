@@ -4,7 +4,7 @@ package com.app.project.interfaces;
 import java.util.List;
 
 // Interfaz de comerciar
-public interface iTrade {
+public interface ITrade {
     // Método para obtener una lista de presentaciones
     List<String> getPresentation();
 

@@ -1,13 +1,13 @@
 
 package com.app.project.models;
 
-public class mUserData {
+public class MUserData {
     private int id;
     private String login;
     private String password;
     
     // Constructor
-    public mUserData(
+    public MUserData(
         int id,
         String login,
         String password

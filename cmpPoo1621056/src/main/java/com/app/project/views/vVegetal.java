@@ -15,17 +15,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.app.project.models.mVegetal;
+import com.app.project.models.MVegetal;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ListSelectionModel;
 
-public class vVegetal {
+public class VVegetal {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
-    private static mVegetal mdlVegetal;
+    private static MVegetal mdlVegetal;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -70,7 +70,7 @@ public class vVegetal {
     private static int editingRowIndex = -1;
     private static int selectedRow;
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, mVegetal vegetalMdl) {
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, MVegetal vegetalMdl) {
         dfltDataModel = modelData; mdlVegetal = vegetalMdl;
 
         // Crear un JTabbedPane
@@ -349,7 +349,7 @@ public class vVegetal {
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
-            mVegetal vegetal = new mVegetal();
+            MVegetal vegetal = new MVegetal();
             vegetal.setId((int) dfltDataModel.getValueAt(row, 0));
             vegetal.setLogin((String) dfltDataModel.getValueAt(row, 1));
             vegetal.setPassword((String) dfltDataModel.getValueAt(row, 2));
@@ -359,8 +359,8 @@ public class vVegetal {
         return vegetalList;
     }*/
 
-    public static List<mVegetal> getList() {
-        List<mVegetal> vegetalList = new ArrayList<>();
+    public static List<MVegetal> getList() {
+        List<MVegetal> vegetalList = new ArrayList<>();
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
@@ -374,7 +374,7 @@ public class vVegetal {
             String viamin = (String) dfltDataModel.getValueAt(row, 6);
     
             // Crear una instancia del modelo usando el constructor
-            mVegetal vegetal = new mVegetal(
+            MVegetal vegetal = new MVegetal(
                 id,
                 name,
                 detail,

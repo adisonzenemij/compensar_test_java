@@ -4,7 +4,7 @@ package com.app.project.interfaces;
 import java.util.List;
 
 // Interfaz de fabricar
-public interface iMake {
+public interface IMake {
     // Método para obtener una lista de lugares
     List<String> getCountry();
 
