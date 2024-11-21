@@ -15,7 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.app.project.models.MGrease;
+import com.app.project.entities.EGrease;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -30,7 +30,7 @@ import com.app.project.defaults.DGrease;
 public class VGrease {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
-    private static MGrease mdlGrease;
+    private static EGrease mdlGrease;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -84,7 +84,7 @@ public class VGrease {
     // Constructor
     private VGrease() {}
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, MGrease greaseMdl) {
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, EGrease greaseMdl) {
         dfltDataModel = modelData; mdlGrease = greaseMdl;
 
         // Crear un JTabbedPane
@@ -394,8 +394,8 @@ public class VGrease {
         fieldHumidity.setText("");
     }
 
-    public static List<MGrease> getList() {
-        List<MGrease> greaseList = new ArrayList<>();
+    public static List<EGrease> getList() {
+        List<EGrease> greaseList = new ArrayList<>();
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
@@ -412,7 +412,7 @@ public class VGrease {
             double humidity = (double) dfltDataModel.getValueAt(row, 9);
     
             // Crear una instancia del modelo usando el constructor
-            MGrease grease = new MGrease(
+            EGrease grease = new EGrease(
                 id,
                 name,
                 detail,

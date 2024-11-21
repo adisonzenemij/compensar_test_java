@@ -15,7 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.app.project.models.MVegetal;
+import com.app.project.entities.EVegetal;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -30,7 +30,7 @@ import com.app.project.defaults.DVegetal;
 public class VVegetal {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
-    private static MVegetal mdlVegetal;
+    private static EVegetal mdlVegetal;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -84,7 +84,7 @@ public class VVegetal {
     // Constructor
     private VVegetal() {}
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, MVegetal vegetalMdl) {
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, EVegetal vegetalMdl) {
         dfltDataModel = modelData; mdlVegetal = vegetalMdl;
 
         // Crear un JTabbedPane
@@ -394,8 +394,8 @@ public class VVegetal {
         fieldHumidity.setText("");
     }
 
-    public static List<MVegetal> getList() {
-        List<MVegetal> vegetalList = new ArrayList<>();
+    public static List<EVegetal> getList() {
+        List<EVegetal> vegetalList = new ArrayList<>();
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
@@ -412,7 +412,7 @@ public class VVegetal {
             double humidity = (double) dfltDataModel.getValueAt(row, 9);
     
             // Crear una instancia del modelo usando el constructor
-            MVegetal vegetal = new MVegetal(
+            EVegetal vegetal = new EVegetal(
                 id,
                 name,
                 detail,

@@ -3,7 +3,7 @@ package com.app.project;
 
 import java.util.List;
 
-import com.app.project.models.MUserData;
+import com.app.project.entities.EUserData;
 import com.app.project.views.VUserData;
 
 public class Access {
@@ -38,7 +38,7 @@ public class Access {
 
     public static Boolean processLogin(String value) {
         // Obtener la lista de usuarios
-        List<MUserData> userList = VUserData.getList();
+        List<EUserData> userList = VUserData.getList();
 
         // Verificar credenciales de acceso
         return userList.stream().anyMatch(
@@ -71,7 +71,7 @@ public class Access {
 
     public static Boolean processPass(String value) {
         // Obtener la lista de usuarios
-        List<MUserData> userList = VUserData.getList();
+        List<EUserData> userList = VUserData.getList();
 
         // Verificar credenciales de acceso
         return userList.stream().anyMatch(
@@ -81,7 +81,7 @@ public class Access {
 
     public static Boolean processData(String sLogin, String sPass) {
         // Obtener la lista de usuarios
-        List<MUserData> userList = VUserData.getList();
+        List<EUserData> userList = VUserData.getList();
 
         // Verificar credenciales de acceso
         return userList.stream().anyMatch(

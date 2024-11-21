@@ -24,10 +24,10 @@ import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 
-import com.app.project.models.MGrease;
-import com.app.project.models.MHydrate;
-import com.app.project.models.MUserData;
-import com.app.project.models.MVegetal;
+import com.app.project.entities.EGrease;
+import com.app.project.entities.EHydrate;
+import com.app.project.entities.EUserData;
+import com.app.project.entities.EVegetal;
 import java.awt.Dimension;
 import javax.swing.table.DefaultTableModel;
 
@@ -41,19 +41,19 @@ public class Desktop {
     private static JTabbedPane tabbedPane;
 
     // Datos para el modelo de grasas
-    private static MGrease greaseModel;
+    private static EGrease greaseModel;
     private static DefaultTableModel dfltGrease;
 
     // Datos para el modelo de hidratos
-    private static MHydrate hydrateModel;
+    private static EHydrate hydrateModel;
     private static DefaultTableModel dfltHydrate;
 
     // Datos para el modelo de usuarios
-    private static MUserData userDataModel;
+    private static EUserData userDataModel;
     private static DefaultTableModel dfltUserData;
 
     // Datos para el modelo de vegetales
-    private static MVegetal vegetalModel;
+    private static EVegetal vegetalModel;
     private static DefaultTableModel dfltVegetal;
 
     // Botones para llamar internal frame
@@ -198,7 +198,7 @@ public class Desktop {
 
                 // Verificar si el modelo ya existe, si no, inicializarlo
                  if (greaseModel == null) {
-                    greaseModel = new MGrease(
+                    greaseModel = new EGrease(
                         0,
                         "",
                         "",
@@ -249,7 +249,7 @@ public class Desktop {
 
                 // Verificar si el modelo ya existe, si no, inicializarlo
                  if (hydrateModel == null) {
-                    hydrateModel = new MHydrate(
+                    hydrateModel = new EHydrate(
                         0,
                         "",
                         "",
@@ -300,7 +300,7 @@ public class Desktop {
 
                 // Verificar si el modelo ya existe, si no, inicializarlo
                  if (userDataModel == null) {
-                    userDataModel = new MUserData(0, "root", "root");
+                    userDataModel = new EUserData(0, "root", "root");
                     String[] columns = VUserData.tableColumn();
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
                     dfltUserData = new NonEditableTableModel(
@@ -341,7 +341,7 @@ public class Desktop {
 
                 // Verificar si el modelo ya existe, si no, inicializarlo
                  if (vegetalModel == null) {
-                    vegetalModel = new MVegetal(
+                    vegetalModel = new EVegetal(
                         0,
                         "",
                         "",

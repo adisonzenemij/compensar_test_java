@@ -15,7 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.app.project.models.MHydrate;
+import com.app.project.entities.EHydrate;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -30,7 +30,7 @@ import com.app.project.defaults.DHydrate;
 public class VHydrate {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
-    private static MHydrate mdlHydrate;
+    private static EHydrate mdlHydrate;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -84,7 +84,7 @@ public class VHydrate {
     // Constructor
     private VHydrate() {}
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, MHydrate hydrateMdl) {
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, EHydrate hydrateMdl) {
         dfltDataModel = modelData; mdlHydrate = hydrateMdl;
 
         // Crear un JTabbedPane
@@ -395,8 +395,8 @@ public class VHydrate {
         fieldHumidity.setText("");
     }
 
-    public static List<MHydrate> getList() {
-        List<MHydrate> hydrateList = new ArrayList<>();
+    public static List<EHydrate> getList() {
+        List<EHydrate> hydrateList = new ArrayList<>();
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
@@ -413,7 +413,7 @@ public class VHydrate {
             double humidity = (double) dfltDataModel.getValueAt(row, 9);
     
             // Crear una instancia del modelo usando el constructor
-            MHydrate hydrate = new MHydrate(
+            EHydrate hydrate = new EHydrate(
                 id,
                 name,
                 detail,

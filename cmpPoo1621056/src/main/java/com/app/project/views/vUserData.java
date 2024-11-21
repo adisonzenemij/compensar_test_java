@@ -15,7 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.app.project.models.MUserData;
+import com.app.project.entities.EUserData;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import javax.swing.ListSelectionModel;
 public class VUserData {
     private static JTable tblDataInfo;
     private static DefaultTableModel dfltDataModel;
-    private static MUserData mdlUserData;
+    private static EUserData mdlUserData;
 
     // JTabbedPane del internal frame
     private static JTabbedPane tabbedPane;
@@ -65,7 +65,7 @@ public class VUserData {
     // Constructor
     private VUserData() {}
 
-    public static JTabbedPane tabbedPane(DefaultTableModel modelData, MUserData userDataMdl) {
+    public static JTabbedPane tabbedPane(DefaultTableModel modelData, EUserData userDataMdl) {
         dfltDataModel = modelData; mdlUserData = userDataMdl;
 
         // Crear un JTabbedPane
@@ -295,8 +295,8 @@ public class VUserData {
         fieldPassword.setText("");
     }
 
-    public static List<MUserData> getList() {
-        List<MUserData> userDataList = new ArrayList<>();
+    public static List<EUserData> getList() {
+        List<EUserData> userDataList = new ArrayList<>();
     
         // Recorrer las filas del DefaultTableModel
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
@@ -306,7 +306,7 @@ public class VUserData {
             String password = (String) dfltDataModel.getValueAt(row, 2);
     
             // Crear una instancia del modelo usando el constructor
-            MUserData userData = new MUserData(id, login, password);
+            EUserData userData = new EUserData(id, login, password);
     
             // Agregar el objeto a la lista
             userDataList.add(userData);
