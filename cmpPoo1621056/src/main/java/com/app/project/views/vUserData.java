@@ -124,11 +124,11 @@ public class vUserData {
         fieldId = new JTextField();
         fieldId.setEditable(false); // Bloquear el campo
 
-        labelLogin = new JLabel("Descuento");
+        labelLogin = new JLabel("Acceso");
         fieldLogin = new JTextField();
         fieldLogin.setEditable(true); // Habilitar el campo
 
-        labelPassword = new JLabel("Minimo");
+        labelPassword = new JLabel("Clave");
         fieldPassword = new JTextField();
         fieldPassword.setEditable(true); // Habilitar el campo
 
@@ -292,7 +292,7 @@ public class vUserData {
         fieldPassword.setText("");
     }
 
-    public static List<mUserData> getList() {
+    /*public static List<mUserData> getList() {
         List<mUserData> userDataList = new ArrayList<>();
     
         // Recorrer las filas del DefaultTableModel
@@ -301,6 +301,26 @@ public class vUserData {
             userData.setId((int) dfltDataModel.getValueAt(row, 0));
             userData.setLogin((String) dfltDataModel.getValueAt(row, 1));
             userData.setPassword((String) dfltDataModel.getValueAt(row, 2));
+            userDataList.add(userData);
+        }
+    
+        return userDataList;
+    }*/
+
+    public static List<mUserData> getList() {
+        List<mUserData> userDataList = new ArrayList<>();
+    
+        // Recorrer las filas del DefaultTableModel
+        for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
+            // Obtener valores directamente del modelo
+            int id = (int) dfltDataModel.getValueAt(row, 0);
+            String login = (String) dfltDataModel.getValueAt(row, 1);
+            String password = (String) dfltDataModel.getValueAt(row, 2);
+    
+            // Crear una instancia de mUserData usando el constructor
+            mUserData userData = new mUserData(id, login, password);
+    
+            // Agregar el objeto a la lista
             userDataList.add(userData);
         }
     

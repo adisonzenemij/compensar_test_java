@@ -166,7 +166,7 @@ public class Desktop {
 
                 // Verificar si el modelo ya existe, si no, inicializarlo
                  if (userDataModel == null) {
-                    userDataModel = new mUserData();
+                    userDataModel = new mUserData(0, "root", "root");
                     String[] columns = vUserData.tableColumn();
                     //dfltBenefit = new DefaultTableModel(columns, 0);
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
@@ -495,7 +495,7 @@ public class Desktop {
         // Suponiendo que el objeto `mEmployee` tiene métodos `get` para acceder a sus datos
         System.out.println("Datos del objeto mEmployee:");
         System.out.println("Registro: " + dataMdl.getId());
-    }
+    }*/
 
     // Modelo de tabla no editable
     public static class NonEditableTableModel extends DefaultTableModel {
@@ -507,5 +507,5 @@ public class Desktop {
         public boolean isCellEditable(int row, int column) {
             return false; // Hacer que las celdas no sean editables
         }
-    }*/
+    }
 }
