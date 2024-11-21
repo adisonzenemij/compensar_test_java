@@ -1,10 +1,18 @@
 
 package com.app.project.models;
 
-public class MGrease extends MAliment {
+import java.util.Date;
+
+import com.app.project.interfaces.IProperty;
+
+public class MGrease extends MAliment implements IProperty {
     private String density;
     private String origin;
     private String state;
+
+    private double temperature;
+    private double humidity;
+    private String condition;
     
     // Constructor
     public MGrease(
@@ -15,12 +23,21 @@ public class MGrease extends MAliment {
         
         String density,
         String origin,
-        String state
+        String state,
+
+        String condition,
+        double temperature,
+        double humidity
     ) {
         super(id, name, detail, price);
+
         this.density = density;
         this.origin = origin;
         this.state = state;
+
+        this.condition = condition;
+        this.temperature = temperature;
+        this.humidity = humidity;
     }
     
     // Retornar valores de densidad
@@ -51,5 +68,35 @@ public class MGrease extends MAliment {
     // Mapear valores de estado
     public void setState(String state) {
         this.state = state;
+    }
+
+    @Override
+    public String getCondition() {
+        return condition;
+    }
+
+    @Override
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    @Override
+    public double getTemperature() {
+        return temperature;
+    }
+
+    @Override
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
+
+    @Override
+    public double getHumidity() {
+        return humidity;
+    }
+
+    @Override
+    public void setHumidity(double humidity) {
+        this.humidity = humidity;
     }
 }

@@ -292,21 +292,6 @@ public class VUserData {
         fieldPassword.setText("");
     }
 
-    /*public static List<mUserData> getList() {
-        List<mUserData> userDataList = new ArrayList<>();
-    
-        // Recorrer las filas del DefaultTableModel
-        for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
-            MUserData userData = new MUserData();
-            userData.setId((int) dfltDataModel.getValueAt(row, 0));
-            userData.setLogin((String) dfltDataModel.getValueAt(row, 1));
-            userData.setPassword((String) dfltDataModel.getValueAt(row, 2));
-            userDataList.add(userData);
-        }
-    
-        return userDataList;
-    }*/
-
     public static List<MUserData> getList() {
         List<MUserData> userDataList = new ArrayList<>();
     

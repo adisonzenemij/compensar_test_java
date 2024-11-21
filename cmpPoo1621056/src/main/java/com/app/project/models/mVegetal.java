@@ -1,10 +1,19 @@
 
 package com.app.project.models;
 
-public class MVegetal extends MAliment {
+import java.util.Date;
+
+import com.app.project.interfaces.IProperty;
+
+public class MVegetal extends MAliment implements IProperty {
     private String color;
     private String size;
     private String vitamin;
+
+    private double temperature;
+    private double humidity;
+    private String condition;
+    private Date expiration;
     
     // Constructor
     public MVegetal(
@@ -15,12 +24,21 @@ public class MVegetal extends MAliment {
         
         String color,
         String size,
-        String vitamin
+        String vitamin,
+
+        String condition,
+        double temperature,
+        double humidity
     ) {
         super(id, name, detail, price);
+
         this.color = color;
         this.size = size;
         this.vitamin = vitamin;
+
+        this.condition = condition;
+        this.temperature = temperature;
+        this.humidity = humidity;
     }
 
     // Retornar valores de color
@@ -51,5 +69,35 @@ public class MVegetal extends MAliment {
     // Mapear valores de vitamina
     public void setVitamin(String vitamin) {
         this.vitamin = vitamin;
+    }
+
+    @Override
+    public String getCondition() {
+        return condition;
+    }
+
+    @Override
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    @Override
+    public double getTemperature() {
+        return temperature;
+    }
+
+    @Override
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
+
+    @Override
+    public double getHumidity() {
+        return humidity;
+    }
+
+    @Override
+    public void setHumidity(double humidity) {
+        this.humidity = humidity;
     }
 }

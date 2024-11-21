@@ -45,6 +45,9 @@ public class VVegetal {
     private static JLabel labelColor;
     private static JLabel labelSize;
     private static JLabel labelVitamin;
+    private static JLabel labelCondition;
+    private static JLabel labelTemperature;
+    private static JLabel labelHumidity;
 
     // Campos del formulario
     private static JTextField fieldId;
@@ -54,6 +57,9 @@ public class VVegetal {
     private static JTextField fieldColor;
     private static JTextField fieldSize;
     private static JTextField fieldVitamin;
+    private static JTextField fieldCondition;
+    private static JTextField fieldTemperature;
+    private static JTextField fieldHumidity;
 
     // Botones de los paneles
     private static JButton createBtn;
@@ -156,6 +162,18 @@ public class VVegetal {
         fieldVitamin = new JTextField();
         fieldVitamin.setEditable(true); // Habilitar el campo
 
+        labelCondition = new JLabel("Condicion");
+        fieldCondition = new JTextField();
+        fieldCondition.setEditable(true); // Habilitar el campo
+
+        labelTemperature = new JLabel("Temperatura");
+        fieldTemperature = new JTextField();
+        fieldTemperature.setEditable(true); // Habilitar el campo
+
+        labelHumidity = new JLabel("Humedad");
+        fieldHumidity = new JTextField();
+        fieldHumidity.setEditable(true); // Habilitar el campo
+
         newField.add(labelId); newField.add(fieldId);
         newField.add(labelName); newField.add(fieldName);
         newField.add(labelDetail); newField.add(fieldDetail);
@@ -163,6 +181,9 @@ public class VVegetal {
         newField.add(labelColor); newField.add(fieldColor);
         newField.add(labelSize); newField.add(fieldSize);
         newField.add(labelVitamin); newField.add(fieldVitamin);
+        newField.add(labelCondition); newField.add(fieldCondition);
+        newField.add(labelTemperature); newField.add(fieldTemperature);
+        newField.add(labelHumidity); newField.add(fieldHumidity);
 
         // Crear un panel para añadir botones de acciones
         newAction = new JPanel(new GridLayout(1,1));
@@ -215,6 +236,9 @@ public class VVegetal {
                     fieldColor.setText((String) tblDataInfo.getValueAt(selectedRow, 4).toString());
                     fieldSize.setText((String) tblDataInfo.getValueAt(selectedRow, 5).toString());
                     fieldVitamin.setText((String) tblDataInfo.getValueAt(selectedRow, 6).toString());
+                    fieldCondition.setText((String) tblDataInfo.getValueAt(selectedRow, 7).toString());
+                    fieldTemperature.setText((String) tblDataInfo.getValueAt(selectedRow, 8).toString());
+                    fieldHumidity.setText((String) tblDataInfo.getValueAt(selectedRow, 9).toString());
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo
@@ -251,6 +275,9 @@ public class VVegetal {
                 mdlVegetal.setColor(fieldColor.getText());
                 mdlVegetal.setSize(fieldSize.getText());
                 mdlVegetal.setVitamin(fieldVitamin.getText());
+                mdlVegetal.setCondition(fieldCondition.getText());
+                mdlVegetal.setTemperature(Double.parseDouble(fieldTemperature.getText()));
+                mdlVegetal.setHumidity(Double.parseDouble(fieldHumidity.getText()));
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente
@@ -260,6 +287,9 @@ public class VVegetal {
                     dfltDataModel.setValueAt(mdlVegetal.getColor(), editingRowIndex, 4);
                     dfltDataModel.setValueAt(mdlVegetal.getSize(), editingRowIndex, 5);
                     dfltDataModel.setValueAt(mdlVegetal.getVitamin(), editingRowIndex, 6);
+                    dfltDataModel.setValueAt(mdlVegetal.getCondition(), editingRowIndex, 7);
+                    dfltDataModel.setValueAt(mdlVegetal.getTemperature(), editingRowIndex, 8);
+                    dfltDataModel.setValueAt(mdlVegetal.getHumidity(), editingRowIndex, 9);
                 } else {
                     // Crear nuevo registro
                     dfltDataModel.addRow(new Object[] {
@@ -270,6 +300,9 @@ public class VVegetal {
                         mdlVegetal.getColor(),
                         mdlVegetal.getSize(),
                         mdlVegetal.getVitamin(),
+                        mdlVegetal.getCondition(),
+                        mdlVegetal.getTemperature(),
+                        mdlVegetal.getHumidity(),
                     });
                 }
 
@@ -331,6 +364,9 @@ public class VVegetal {
             "Color",
             "Tamaño",
             "Vitamina",
+            "Condicion",
+            "Temperatura",
+            "Humedad",
         };
     }
 
@@ -342,22 +378,10 @@ public class VVegetal {
         fieldColor.setText("");
         fieldSize.setText("");
         fieldVitamin.setText("");
+        fieldCondition.setText("");
+        fieldTemperature.setText("");
+        fieldHumidity.setText("");
     }
-
-    /*public static List<mVegetal> getList() {
-        List<mVegetal> vegetalList = new ArrayList<>();
-    
-        // Recorrer las filas del DefaultTableModel
-        for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
-            MVegetal vegetal = new MVegetal();
-            vegetal.setId((int) dfltDataModel.getValueAt(row, 0));
-            vegetal.setLogin((String) dfltDataModel.getValueAt(row, 1));
-            vegetal.setPassword((String) dfltDataModel.getValueAt(row, 2));
-            vegetalList.add(vegetal);
-        }
-    
-        return vegetalList;
-    }*/
 
     public static List<MVegetal> getList() {
         List<MVegetal> vegetalList = new ArrayList<>();
@@ -372,6 +396,9 @@ public class VVegetal {
             String color = (String) dfltDataModel.getValueAt(row, 4);
             String size = (String) dfltDataModel.getValueAt(row, 5);
             String viamin = (String) dfltDataModel.getValueAt(row, 6);
+            String condition = (String) dfltDataModel.getValueAt(row, 7);
+            double temperature = (double) dfltDataModel.getValueAt(row, 8);
+            double humidity = (double) dfltDataModel.getValueAt(row, 9);
     
             // Crear una instancia del modelo usando el constructor
             MVegetal vegetal = new MVegetal(
@@ -381,7 +408,10 @@ public class VVegetal {
                 price,
                 color,
                 size,
-                viamin
+                viamin,
+                condition,
+                temperature,
+                humidity
             );
     
             // Agregar el objeto a la lista

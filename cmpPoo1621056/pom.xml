@@ -11,4 +11,13 @@
         <maven.compiler.target>22</maven.compiler.target>
         <exec.mainClass>com.app.project.Software</exec.mainClass>
     </properties>
+    <dependencies>
+        <!-- Dependencia para JCalendar -->
+        <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
 </project>

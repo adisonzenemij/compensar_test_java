@@ -1,10 +1,19 @@
 
 package com.app.project.models;
 
-public class MHydrate extends MAliment {
+import java.util.Date;
+
+import com.app.project.interfaces.IProperty;
+
+public class MHydrate extends MAliment implements IProperty {
     private String benefit;
     private String calorie;
     private String nutrient;
+
+    private double temperature;
+    private double humidity;
+    private String condition;
+    private Date expiration;
     
     // Constructor
     public MHydrate(
@@ -15,12 +24,21 @@ public class MHydrate extends MAliment {
         
         String benefit,
         String calorie,
-        String nutrient
+        String nutrient,
+
+        String condition,
+        double temperature,
+        double humidity
     ) {
         super(id, name, detail, price);
+
         this.benefit = benefit;
         this.calorie = calorie;
         this.nutrient = nutrient;
+
+        this.condition = condition;
+        this.temperature = temperature;
+        this.humidity = humidity;
     }
 
     // Retornar valores de beneficio
@@ -51,5 +69,35 @@ public class MHydrate extends MAliment {
     // Mapear valores de nutriente
     public void setNutrient(String nutrient) {
         this.nutrient = nutrient;
+    }
+
+    @Override
+    public String getCondition() {
+        return condition;
+    }
+
+    @Override
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    @Override
+    public double getTemperature() {
+        return temperature;
+    }
+
+    @Override
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
+
+    @Override
+    public double getHumidity() {
+        return humidity;
+    }
+
+    @Override
+    public void setHumidity(double humidity) {
+        this.humidity = humidity;
     }
 }

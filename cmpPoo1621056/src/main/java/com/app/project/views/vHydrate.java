@@ -45,6 +45,9 @@ public class VHydrate {
     private static JLabel labelBenefit;
     private static JLabel labelCalorie;
     private static JLabel labelNutrient;
+    private static JLabel labelCondition;
+    private static JLabel labelTemperature;
+    private static JLabel labelHumidity;
 
     // Campos del formulario
     private static JTextField fieldId;
@@ -54,6 +57,9 @@ public class VHydrate {
     private static JTextField fieldBenefit;
     private static JTextField fieldCalorie;
     private static JTextField fieldNutrient;
+    private static JTextField fieldCondition;
+    private static JTextField fieldTemperature;
+    private static JTextField fieldHumidity;
 
     // Botones de los paneles
     private static JButton createBtn;
@@ -156,6 +162,18 @@ public class VHydrate {
         fieldNutrient = new JTextField();
         fieldNutrient.setEditable(true); // Habilitar el campo
 
+        labelCondition = new JLabel("Condicion");
+        fieldCondition = new JTextField();
+        fieldCondition.setEditable(true); // Habilitar el campo
+
+        labelTemperature = new JLabel("Temperatura");
+        fieldTemperature = new JTextField();
+        fieldTemperature.setEditable(true); // Habilitar el campo
+
+        labelHumidity = new JLabel("Humedad");
+        fieldHumidity = new JTextField();
+        fieldHumidity.setEditable(true); // Habilitar el campo
+
         newField.add(labelId); newField.add(fieldId);
         newField.add(labelName); newField.add(fieldName);
         newField.add(labelDetail); newField.add(fieldDetail);
@@ -163,6 +181,9 @@ public class VHydrate {
         newField.add(labelBenefit); newField.add(fieldBenefit);
         newField.add(labelCalorie); newField.add(fieldCalorie);
         newField.add(labelNutrient); newField.add(fieldNutrient);
+        newField.add(labelCondition); newField.add(fieldCondition);
+        newField.add(labelTemperature); newField.add(fieldTemperature);
+        newField.add(labelHumidity); newField.add(fieldHumidity);
 
         // Crear un panel para añadir botones de acciones
         newAction = new JPanel(new GridLayout(1,1));
@@ -215,6 +236,10 @@ public class VHydrate {
                     fieldBenefit.setText((String) tblDataInfo.getValueAt(selectedRow, 4).toString());
                     fieldCalorie.setText((String) tblDataInfo.getValueAt(selectedRow, 5).toString());
                     fieldNutrient.setText((String) tblDataInfo.getValueAt(selectedRow, 6).toString());
+                    fieldTemperature.setText((String) tblDataInfo.getValueAt(selectedRow, 7).toString());
+                    fieldCondition.setText((String) tblDataInfo.getValueAt(selectedRow, 7).toString());
+                    fieldTemperature.setText((String) tblDataInfo.getValueAt(selectedRow, 8).toString());
+                    fieldHumidity.setText((String) tblDataInfo.getValueAt(selectedRow, 9).toString());
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo
@@ -251,6 +276,9 @@ public class VHydrate {
                 mdlHydrate.setBenefit(fieldBenefit.getText());
                 mdlHydrate.setCalorie(fieldCalorie.getText());
                 mdlHydrate.setNutrient(fieldNutrient.getText());
+                mdlHydrate.setCondition(fieldCondition.getText());
+                mdlHydrate.setTemperature(Double.parseDouble(fieldTemperature.getText()));
+                mdlHydrate.setHumidity(Double.parseDouble(fieldHumidity.getText()));
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente
@@ -260,6 +288,9 @@ public class VHydrate {
                     dfltDataModel.setValueAt(mdlHydrate.getBenefit(), editingRowIndex, 4);
                     dfltDataModel.setValueAt(mdlHydrate.getCalorie(), editingRowIndex, 5);
                     dfltDataModel.setValueAt(mdlHydrate.getNutrient(), editingRowIndex, 6);
+                    dfltDataModel.setValueAt(mdlHydrate.getCondition(), editingRowIndex, 7);
+                    dfltDataModel.setValueAt(mdlHydrate.getTemperature(), editingRowIndex, 8);
+                    dfltDataModel.setValueAt(mdlHydrate.getHumidity(), editingRowIndex, 9);
                 } else {
                     // Crear nuevo registro
                     dfltDataModel.addRow(new Object[] {
@@ -270,6 +301,9 @@ public class VHydrate {
                         mdlHydrate.getBenefit(),
                         mdlHydrate.getCalorie(),
                         mdlHydrate.getNutrient(),
+                        mdlHydrate.getCondition(),
+                        mdlHydrate.getTemperature(),
+                        mdlHydrate.getHumidity(),
                     });
                 }
 
@@ -331,6 +365,9 @@ public class VHydrate {
             "Beneficio",
             "Caloria",
             "Nutriente",
+            "Condicion",
+            "Temperatura",
+            "Humedad",
         };
     }
 
@@ -342,22 +379,10 @@ public class VHydrate {
         fieldBenefit.setText("");
         fieldCalorie.setText("");
         fieldNutrient.setText("");
+        fieldCondition.setText("");
+        fieldTemperature.setText("");
+        fieldHumidity.setText("");
     }
-
-    /*public static List<mHydrate> getList() {
-        List<mHydrate> hydrateList = new ArrayList<>();
-    
-        // Recorrer las filas del DefaultTableModel
-        for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
-            MHydrate hydrate = new MHydrate();
-            hydrate.setId((int) dfltDataModel.getValueAt(row, 0));
-            hydrate.setLogin((String) dfltDataModel.getValueAt(row, 1));
-            hydrate.setPassword((String) dfltDataModel.getValueAt(row, 2));
-            hydrateList.add(hydrate);
-        }
-    
-        return hydrateList;
-    }*/
 
     public static List<MHydrate> getList() {
         List<MHydrate> hydrateList = new ArrayList<>();
@@ -372,6 +397,9 @@ public class VHydrate {
             String benefit = (String) dfltDataModel.getValueAt(row, 4);
             String calorie = (String) dfltDataModel.getValueAt(row, 5);
             String nutrient = (String) dfltDataModel.getValueAt(row, 6);
+            String condition = (String) dfltDataModel.getValueAt(row, 7);
+            double temperature = (double) dfltDataModel.getValueAt(row, 8);
+            double humidity = (double) dfltDataModel.getValueAt(row, 9);
     
             // Crear una instancia del modelo usando el constructor
             MHydrate hydrate = new MHydrate(
@@ -381,7 +409,10 @@ public class VHydrate {
                 price,
                 benefit,
                 calorie,
-                nutrient
+                nutrient,
+                condition,
+                temperature,
+                humidity
             );
     
             // Agregar el objeto a la lista

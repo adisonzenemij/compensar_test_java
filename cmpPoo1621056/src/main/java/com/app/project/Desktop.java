@@ -138,7 +138,7 @@ public class Desktop {
         // Añadir los botones
         dataFrame.add(btnUserData);
         // Espacio entre los botones
-        dataFrame.add(Box.createVerticalStrut(20));
+        dataFrame.add(Box.createVerticalStrut(50));
         dataFrame.add(btnGrease);
         // Espacio entre los botones
         dataFrame.add(Box.createVerticalStrut(10));
@@ -189,7 +189,18 @@ public class Desktop {
 
                 // Verificar si el modelo ya existe, si no, inicializarlo
                  if (greaseModel == null) {
-                    greaseModel = new MGrease(0, "", "", 0, "", "", "");
+                    greaseModel = new MGrease(
+                        0,
+                        "",
+                        "",
+                        0,
+                        "",
+                        "",
+                        "",
+                        "",
+                        0,
+                        0
+                    );
                     String[] columns = VGrease.tableColumn();
                     //dfltBenefit = new DefaultTableModel(columns, 0);
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
@@ -230,7 +241,18 @@ public class Desktop {
 
                 // Verificar si el modelo ya existe, si no, inicializarlo
                  if (hydrateModel == null) {
-                    hydrateModel = new MHydrate(0, "", "", 0, "", "", "");
+                    hydrateModel = new MHydrate(
+                        0,
+                        "",
+                        "",
+                        0,
+                        "",
+                        "",
+                        "",
+                        "",
+                        0,
+                        0
+                    );
                     String[] columns = VHydrate.tableColumn();
                     //dfltBenefit = new DefaultTableModel(columns, 0);
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
@@ -312,7 +334,18 @@ public class Desktop {
 
                 // Verificar si el modelo ya existe, si no, inicializarlo
                  if (vegetalModel == null) {
-                    vegetalModel = new MVegetal(0, "", "", 0, "", "", "");
+                    vegetalModel = new MVegetal(
+                        0,
+                        "",
+                        "",
+                        0,
+                        "",
+                        "",
+                        "",
+                        "",
+                        0,
+                        0
+                    );
                     String[] columns = VVegetal.tableColumn();
                     //dfltBenefit = new DefaultTableModel(columns, 0);
                     // Usar NonEditableTableModel en lugar de DefaultTableModel
@@ -335,191 +368,6 @@ public class Desktop {
             }
         });
     }
-
-    /*public static void actEmployee() {
-        btnEmployee.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Validar si el modelo de beneficios tiene datos cargados
-                if (dfltBenefit == null || dfltBenefit.getRowCount() == 0) {
-                    String message = "Modulo beneficios no contiene datos";
-                    Message.mssgError(message);
-                    return; // Evita que el JInternalFrame se abra si no hay datos
-                }
-                
-                // Validar si el modelo de beneficios tiene datos cargados
-                if (dfltWorking == null || dfltWorking.getRowCount() == 0) {
-                    String message = "Modulo jornadas no contiene datos";
-                    Message.mssgError(message);
-                    return; // Evita que el JInternalFrame se abra si no hay datos
-                }
-
-                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
-                JInternalFrame dataFrame = new JInternalFrame(
-                    "Empleados",
-                    true,
-                    true,
-                    true,
-                    true
-                );
-                dataFrame.setSize(500, 500);
-                dataFrame.setLayout(new BorderLayout());
-
-                // Verificar si el modelo ya existe, si no, inicializarlo
-                 if (employeeModel == null) {
-                    employeeModel = new mEmployee();
-                    String[] columns = vEmployee.tableColumn();
-                    //dfltEmployee = new DefaultTableModel(columns, 0);
-                    // Usar NonEditableTableModel en lugar de DefaultTableModel
-                    dfltEmployee = new NonEditableTableModel(
-                        new Object[0][columns.length], columns
-                    );
-                }
-
-                // Añadir el JTabbedPane con el modelo existente
-                tabbedPane = vEmployee.tabbedPane(dfltEmployee, employeeModel);
-                // Añadir el JTabbedPane al nuevo JInternalFrame
-                dataFrame.add(tabbedPane, BorderLayout.CENTER);
-                // Centrando el JInternalFrame en el JDesktopPane
-                centerFrame(dataFrame);
-                // Hacer visible el nuevo JInternalFrame
-                dataFrame.setVisible(true);
-                // Añadir el nuevo internal frame
-                desktopPane.add(dataFrame);
-                dataFrame.moveToFront();
-            }
-        });
-    }
-
-    public static void actProdType() {
-        btnProdType.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
-                JInternalFrame dataFrame = new JInternalFrame(
-                    "Tipos",
-                    true,
-                    true,
-                    true,
-                    true
-                );
-                dataFrame.setSize(500, 500);
-                dataFrame.setLayout(new BorderLayout());
-
-                // Verificar si el modelo ya existe, si no, inicializarlo
-                 if (prodTypeModel == null) {
-                    prodTypeModel = new mProdType();
-                    String[] columns = vProdType.tableColumn();
-                    //dfltProdType = new DefaultTableModel(columns, 0);
-                    // Usar NonEditableTableModel en lugar de DefaultTableModel
-                    dfltProdType = new NonEditableTableModel(
-                        new Object[0][columns.length], columns
-                    );
-                }
-
-                // Añadir el JTabbedPane con el modelo existente
-                tabbedPane = vProdType.tabbedPane(dfltProdType, prodTypeModel);
-                // Añadir el JTabbedPane al nuevo JInternalFrame
-                dataFrame.add(tabbedPane, BorderLayout.CENTER);
-                // Centrando el JInternalFrame en el JDesktopPane
-                centerFrame(dataFrame);
-                // Hacer visible el nuevo JInternalFrame
-                dataFrame.setVisible(true);
-                // Añadir el nuevo internal frame
-                desktopPane.add(dataFrame);
-                dataFrame.moveToFront();
-            }
-        });
-    }
-
-    public static void actProduct() {
-        btnProduct.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Validar si el modelo de beneficios tiene datos cargados
-                if (dfltProdType == null || dfltProdType.getRowCount() == 0) {
-                    String message = "Modulo tipos de productos no contiene datos";
-                    Message.mssgError(message);
-                    return; // Evita que el JInternalFrame se abra si no hay datos
-                }
-                
-                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
-                JInternalFrame dataFrame = new JInternalFrame(
-                    "Productos",
-                    true,
-                    true,
-                    true,
-                    true
-                );
-                dataFrame.setSize(500, 500);
-                dataFrame.setLayout(new BorderLayout());
-
-                // Verificar si el modelo ya existe, si no, inicializarlo
-                 if (productModel == null) {
-                    productModel = new mProduct();
-                    String[] columns = vProduct.tableColumn();
-                    //dfltProduct = new DefaultTableModel(columns, 0);
-                    // Usar NonEditableTableModel en lugar de DefaultTableModel
-                    dfltProduct = new NonEditableTableModel(
-                        new Object[0][columns.length], columns
-                    );
-                }
-
-                // Añadir el JTabbedPane con el modelo existente
-                tabbedPane = vProduct.tabbedPane(dfltProduct, productModel);
-                // Añadir el JTabbedPane al nuevo JInternalFrame
-                dataFrame.add(tabbedPane, BorderLayout.CENTER);
-                // Centrando el JInternalFrame en el JDesktopPane
-                centerFrame(dataFrame);
-                // Hacer visible el nuevo JInternalFrame
-                dataFrame.setVisible(true);
-                // Añadir el nuevo internal frame
-                desktopPane.add(dataFrame);
-                dataFrame.moveToFront();
-            }
-        });
-    }
-
-    public static void actWorking() {
-        btnWorking.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Abrir un nuevo JInternalFrame para mostrar el JTabbedPane
-                JInternalFrame dataFrame = new JInternalFrame(
-                    "Jornadas",
-                    true,
-                    true,
-                    true,
-                    true
-                );
-                dataFrame.setSize(500, 500);
-                dataFrame.setLayout(new BorderLayout());
-
-                // Verificar si el modelo ya existe, si no, inicializarlo
-                 if (workingModel == null) {
-                    workingModel = new mWorking();
-                    String[] columns = vWorking.tableColumn();
-                    //dfltWorking = new DefaultTableModel(columns, 0);
-                    // Usar NonEditableTableModel en lugar de DefaultTableModel
-                    dfltWorking = new NonEditableTableModel(
-                        new Object[0][columns.length], columns
-                    );
-                }
-
-                // Añadir el JTabbedPane con el modelo existente
-                tabbedPane = vWorking.tabbedPane(dfltWorking, workingModel);
-                // Añadir el JTabbedPane al nuevo JInternalFrame
-                dataFrame.add(tabbedPane, BorderLayout.CENTER);
-                // Centrando el JInternalFrame en el JDesktopPane
-                centerFrame(dataFrame);
-                // Hacer visible el nuevo JInternalFrame
-                dataFrame.setVisible(true);
-                // Añadir el nuevo internal frame
-                desktopPane.add(dataFrame);
-                dataFrame.moveToFront();
-            }
-        });
-    }*/
 
     public static void internalSize(
         JInternalFrame intFrame

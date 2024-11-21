@@ -45,6 +45,9 @@ public class VGrease {
     private static JLabel labelDensity;
     private static JLabel labelOrigin;
     private static JLabel labelState;
+    private static JLabel labelCondition;
+    private static JLabel labelTemperature;
+    private static JLabel labelHumidity;
 
     // Campos del formulario
     private static JTextField fieldId;
@@ -54,6 +57,9 @@ public class VGrease {
     private static JTextField fieldDensity;
     private static JTextField fieldOrigin;
     private static JTextField fieldState;
+    private static JTextField fieldCondition;
+    private static JTextField fieldTemperature;
+    private static JTextField fieldHumidity;
 
     // Botones de los paneles
     private static JButton createBtn;
@@ -156,6 +162,18 @@ public class VGrease {
         fieldState = new JTextField();
         fieldState.setEditable(true); // Habilitar el campo
 
+        labelCondition = new JLabel("Condicion");
+        fieldCondition = new JTextField();
+        fieldCondition.setEditable(true); // Habilitar el campo
+
+        labelTemperature = new JLabel("Temperatura");
+        fieldTemperature = new JTextField();
+        fieldTemperature.setEditable(true); // Habilitar el campo
+
+        labelHumidity = new JLabel("Humedad");
+        fieldHumidity = new JTextField();
+        fieldHumidity.setEditable(true); // Habilitar el campo
+
         newField.add(labelId); newField.add(fieldId);
         newField.add(labelName); newField.add(fieldName);
         newField.add(labelDetail); newField.add(fieldDetail);
@@ -163,6 +181,9 @@ public class VGrease {
         newField.add(labelDensity); newField.add(fieldDensity);
         newField.add(labelOrigin); newField.add(fieldOrigin);
         newField.add(labelState); newField.add(fieldState);
+        newField.add(labelCondition); newField.add(fieldCondition);
+        newField.add(labelTemperature); newField.add(fieldTemperature);
+        newField.add(labelHumidity); newField.add(fieldHumidity);
 
         // Crear un panel para añadir botones de acciones
         newAction = new JPanel(new GridLayout(1,1));
@@ -215,6 +236,9 @@ public class VGrease {
                     fieldDensity.setText((String) tblDataInfo.getValueAt(selectedRow, 4).toString());
                     fieldOrigin.setText((String) tblDataInfo.getValueAt(selectedRow, 5).toString());
                     fieldState.setText((String) tblDataInfo.getValueAt(selectedRow, 6).toString());
+                    fieldCondition.setText((String) tblDataInfo.getValueAt(selectedRow, 7).toString());
+                    fieldTemperature.setText((String) tblDataInfo.getValueAt(selectedRow, 8).toString());
+                    fieldHumidity.setText((String) tblDataInfo.getValueAt(selectedRow, 9).toString());
                     // Añadir la pestaña del formulario
                     tabbedPane.addTab("Formulario", newForm);
                     // Remover la pestaña establecida según su titulo
@@ -251,6 +275,9 @@ public class VGrease {
                 mdlGrease.setDensity(fieldDensity.getText());
                 mdlGrease.setOrigin(fieldOrigin.getText());
                 mdlGrease.setState(fieldState.getText());
+                mdlGrease.setCondition(fieldCondition.getText());
+                mdlGrease.setTemperature(Double.parseDouble(fieldTemperature.getText()));
+                mdlGrease.setHumidity(Double.parseDouble(fieldHumidity.getText()));
 
                 if (isEditing && editingRowIndex >= 0) {
                     // Actualizar registro existente
@@ -260,6 +287,9 @@ public class VGrease {
                     dfltDataModel.setValueAt(mdlGrease.getDensity(), editingRowIndex, 4);
                     dfltDataModel.setValueAt(mdlGrease.getOrigin(), editingRowIndex, 5);
                     dfltDataModel.setValueAt(mdlGrease.getState(), editingRowIndex, 6);
+                    dfltDataModel.setValueAt(mdlGrease.getCondition(), editingRowIndex, 7);
+                    dfltDataModel.setValueAt(mdlGrease.getTemperature(), editingRowIndex, 8);
+                    dfltDataModel.setValueAt(mdlGrease.getHumidity(), editingRowIndex, 9);
                 } else {
                     // Crear nuevo registro
                     dfltDataModel.addRow(new Object[] {
@@ -270,6 +300,9 @@ public class VGrease {
                         mdlGrease.getDensity(),
                         mdlGrease.getOrigin(),
                         mdlGrease.getState(),
+                        mdlGrease.getCondition(),
+                        mdlGrease.getTemperature(),
+                        mdlGrease.getHumidity(),
                     });
                 }
 
@@ -331,6 +364,9 @@ public class VGrease {
             "Densidad",
             "Origen",
             "Estado",
+            "Condicion",
+            "Temperatura",
+            "Humedad",
         };
     }
 
@@ -342,22 +378,10 @@ public class VGrease {
         fieldDensity.setText("");
         fieldOrigin.setText("");
         fieldState.setText("");
+        fieldCondition.setText("");
+        fieldTemperature.setText("");
+        fieldHumidity.setText("");
     }
-
-    /*public static List<mGrease> getList() {
-        List<mGrease> greaseList = new ArrayList<>();
-    
-        // Recorrer las filas del DefaultTableModel
-        for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
-            MGrease grease = new MGrease();
-            grease.setId((int) dfltDataModel.getValueAt(row, 0));
-            grease.setLogin((String) dfltDataModel.getValueAt(row, 1));
-            grease.setPassword((String) dfltDataModel.getValueAt(row, 2));
-            greaseList.add(grease);
-        }
-    
-        return greaseList;
-    }*/
 
     public static List<MGrease> getList() {
         List<MGrease> greaseList = new ArrayList<>();
@@ -372,6 +396,9 @@ public class VGrease {
             String density = (String) dfltDataModel.getValueAt(row, 4);
             String origin = (String) dfltDataModel.getValueAt(row, 5);
             String state = (String) dfltDataModel.getValueAt(row, 6);
+            String condition = (String) dfltDataModel.getValueAt(row, 7);
+            double temperature = (double) dfltDataModel.getValueAt(row, 8);
+            double humidity = (double) dfltDataModel.getValueAt(row, 9);
     
             // Crear una instancia del modelo usando el constructor
             MGrease grease = new MGrease(
@@ -381,7 +408,10 @@ public class VGrease {
                 price,
                 density,
                 origin,
-                state
+                state,
+                condition,
+                temperature,
+                humidity
             );
     
             // Agregar el objeto a la lista
