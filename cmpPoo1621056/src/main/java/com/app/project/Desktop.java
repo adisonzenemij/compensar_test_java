@@ -306,64 +306,12 @@ public class Desktop {
                 );
                 dataFrame.setSize(500, 500);
                 dataFrame.setLayout(new BorderLayout());
-
-
-
-
-
-
-
-                // Asegúrate de que el modelo de datos está inicializado correctamente
-                // Aquí estamos obteniendo el modelo de datos ya inicializado desde MUserData
+                // Obtener el modelo de datos ya inicializado
                 dfltUserData = MUserData.getModel();
-
-                // Verificar si el modelo ha sido correctamente inicializado
-                if (dfltUserData == null) {
-                    System.out.println("Error: El modelo de usuarios no está inicializado.");
-                    return; // Salir de la función si el modelo no está inicializado
-                }
-
-                //MUserData.initializeUserData();
-
+                // Obteber la entidad de forma inicializada
                 userDataModel = MUserData.initalData();
-
-                // Verificar si la entidad userDataModel (mdlUserData) está correctamente inicializada
-                if (userDataModel == null) {
-                    System.out.println("Error: La entidad de datos de usuario no está inicializada.");
-                    return; // Salir de la función si la entidad no está inicializada
-                }
-
                 // Añadir el JTabbedPane con el modelo de datos a la interfaz
                 tabbedPane = VUserData.tabbedPane(dfltUserData, userDataModel);
-
-
-
-
-
-                // Obtener el modelo inicializado desde MUserData
-                //DefaultTableModel userModel = MUserData.getModel();
-                //dfltUserData = MUserData.getModel();
-
-                // Verificar si el modelo ya existe, si no, inicializarlo
-                /*if (userDataModel == null) {
-                    System.out.println("Modelo Usuarios Inicializado");
-                    //userDataModel = new EUserData(0, "root", "root");
-                    String[] columns = VUserData.tableColumn();
-                    // Usar NonEditableTableModel en lugar de DefaultTableModel
-                    dfltUserData = new Utility.NonEditableTableModel(
-                        new Object[0][columns.length], columns
-                    );
-                }*/
-                //dfltUserData = MUserData.getModel();
-
-                /*if (userDataModel == null) {
-                    userDataModel = new EUserData(0, "root", "root"); // Inicialización del objeto mdlUserData
-                }*/
-
-                // Añadir el JTabbedPane con el modelo
-                //tabbedPane = VUserData.tabbedPane(dfltUserData, null);
-                // Añadir el JTabbedPane con el modelo existente
-                //tabbedPane = VUserData.tabbedPane(dfltUserData, userDataModel);
                 // Añadir el JTabbedPane al nuevo JInternalFrame
                 dataFrame.add(tabbedPane, BorderLayout.CENTER);
                 // Centrando el JInternalFrame en el JDesktopPane

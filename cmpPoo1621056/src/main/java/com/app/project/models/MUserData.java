@@ -15,29 +15,28 @@ public class MUserData {
     private static DefaultTableModel dfltDataModel;
     private static EUserData mdlUserData;
 
-    private MUserData() {
-        // Inicializar mdlUserData si no ha sido inicializado previamente
-        //initializeUserData();
-        // Inicializar mdlUserData
-        /*if (mdlUserData == null) {
-            mdlUserData = new EUserData(0, "root", "root"); // O con los valores que necesites
-        }*/
-        // Añadir registro inicial
-        //registerDefault();
-    }
+    // Constructor
+    private MUserData() {}
 
-    // Método para inicializar la entidad EUserData
-    public static void initializeUserData() {
+    // Método para inicializar la entidad
+    private static void initialEntity() {
         if (mdlUserData == null) {
-            mdlUserData = new EUserData(0, "root", "root"); // O con los valores que necesites
+            // Valores por defecto para la entidad
+            mdlUserData = new EUserData(
+                0,
+                "root",
+                "root"
+            );
         }
     }
 
+    // Retornar la entidad inicializada
     public static EUserData initalData() {
+        // Devolver datos
         return mdlUserData;
     }
 
-    // Método estático para inicializar el modelo
+    // Método para inicializar el modelo
     public static void initializeModel() {
         if (dfltDataModel == null) {
             String[] columns = VUserData.tableColumn();
@@ -45,12 +44,6 @@ public class MUserData {
             dfltDataModel = new Utility.NonEditableTableModel(
                 new Object[0][columns.length], columns
             );
-
-            // Inicializar mdlUserData
-            /*if (mdlUserData == null) {
-                mdlUserData = new EUserData(0, "root", "root"); // O con los valores que necesites
-            }*/
-
             // Añadir registro inicial
             registerDefault();
         }
@@ -67,9 +60,12 @@ public class MUserData {
 
     // Método para obtener el modelo
     public static DefaultTableModel getModel() {
+        // Verificar inicializacion
         if (dfltDataModel == null) {
+            // Cargar inicializacion
             initializeModel();
         }
+        // Devolver el modelo
         return dfltDataModel;
     }
 
@@ -137,49 +133,12 @@ public class MUserData {
         );
     }
 
-    public static List<EUserData> getList_() {
-        List<EUserData> userDataList = new ArrayList<>();
-
-        // Asegurarse de que mdlUserData esté inicializado
-        /*if (mdlUserData == null) {
-            mdlUserData = new EUserData(0, "root", "root"); // O con los valores que necesites
-        }*/
-
-        // Imprimir el contenido del modelo en consola
-        printModelContents(userDataList);
-    
-        // Recorrer las filas del DefaultTableModel
-        for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
-            // Obtener valores directamente del modelo
-            int id = (int) dfltDataModel.getValueAt(row, 0);
-            String login = (String) dfltDataModel.getValueAt(row, 1);
-            String password = (String) dfltDataModel.getValueAt(row, 2);
-    
-            // Crear una instancia del modelo usando el constructor
-            EUserData userData = new EUserData(
-                id,
-                login,
-                password
-            );
-    
-            // Agregar el objeto a la lista
-            userDataList.add(userData);
-        }
-    
-        return userDataList;
-    }
-
     public static List<EUserData> getList() {
         List<EUserData> userDataList = new ArrayList<>();
-    
-        // Asegurarse de que mdlUserData esté inicializado
-        initializeUserData();
-    
+        // Asegurarse de que el modelo esté inicializado
+        initialEntity();
         // Si mdlUserData ya contiene un único registro (como el valor predeterminado), añádelo a la lista.
-        if (mdlUserData != null) {
-            userDataList.add(mdlUserData);
-        }
-    
+        if (mdlUserData != null) { userDataList.add(mdlUserData); }
         // Imprimir el contenido del modelo en consola
         printModelContents(userDataList);
         
@@ -190,9 +149,13 @@ public class MUserData {
             String login = (String) dfltDataModel.getValueAt(row, 1);
             String password = (String) dfltDataModel.getValueAt(row, 2);
         
-            // Solo crear una instancia de EUserData si el id no corresponde al de la instancia ya existente
+            // Crear una instancia de la entidad
             if (id != mdlUserData.getId()) {
-                EUserData userData = new EUserData(id, login, password);
+                EUserData userData = new EUserData(
+                    id,
+                    login,
+                    password
+                );
                 userDataList.add(userData);
             }
         }

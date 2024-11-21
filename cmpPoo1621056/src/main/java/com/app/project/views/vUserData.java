@@ -63,23 +63,14 @@ public class VUserData {
     private static int selectedRow;
 
     // Constructor
-    public VUserData() {}
+    private VUserData() {}
 
     public static JTabbedPane tabbedPane(DefaultTableModel modelData, EUserData userDataMdl) {
         dfltDataModel = modelData; mdlUserData = userDataMdl;
-        System.out.println("Detalle Registros" + mdlUserData);
-
         // Crear un JTabbedPane
         if (tabbedPane == null) { tabbedPane = new JTabbedPane(); }
-        
         // Crear un panel para una pestaña
         if (listPanel == null) { listPanel = new JPanel(new BorderLayout()); }
-
-        // Usar el modelo directamente
-        /*if (modelData != null) {
-            // Configura las pestañas basadas en el modelo
-            tabbedPane.addTab("Usuarios", new UserTablePanel(model));
-        }*/
 
         // Modelo para el registro de beneficios
         tblDataInfo = new JTable(modelData);
