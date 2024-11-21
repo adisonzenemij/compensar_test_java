@@ -16,11 +16,16 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.app.project.models.MVegetal;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.ListSelectionModel;
+
+import com.app.project.Message;
+import com.app.project.defaults.DVegetal;
 
 public class VVegetal {
     private static JTable tblDataInfo;
@@ -75,6 +80,9 @@ public class VVegetal {
     // Índice de la fila que se está editando
     private static int editingRowIndex = -1;
     private static int selectedRow;
+
+    // Constructor
+    private VVegetal() {}
 
     public static JTabbedPane tabbedPane(DefaultTableModel modelData, MVegetal vegetalMdl) {
         dfltDataModel = modelData; mdlVegetal = vegetalMdl;
@@ -268,6 +276,9 @@ public class VVegetal {
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String valueName = fieldName.getText();
+                // Verificar si el valor es o no permitido
+                if (!validateList(valueName)) { return; }
                 /// Usar el modelo para establecer los valores
                 mdlVegetal.setName(fieldName.getText());
                 mdlVegetal.setDetail(fieldDetail.getText());
@@ -419,5 +430,41 @@ public class VVegetal {
         }
     
         return vegetalList;
+    }
+
+    // Método para validar el valor y mostrar los productos permitidos
+    private static boolean validateList(String value) {
+        // Convertir el valor ingresado para comparar correctamente
+        String valueLower = value.toLowerCase();
+    
+        // Verificar si el producto es de grasas
+        if (!DVegetal.isValue(valueLower)) {
+            // Obtener la lista de productos permitidos
+            List<String> allowedProducts = DVegetal.getValue();
+            
+            // Crear el mensaje con los productos permitidos
+            StringBuilder messageBuilder = new StringBuilder();
+            messageBuilder.append("Fruta o verdura no permitida.\n\n");
+            messageBuilder.append("Productos Permitidos:\n\n");
+            
+            // Comparar todos los productos de la lista en minúsculas
+            for (String product : allowedProducts) {
+                if (product.toLowerCase().equals(valueLower)) {
+                    // Si encuentra una coincidencia, es un producto permitido
+                    return true; // No es necesario continuar si el valor es válido
+                }
+                messageBuilder.append(product).append("\n");
+            }
+    
+            // Mostrar el mensaje en una ventana JOption
+            String message = messageBuilder.toString();
+            Message.mssgError(message);
+            
+            // Retornar false si el producto no es permitido
+            return false;
+        }
+        
+        // Retornar true si el producto es permitido
+        return true;
     }
 }
