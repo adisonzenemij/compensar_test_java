@@ -134,7 +134,7 @@ public class MUserData {
         List<EUserData> userDataList = new ArrayList<>();
         // Asegurarse de que el modelo esté inicializado
         initialEntity();
-        // Si mdlUserData ya contiene un único registro (como el valor predeterminado), añádelo a la lista.
+        // Si la entidad contiene un unico registro añadirlo a la lista
         if (mdlUserData != null) { userDataList.add(mdlUserData); }
         // Imprimir el contenido del modelo en consola
         printModelContents(userDataList);
