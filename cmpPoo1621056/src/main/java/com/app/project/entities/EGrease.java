@@ -38,7 +38,7 @@ public class EGrease extends EAliment implements IProperty {
         this.humidity = humidity;
     }
     
-    // Retornar valores de densidad
+    // Obtener valores de densidad
     public String getDensity() {
         return density;
     }
@@ -48,7 +48,7 @@ public class EGrease extends EAliment implements IProperty {
         this.density = density;
     }
 
-    // Retornar valores de origen
+    // Obtener valores de origen
     public String getOrigin() {
         return origin;
     }
@@ -58,7 +58,7 @@ public class EGrease extends EAliment implements IProperty {
         this.origin = origin;
     }
     
-    // Retornar valores de estado
+    // Obtener valores de estado
     public String getState() {
         return state;
     }

@@ -37,22 +37,7 @@ public class VGrease {
 
     // Paneles del internal frame
     private static JPanel listPanel;
-    private static JPanel actionPanel;
     private static JPanel newForm;
-    private static JPanel newField;
-    private static JPanel newAction;
-
-    // Etiquetas del formulario
-    private static JLabel labelId;
-    private static JLabel labelName;
-    private static JLabel labelDetail;
-    private static JLabel labelPrice;
-    private static JLabel labelDensity;
-    private static JLabel labelOrigin;
-    private static JLabel labelState;
-    private static JLabel labelCondition;
-    private static JLabel labelTemperature;
-    private static JLabel labelHumidity;
 
     // Campos del formulario
     private static JTextField fieldId;
@@ -121,7 +106,7 @@ public class VGrease {
     // Formulario del respectivo modelo
     public static void infoAction() {
         // Formulario de acciones
-        actionPanel = new JPanel(new GridLayout(1,3));
+        JPanel actionPanel = new JPanel(new GridLayout(1,3));
         // Botones del panel principal
         createBtn = new JButton("Añadir Registro");
         updateBtn = new JButton("Actualizar Registro");
@@ -140,45 +125,45 @@ public class VGrease {
         newForm = new JPanel(new BorderLayout());
 
         // Crear un formulario para capturar valores
-        newField = new JPanel(new GridLayout(10,2));
+        JPanel newField = new JPanel(new GridLayout(10,2));
 
-        labelId = new JLabel("Registro");
+        JLabel labelId = new JLabel("Registro");
         fieldId = new JTextField();
         fieldId.setEditable(false); // Bloquear el campo
 
-        labelName = new JLabel("Nombre");
+        JLabel labelName = new JLabel("Nombre");
         fieldName = new JTextField();
         fieldName.setEditable(true); // Habilitar el campo
 
-        labelDetail = new JLabel("Detalle");
+        JLabel labelDetail = new JLabel("Detalle");
         fieldDetail = new JTextField();
         fieldDetail.setEditable(true); // Habilitar el campo
 
-        labelPrice = new JLabel("Precio");
+        JLabel labelPrice = new JLabel("Precio");
         fieldPrice = new JTextField();
         fieldPrice.setEditable(true); // Habilitar el campo
 
-        labelDensity = new JLabel("Densidad");
+        JLabel labelDensity = new JLabel("Densidad");
         fieldDensity = new JTextField();
         fieldDensity.setEditable(true); // Habilitar el campo
 
-        labelOrigin = new JLabel("Origen");
+        JLabel labelOrigin = new JLabel("Origen");
         fieldOrigin = new JTextField();
         fieldOrigin.setEditable(true); // Habilitar el campo
 
-        labelState = new JLabel("Estado");
+        JLabel labelState = new JLabel("Estado");
         fieldState = new JTextField();
         fieldState.setEditable(true); // Habilitar el campo
 
-        labelCondition = new JLabel("Condicion");
+        JLabel labelCondition = new JLabel("Condicion");
         fieldCondition = new JTextField();
         fieldCondition.setEditable(true); // Habilitar el campo
 
-        labelTemperature = new JLabel("Temperatura");
+        JLabel labelTemperature = new JLabel("Temperatura");
         fieldTemperature = new JTextField();
         fieldTemperature.setEditable(true); // Habilitar el campo
 
-        labelHumidity = new JLabel("Humedad");
+        JLabel labelHumidity = new JLabel("Humedad");
         fieldHumidity = new JTextField();
         fieldHumidity.setEditable(true); // Habilitar el campo
 
@@ -194,7 +179,7 @@ public class VGrease {
         newField.add(labelHumidity); newField.add(fieldHumidity);
 
         // Crear un panel para añadir botones de acciones
-        newAction = new JPanel(new GridLayout(1,1));
+        JPanel newAction = new JPanel(new GridLayout(1,1));
 
         // Botones del panel formulario
         saveBtn = new JButton("Guardar Registro");

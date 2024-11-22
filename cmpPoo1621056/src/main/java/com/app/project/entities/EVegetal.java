@@ -38,7 +38,7 @@ public class EVegetal extends EAliment implements IProperty {
         this.humidity = humidity;
     }
 
-    // Retornar valores de color
+    // Obtener valores de color
     public String getColor() {
         return color;
     }
@@ -48,7 +48,7 @@ public class EVegetal extends EAliment implements IProperty {
         this.color = color;
     }
 
-    // Retornar valores de tamaño
+    // Obtener valores de tamaño
     public String getSize() {
         return size;
     }
@@ -58,7 +58,7 @@ public class EVegetal extends EAliment implements IProperty {
         this.size = size;
     }
     
-    // Retornar valores de vitamina
+    // Obtener valores de vitamina
     public String getVitamin() {
         return vitamin;
     }

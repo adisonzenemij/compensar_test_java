@@ -17,7 +17,7 @@ public class EUserData {
         this.password = password;
     }
     
-    // Retornar valores de id
+    // Obtener valores de id
     public int getId() {
         return id;
     }
@@ -27,7 +27,7 @@ public class EUserData {
         this.id = id;
     }
 
-    // Retornar valores de acceso
+    // Obtener valores de acceso
     public String getLogin() {
         return login;
     }
@@ -37,7 +37,7 @@ public class EUserData {
         this.login = login;
     }
 
-    // Retornar valores de clave
+    // Obtener valores de clave
     public String getPassword() {
         return password;
     }

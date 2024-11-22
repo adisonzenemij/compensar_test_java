@@ -4,12 +4,28 @@ package com.app.project;
 import javax.swing.JOptionPane;
 
 public class Message {
+    private static String title;
+
+    // Constructor
+    private Message() {}
+    
+    // Obtener valores de titulo
+    public static String getTitle() {
+        return title;
+    }
+
+    // Mapear valores de titulo
+    public static void setTitle(String title) {
+        // Acceder de manera estática
+        Message.title = title;
+    }
+
     public static void mssgError(String message) {
         String result = "Error";
         JOptionPane.showMessageDialog(
 null,
         result + ":" + " " + message, // Mensaje de ayuda
-        "Application Software", // Título de la ventana
+        getTitle(), // Título de la ventana
             JOptionPane.ERROR_MESSAGE // Tipo de mensaje
         );
     }
@@ -19,7 +35,7 @@ null,
         JOptionPane.showMessageDialog(
 null,
         result + ":" + " " + message, // Mensaje de ayuda
-        "Application Software", // Título de la ventana
+        getTitle(), // Título de la ventana
             JOptionPane.INFORMATION_MESSAGE // Tipo de mensaje
         );
     }
@@ -29,7 +45,7 @@ null,
         JOptionPane.showMessageDialog(
 null,
         result + ":" + " " + message, // Mensaje de ayuda
-        "Application Software", // Título de la ventana
+        getTitle(), // Título de la ventana
             JOptionPane.WARNING_MESSAGE // Tipo de mensaje
         );
     }
@@ -38,18 +54,8 @@ null,
         JOptionPane.showMessageDialog(
 null,
             "Campo (" + data + ") Obligatorio.", // Mensaje de ayuda
-        "Application Software", // Título de la ventana
+        getTitle(), // Título de la ventana
             JOptionPane.WARNING_MESSAGE // Tipo de mensaje
         );
-    }
-    
-    public static String cptrData(String field) {
-        String value = JOptionPane.showInputDialog(
-        null,
-        field,
-        "Application Software", // Título de la ventana
-            JOptionPane.QUESTION_MESSAGE // Tipo de mensaje
-        );
-        return value;
     }
 }

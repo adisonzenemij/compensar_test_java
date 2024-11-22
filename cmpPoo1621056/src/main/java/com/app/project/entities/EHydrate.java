@@ -38,7 +38,7 @@ public class EHydrate extends EAliment implements IProperty {
         this.humidity = humidity;
     }
 
-    // Retornar valores de beneficio
+    // Obtener valores de beneficio
     public String getBenefit() {
         return benefit;
     }
@@ -48,7 +48,7 @@ public class EHydrate extends EAliment implements IProperty {
         this.benefit = benefit;
     }
     
-    // Retornar valores de caloria
+    // Obtener valores de caloria
     public String getCalorie() {
         return calorie;
     }
@@ -58,7 +58,7 @@ public class EHydrate extends EAliment implements IProperty {
         this.calorie = calorie;
     }
     
-    // Retornar valores de nutriente
+    // Obtener valores de nutriente
     public String getNutrient() {
         return nutrient;
     }

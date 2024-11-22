@@ -72,7 +72,6 @@ public class MUserData {
     // Método para añadir el registro por defecto al modelo
     public static void registerDefault() {
         boolean exists = false;
-
         // Verificar si el registro con id=0 ya existe
         for (int row = 0; row < dfltDataModel.getRowCount(); row++) {
             int id = (int) dfltDataModel.getValueAt(row, 0);
@@ -81,7 +80,6 @@ public class MUserData {
                 break;
             }
         }
-
         // Si no existe, añadir el registro
         if (!exists) {
             dfltDataModel.addRow(
@@ -95,8 +93,8 @@ public class MUserData {
     }
 
     // Metodo para validar el campo del usuario
-    public static Boolean fieldLogin(String value) {
-        Boolean flag = true;
+    public static boolean fieldLogin(String value) {
+        boolean flag = true;
         // Verificar si el valor es nulo o está vacío
         if (value == null || value.isEmpty()) {
             // Visualizar mensaje de error
@@ -109,8 +107,8 @@ public class MUserData {
     }
 
     // Metodo para validar el campo del usuario
-    public static Boolean fieldPass(String value) {
-        Boolean flag = true;
+    public static boolean fieldPass(String value) {
+        boolean flag = true;
         // Verificar si el valor es nulo o está vacío
         if (value == null || value.isEmpty()) {
             // Visualizar mensaje de error
@@ -125,7 +123,6 @@ public class MUserData {
     public static Boolean processData(String sLogin, String sPass) {
         // Obtener la lista de usuarios
         List<EUserData> userList = getList();
-
         // Verificar credenciales de acceso
         return userList.stream().anyMatch(
             data -> data.getLogin().equals(sLogin)

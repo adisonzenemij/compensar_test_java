@@ -20,14 +20,18 @@ public class Utility {
         JDesktopPane paneDesktop,
         JInternalFrame frameInternal
     ) {
-        // Calcular el tamaño del internal frame como un porcentaje del JDesktopPane
+        // Calcular el ancho del JInternalFrame como porcentaje
         int frameWidth = (int) (paneDesktop.getWidth() * 0.5);
+        // Calcular la altura del JInternalFrame como porcentaje
         int frameHeight = (int) (paneDesktop.getHeight() * 0.5);
+        // Establecer el tamaño del JInternalFrame
         frameInternal.setSize(frameWidth, frameHeight);
 
-        // Calcular la posición centrada
+        // Calcular de la posición horizontal (centrado)
         int x = (paneDesktop.getWidth() - frameWidth) / 2;
+        // Calcular de la posición vertical (centrado)
         int y = (paneDesktop.getHeight() - frameHeight) / 2;
+        // Establecer la ubicación del JInternalFrame
         frameInternal.setLocation(x, y);
     }
 
@@ -138,7 +142,8 @@ public class Utility {
 
         @Override
         public boolean isCellEditable(int row, int column) {
-            return false; // Hacer que las celdas no sean editables
+            // Bloquear celdas para que no sean editables
+            return false;
         }
     }
 }

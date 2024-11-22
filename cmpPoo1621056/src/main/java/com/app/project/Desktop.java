@@ -9,10 +9,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -30,7 +26,6 @@ import com.app.project.entities.EUserData;
 import com.app.project.entities.EVegetal;
 import com.app.project.models.MUserData;
 
-import java.awt.Dimension;
 import javax.swing.table.DefaultTableModel;
 
 public class Desktop {
@@ -64,11 +59,6 @@ public class Desktop {
     private static JButton btnUserData;
     private static JButton btnVegetal;
     private static JButton btnLogout;
-
-    // Titulos para el internal frame principal
-    private static JLabel labelTitle;
-    private static JLabel labelDevelop;
-    private static JLabel labelWebMain;
 
     // Constructor
     private Desktop() {}
@@ -168,7 +158,7 @@ public class Desktop {
 
     public static void titleWelcome() {
         // Crear y añadir el label para el título principal
-        labelTitle = new JLabel("Bienvenidos", SwingConstants.CENTER);
+        JLabel labelTitle = new JLabel("Bienvenidos", SwingConstants.CENTER);
         labelTitle.setFont(new Font("Arial", Font.BOLD, 15));
         labelTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         dataFrame.add(labelTitle);
@@ -176,7 +166,7 @@ public class Desktop {
 
     public static void titleDevelop() {
         // Crear y añadir el label para el título desarrollador
-        labelDevelop = new JLabel("Programacion Orientada a Objetos", SwingConstants.CENTER);
+        JLabel labelDevelop = new JLabel("Programacion Orientada a Objetos", SwingConstants.CENTER);
         labelDevelop.setFont(new Font("Arial", Font.BOLD, 12));
         labelDevelop.setAlignmentX(Component.CENTER_ALIGNMENT);
         dataFrame.add(labelDevelop); 
@@ -184,7 +174,7 @@ public class Desktop {
 
     public static void titleWebPage() {
         // Crear y añadir el label para el título de pagina web
-        labelWebMain = new JLabel("", SwingConstants.CENTER);
+        JLabel labelWebMain = new JLabel("", SwingConstants.CENTER);
         labelWebMain.setFont(new Font("Arial", Font.BOLD, 12));
         labelWebMain.setAlignmentX(Component.CENTER_ALIGNMENT);
         dataFrame.add(labelWebMain);

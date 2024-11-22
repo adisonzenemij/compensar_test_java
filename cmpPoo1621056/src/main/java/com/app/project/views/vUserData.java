@@ -32,15 +32,7 @@ public class VUserData {
 
     // Paneles del internal frame
     private static JPanel listPanel;
-    private static JPanel actionPanel;
     private static JPanel newForm;
-    private static JPanel newField;
-    private static JPanel newAction;
-
-    // Etiquetas del formulario
-    private static JLabel labelId;
-    private static JLabel labelLogin;
-    private static JLabel labelPassword;
 
     // Campos del formulario
     private static JTextField fieldId;
@@ -100,7 +92,7 @@ public class VUserData {
     // Formulario del respectivo modelo
     public static void infoAction() {
         // Formulario de acciones
-        actionPanel = new JPanel(new GridLayout(1,3));
+        JPanel actionPanel = new JPanel(new GridLayout(1,3));
         // Botones del panel principal
         createBtn = new JButton("Añadir Registro");
         updateBtn = new JButton("Actualizar Registro");
@@ -119,17 +111,17 @@ public class VUserData {
         newForm = new JPanel(new BorderLayout());
 
         // Crear un formulario para capturar valores
-        newField = new JPanel(new GridLayout(10,2));
+        JPanel newField = new JPanel(new GridLayout(10,2));
 
-        labelId = new JLabel("Registro");
+        JLabel labelId = new JLabel("Registro");
         fieldId = new JTextField();
         fieldId.setEditable(false); // Bloquear el campo
 
-        labelLogin = new JLabel("Acceso");
+        JLabel labelLogin = new JLabel("Acceso");
         fieldLogin = new JTextField();
         fieldLogin.setEditable(true); // Habilitar el campo
 
-        labelPassword = new JLabel("Clave");
+        JLabel labelPassword = new JLabel("Clave");
         fieldPassword = new JTextField();
         fieldPassword.setEditable(true); // Habilitar el campo
 
@@ -138,7 +130,7 @@ public class VUserData {
         newField.add(labelPassword); newField.add(fieldPassword);
 
         // Crear un panel para añadir botones de acciones
-        newAction = new JPanel(new GridLayout(1,1));
+        JPanel newAction = new JPanel(new GridLayout(1,1));
 
         // Botones del panel formulario
         saveBtn = new JButton("Guardar Registro");

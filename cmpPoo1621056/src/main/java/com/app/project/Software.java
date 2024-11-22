@@ -11,6 +11,7 @@ import com.app.project.models.MUserData;
 
 public class Software {
     public static void main(String[] args) {
+        // Acceder
         access();
     }
     
@@ -19,7 +20,9 @@ public class Software {
         MUserData.initializeModel();
         // Crear el marco principal
         JFrame dataFrame = new JFrame("Compensar: Aplicacion Software");
+        // Establece la operación de cierre predeterminada
         dataFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Establece el tamaño de la ventana
         dataFrame.setSize(1000, 800);
         // Deshabilitar el redimensionamiento
         dataFrame.setResizable(false);
@@ -38,6 +41,7 @@ public class Software {
     public static void addTabs(JTabbedPane tabbedPane) {
         // Crear algunos paneles para las pestañas
         JPanel contentPanel = new JPanel();
+        // Añadir una etiqueta con el texto personalizado
         contentPanel.add(new JLabel("Contenido"));
         // Añadir pestañas al tabbed pane
         tabbedPane.addTab("Pestaña", contentPanel);

@@ -20,38 +20,42 @@ public class EAliment {
         this.price = price;
     }
     
-    // Getter and Setter for id
+    // Obtener valores de registro
     public int getId() {
         return id;
     }
 
+    // Mapear valores de registro
     public void setId(int id) {
         this.id = id;
     }
 
-    // Getter and Setter for name
+    // Obtener valores de nombre
     public String getName() {
         return name;
     }
 
+    // Mapear valores de nombre
     public void setName(String name) {
         this.name = name;
     }
 
-    // Getter and Setter for detail
+    // Obtener valores de detalle
     public String getDetail() {
         return detail;
     }
 
+    // Mapear valores de detalle
     public void setDetail(String detail) {
         this.detail = detail;
     }
 
-    // Getter and Setter for price
+    // Obtener valores de precio
     public int getPrice() {
         return price;
     }
 
+    // Mapear valores de precio
     public void setPrice(int price) {
         this.price = price;
     }
