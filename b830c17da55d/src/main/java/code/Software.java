@@ -14,7 +14,7 @@ public class Software {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        int opcion;
+        int opcion = 0;
         do {
             System.out.println("\n=== Sistema Biblioteca ===");
             System.out.println("1. Registrar libro");
@@ -24,7 +24,15 @@ public class Software {
             System.out.println("5. Ordenar libros");
             System.out.println("6. Salir");
             System.out.print("Seleccione una opcion: ");
-            opcion = scanner.nextInt(); scanner.nextLine();
+
+            // Verificación de entrada segura
+            String input = scanner.nextLine();
+            try {
+                opcion = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada invalida. Debe ingresar un numero del 1 al 6.");
+                continue;
+            }
 
             switch (opcion) {
                 case 1: registrarLibro(); break;
@@ -37,7 +45,7 @@ public class Software {
             }
         } while (opcion != 6);
     }
-
+    
     static void registrarLibro() {
         if (totalLibros >= libros.length) {
             System.out.println("No se pueden registrar mas libros.");
