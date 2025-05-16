@@ -110,8 +110,6 @@ public class Software {
         librosOrdenados();
     }
 
-    // ==== Metodos auxiliares ====
-
     static int obtenerIndiceCampo(String campo) {
         return switch (campo.toLowerCase()) {
             case "codigo" -> 0;
