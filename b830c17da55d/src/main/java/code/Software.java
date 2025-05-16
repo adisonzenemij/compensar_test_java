@@ -23,7 +23,7 @@ public class Software {
             System.out.println("4. Buscar libro");
             System.out.println("5. Ordenar libros");
             System.out.println("6. Salir");
-            System.out.print("Seleccione una opción: ");
+            System.out.print("Seleccione una opcion: ");
             opcion = scanner.nextInt(); scanner.nextLine();
 
             switch (opcion) {
@@ -33,46 +33,46 @@ public class Software {
                 case 4: buscarLibro(); break;
                 case 5: ordenarLibros(); break;
                 case 6: System.out.println("Saliendo..."); break;
-                default: System.out.println("Opción inválida");
+                default: System.out.println("Opcion invalida");
             }
         } while (opcion != 6);
     }
 
     static void registrarLibro() {
         if (totalLibros >= libros.length) {
-            System.out.println("No se pueden registrar más libros.");
+            System.out.println("No se pueden registrar mas libros.");
             return;
         }
         System.out.println("Registro de nuevo libro:");
-        System.out.print("Código: "); libros[totalLibros][0] = scanner.nextLine();
+        System.out.print("Codigo: "); libros[totalLibros][0] = scanner.nextLine();
         System.out.print("Nombre: "); libros[totalLibros][1] = scanner.nextLine();
         System.out.print("Autor: "); libros[totalLibros][2] = scanner.nextLine();
         System.out.print("Materia: "); libros[totalLibros][3] = scanner.nextLine();
-        System.out.print("Número de páginas: "); libros[totalLibros][4] = scanner.nextLine();
+        System.out.print("Numero de paginas: "); libros[totalLibros][4] = scanner.nextLine();
         totalLibros++;
         System.out.println("Libro registrado exitosamente.");
     }
 
     static void actualizarLibro() {
-        System.out.print("Ingrese el código del libro a actualizar: ");
+        System.out.print("Ingrese el codigo del libro a actualizar: ");
         String codigo = scanner.nextLine();
-        int pos = buscarSecuencial("código", codigo);
+        int pos = buscarSecuencial("codigo", codigo);
         if (pos == -1) {
             System.out.println("Libro no encontrado.");
             return;
         }
-        System.out.println("Actualización de libro:");
+        System.out.println("Actualizacion de libro:");
         System.out.print("Nuevo nombre: "); libros[pos][1] = scanner.nextLine();
         System.out.print("Nuevo autor: "); libros[pos][2] = scanner.nextLine();
         System.out.print("Nueva materia: "); libros[pos][3] = scanner.nextLine();
-        System.out.print("Nuevo número de páginas: "); libros[pos][4] = scanner.nextLine();
+        System.out.print("Nuevo numero de paginas: "); libros[pos][4] = scanner.nextLine();
         System.out.println("Libro actualizado.");
     }
 
     static void eliminarLibro() {
-        System.out.print("Ingrese el código del libro a eliminar: ");
+        System.out.print("Ingrese el codigo del libro a eliminar: ");
         String codigo = scanner.nextLine();
-        int pos = buscarSecuencial("código", codigo);
+        int pos = buscarSecuencial("codigo", codigo);
         if (pos == -1) {
             System.out.println("Libro no encontrado.");
             return;
@@ -85,11 +85,11 @@ public class Software {
     }
 
     static void buscarLibro() {
-        System.out.print("Ingrese campo para búsqueda (código, nombre, autor): ");
+        System.out.print("Ingrese campo para busqueda (codigo, nombre, autor): ");
         String campo = scanner.nextLine();
         System.out.print("Ingrese valor a buscar: ");
         String valor = scanner.nextLine();
-        System.out.print("Tipo de búsqueda (1: Secuencial, 2: Binaria): ");
+        System.out.print("Tipo de busqueda (1: Secuencial, 2: Binaria): ");
         int tipo = scanner.nextInt(); scanner.nextLine();
         int resultado = (tipo == 2) ? buscarBinaria(campo, valor) : buscarSecuencial(campo, valor);
 
@@ -101,9 +101,9 @@ public class Software {
     }
 
     static void ordenarLibros() {
-        System.out.print("Ingrese campo para ordenar (código, nombre, autor): ");
+        System.out.print("Ingrese campo para ordenar (codigo, nombre, autor): ");
         String campo = scanner.nextLine();
-        System.out.print("Método de ordenamiento (1: Burbuja, 2: Selección): ");
+        System.out.print("Metodo de ordenamiento (1: Burbuja, 2: Seleccion): ");
         int metodo = scanner.nextInt(); scanner.nextLine();
         if (metodo == 1) {
             ordenarBurbuja(campo);
@@ -114,15 +114,15 @@ public class Software {
         librosOrdenados();
     }
 
-    // ==== Métodos auxiliares ====
+    // ==== Metodos auxiliares ====
 
     static int obtenerIndiceCampo(String campo) {
         return switch (campo.toLowerCase()) {
-            case "código" -> 0;
+            case "codigo" -> 0;
             case "nombre" -> 1;
             case "autor" -> 2;
             case "materia" -> 3;
-            case "páginas", "numero de paginas" -> 4;
+            case "paginas", "numero de paginas" -> 4;
             default -> -1;
         };
     }
@@ -181,11 +181,11 @@ public class Software {
 
     static void mostrarLibro(int i) {
         System.out.println("\n--- Detalles del Libro ---");
-        System.out.println("Código: " + libros[i][0]);
+        System.out.println("Codigo: " + libros[i][0]);
         System.out.println("Nombre: " + libros[i][1]);
         System.out.println("Autor: " + libros[i][2]);
         System.out.println("Materia: " + libros[i][3]);
-        System.out.println("Páginas: " + libros[i][4]);
+        System.out.println("Paginas: " + libros[i][4]);
     }
 
     static void librosOrdenados() {
@@ -197,11 +197,11 @@ public class Software {
         for (int i = 0; i < totalLibros; i++) {
             System.out.println(
                 (i + 1) +
-                ". Código: " + libros[i][0] +
+                ". Codigo: " + libros[i][0] +
                 " | Nombre: " + libros[i][1] +
                 " | Autor: " + libros[i][2] +
                 " | Materia: " + libros[i][3] +
-                " | Páginas: " + libros[i][4]
+                " | Paginas: " + libros[i][4]
             );
         }
     }
