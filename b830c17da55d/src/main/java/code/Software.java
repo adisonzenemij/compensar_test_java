@@ -26,18 +26,18 @@ public class Software {
             try {
                 opcion = Integer.parseInt(input);
             } catch (NumberFormatException e) {
-                System.out.println("Entrada invalida. Debe ingresar un numero del 1 al 6.");
+                System.out.println("Entrada inválida.");
                 continue;
             }
 
             switch (opcion) {
-                case 1: registrarLibro(); break;
-                case 2: actualizarLibro(); break;
-                case 3: eliminarLibro(); break;
-                case 4: buscarLibro(); break;
-                case 5: ordenarLibros(); break;
-                case 6: System.out.println("Saliendo..."); break;
-                default: System.out.println("Opcion invalida");
+                case 1 -> registrarLibro();
+                case 2 -> actualizarLibro();
+                case 3 -> eliminarLibro();
+                case 4 -> buscarLibro();
+                case 5 -> ordenarLibros();
+                case 6 -> System.out.println("Saliendo...");
+                default -> System.out.println("Opcion invalida");
             }
         } while (opcion != 6);
     }
@@ -96,19 +96,50 @@ public class Software {
         if (resultado != -1) { mostrarLibro(resultado); } else { librosVacios(); }
     }
 
-    static void ordenarLibros() {
+    static void ordenarLibros_() {
         System.out.print("Ingrese campo para ordenar (codigo, nombre, autor): ");
         String campo = scanner.nextLine();
         System.out.print("Metodo de ordenamiento (1: Burbuja, 2: Seleccion): ");
         int metodo = scanner.nextInt(); scanner.nextLine();
-        if (metodo == 1) {
-            ordenarBurbuja(campo);
-        } else {
-            ordenarSeleccion(campo);
-        }
+        if (metodo == 1) { ordenarBurbuja(campo); }
+        if (metodo == 2) { ordenarSeleccion(campo); }
         System.out.println("Libros ordenados por " + campo + ".");
         librosOrdenados();
     }
+
+    static void ordenarLibros() {
+        System.out.print("Ingrese campo para ordenar (codigo, nombre, autor): ");
+        String campo = scanner.nextLine().trim().toLowerCase();
+
+        int metodo = 0;
+        do {
+            System.out.println("\n=== Metodo de Ordenamiento ===");
+            System.out.println("1. Burbuja");
+            System.out.println("2. Seleccion");
+            System.out.print("Seleccione una opcion: ");
+
+            String input = scanner.nextLine();
+            try {
+                metodo = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida.");
+                continue;
+            }
+
+            switch (metodo) {
+                case 1 -> ordenarBurbuja(campo);
+                case 2 -> ordenarSeleccion(campo);
+                default -> {
+                    System.out.println("Opción inválida. Intente de nuevo.");
+                    metodo = 0; // Reinicia para repetir el ciclo
+                }
+            }
+        } while (metodo < 1 || metodo > 2);
+
+        System.out.println("Libros ordenados por " + campo + ".");
+        librosOrdenados();
+    }
+
 
     static int obtenerIndiceCampo(String campo) {
         return switch (campo.toLowerCase()) {
