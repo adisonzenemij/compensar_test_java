@@ -26,7 +26,7 @@ public class Software {
             try {
                 opcion = Integer.parseInt(input);
             } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida.");
+                System.out.println("Entrada invalida.");
                 continue;
             }
 
@@ -111,7 +111,7 @@ public class Software {
             try {
                 metodo = Integer.parseInt(input);
             } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida.");
+                System.out.println("Entrada invalida.");
                 continue;
             }
 
@@ -119,7 +119,7 @@ public class Software {
                 case 1 -> ordenarBurbuja(campo);
                 case 2 -> ordenarSeleccion(campo);
                 default -> {
-                    System.out.println("Opción inválida. Intente de nuevo.");
+                    System.out.println("Opción invalida. Intente de nuevo.");
                     metodo = 0; // Reinicia para repetir el ciclo
                 }
             }
