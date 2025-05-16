@@ -5,10 +5,6 @@ import java.util.Scanner;
 
 public class Software {
 
-    /*public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }*/
-
     static String[][] libros = new String[100][5];
     static int totalLibros = 0;
     static Scanner scanner = new Scanner(System.in);
@@ -45,7 +41,7 @@ public class Software {
             }
         } while (opcion != 6);
     }
-    
+
     static void registrarLibro() {
         if (totalLibros >= libros.length) {
             System.out.println("No se pueden registrar mas libros.");
@@ -65,10 +61,7 @@ public class Software {
         System.out.print("Ingrese el codigo del libro a actualizar: ");
         String codigo = scanner.nextLine();
         int pos = buscarSecuencial("codigo", codigo);
-        if (pos == -1) {
-            System.out.println("Libro no encontrado.");
-            return;
-        }
+        if (pos == -1) { librosVacios(); return; }
         System.out.println("Actualizacion de libro:");
         System.out.print("Nuevo nombre: "); libros[pos][1] = scanner.nextLine();
         System.out.print("Nuevo autor: "); libros[pos][2] = scanner.nextLine();
@@ -82,7 +75,7 @@ public class Software {
         String codigo = scanner.nextLine();
         int pos = buscarSecuencial("codigo", codigo);
         if (pos == -1) {
-            System.out.println("Libro no encontrado.");
+            librosVacios();
             return;
         }
         for (int i = pos; i < totalLibros - 1; i++) {
@@ -100,12 +93,7 @@ public class Software {
         System.out.print("Tipo de busqueda (1: Secuencial, 2: Binaria): ");
         int tipo = scanner.nextInt(); scanner.nextLine();
         int resultado = (tipo == 2) ? buscarBinaria(campo, valor) : buscarSecuencial(campo, valor);
-
-        if (resultado != -1) {
-            mostrarLibro(resultado);
-        } else {
-            System.out.println("Libro no encontrado.");
-        }
+        if (resultado != -1) { mostrarLibro(resultado); } else { librosVacios(); }
     }
 
     static void ordenarLibros() {
@@ -214,4 +202,9 @@ public class Software {
         }
     }
 
+    static void librosVacios() {
+        System.out.println(
+            "Libro no encontrado."
+        );
+    }
 }
