@@ -96,17 +96,6 @@ public class Software {
         if (resultado != -1) { mostrarLibro(resultado); } else { librosVacios(); }
     }
 
-    static void ordenarLibros_() {
-        System.out.print("Ingrese campo para ordenar (codigo, nombre, autor): ");
-        String campo = scanner.nextLine();
-        System.out.print("Metodo de ordenamiento (1: Burbuja, 2: Seleccion): ");
-        int metodo = scanner.nextInt(); scanner.nextLine();
-        if (metodo == 1) { ordenarBurbuja(campo); }
-        if (metodo == 2) { ordenarSeleccion(campo); }
-        System.out.println("Libros ordenados por " + campo + ".");
-        librosOrdenados();
-    }
-
     static void ordenarLibros() {
         System.out.print("Ingrese campo para ordenar (codigo, nombre, autor): ");
         String campo = scanner.nextLine().trim().toLowerCase();
