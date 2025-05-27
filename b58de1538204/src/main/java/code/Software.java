@@ -1,4 +1,3 @@
-
 package code;
 
 import java.awt.GridLayout;
@@ -10,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
+// Clase para los nodos de la lista circular simple (turnos pendientes)
 class NodoCircularSimple {
     String codigoTurno, nombrePersona, documentoPersona;
     NodoCircularSimple siguiente;
@@ -21,6 +21,7 @@ class NodoCircularSimple {
     }
 }
 
+// Punto b: Uso de lista dinámica tipo Cola para manejar los turnos
 class ListaCircularSimple {
     private NodoCircularSimple ultimo;
 
@@ -28,6 +29,7 @@ class ListaCircularSimple {
         return ultimo == null;
     }
 
+    // Punto i: Agregar turno (nuevo código generado)
     public void agregarTurno(String codigo, String nombre, String documento) {
         NodoCircularSimple nuevo = new NodoCircularSimple(codigo, nombre, documento);
         if (estaVacia()) {
@@ -40,6 +42,7 @@ class ListaCircularSimple {
         }
     }
 
+    // Punto ii: Atender turno (asignar a operario)
     public NodoCircularSimple atenderTurno() {
         if (estaVacia()) return null;
         NodoCircularSimple primero = ultimo.siguiente;
@@ -51,6 +54,7 @@ class ListaCircularSimple {
         return primero;
     }
 
+    // Listar turnos pendientes
     public String listarTurnos() {
         if (estaVacia()) return "No hay turnos pendientes.";
         StringBuilder sb = new StringBuilder();
@@ -65,6 +69,7 @@ class ListaCircularSimple {
     }
 }
 
+// Nodo para lista circular doble (historial de turnos atendidos)
 class NodoCircularDoble {
     String codigoTurno, nombrePersona, documentoPersona, operario;
     NodoCircularDoble siguiente;
@@ -77,9 +82,11 @@ class NodoCircularDoble {
     }
 }
 
+// Punto iii: Almacenar historial (turnos ya atendidos) – también lista dinámica
 class ListaCircularDoble {
     private NodoCircularDoble ultimo;
 
+    // Agrega turno al historial una vez atendido
     public void agregarHistorial(String codigo, String nombre, String documento, String operario) {
         NodoCircularDoble nuevo = new NodoCircularDoble(codigo, nombre, documento, operario);
         if (ultimo == null) {
@@ -93,6 +100,7 @@ class ListaCircularDoble {
         }
     }
 
+    // Mostrar historial de turnos atendidos
     public String listarHistorial() {
         if (ultimo == null) return "No hay turnos atendidos.";
         StringBuilder sb = new StringBuilder();
@@ -108,11 +116,12 @@ class ListaCircularDoble {
     }
 }
 
+// Punto c: Implementación del menú principal con botones (interfaz gráfica Swing)
 public class Software extends JFrame {
-    private final ListaCircularSimple turnos = new ListaCircularSimple();
-    private final ListaCircularDoble historial = new ListaCircularDoble();
-    private int contadorTurnos = 1;
-    private int operarioIndex = 0;
+    private final ListaCircularSimple turnos = new ListaCircularSimple(); // Lista de turnos pendientes
+    private final ListaCircularDoble historial = new ListaCircularDoble(); // Lista de turnos atendidos
+    private int contadorTurnos = 1; // Contador para generar códigos únicos
+    private int operarioIndex = 0; // Índice para asignación cíclica de operarios
     private final String[] operarios = {"Operario 1", "Operario 2", "Operario 3"};
 
     public Software() {
@@ -122,21 +131,23 @@ public class Software extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridLayout(5, 1, 10, 10));
 
+        // Botones del menú (respetando nombres originales)
         JButton btnNuevoTurno = new JButton("Solicitar Turno");
         JButton btnAtenderTurno = new JButton("Asignar Turno a Operario");
         JButton btnVerTurnos = new JButton("Ver Turnos Pendientes");
         JButton btnVerHistorial = new JButton("Ver Historial");
         JButton btnSalir = new JButton("Salir");
 
+        // Agregando botones al panel
         add(btnNuevoTurno);
         add(btnAtenderTurno);
         add(btnVerTurnos);
         add(btnVerHistorial);
         add(btnSalir);
 
-        // Eventos de botones
-        btnNuevoTurno.addActionListener(e -> solicitarTurno());
-        btnAtenderTurno.addActionListener(e -> asignarTurno());
+        // Eventos de cada botón usando lambdas
+        btnNuevoTurno.addActionListener(e -> solicitarTurno());         // Punto i
+        btnAtenderTurno.addActionListener(e -> asignarTurno());         // Punto ii y iii
         btnVerTurnos.addActionListener(e -> mostrarTurnos());
         btnVerHistorial.addActionListener(e -> mostrarHistorial());
         btnSalir.addActionListener(e -> System.exit(0));
@@ -144,6 +155,7 @@ public class Software extends JFrame {
         setVisible(true);
     }
 
+    // Punto i: Solicitar nuevo turno (cola - insertar al final)
     private void solicitarTurno() {
         String nombre = JOptionPane.showInputDialog(this, "Ingrese el nombre:");
         String doc = JOptionPane.showInputDialog(this, "Ingrese el documento:");
@@ -156,6 +168,7 @@ public class Software extends JFrame {
         }
     }
 
+    // Punto ii y iii: Asignar turno a operario y eliminarlo de la cola
     private void asignarTurno() {
         NodoCircularSimple turno = turnos.atenderTurno();
         if (turno == null) {
@@ -168,10 +181,10 @@ public class Software extends JFrame {
 
         operarioIndex = (operarioIndex + 1) % operarios.length;
 
-        JOptionPane.showMessageDialog(this,
-                "Turno " + turno.codigoTurno + " asignado a " + operario);
+        JOptionPane.showMessageDialog(this, "Turno " + turno.codigoTurno + " asignado a " + operario);
     }
 
+    // Ver lista de turnos pendientes
     private void mostrarTurnos() {
         String info = turnos.listarTurnos();
         JTextArea textArea = new JTextArea(info);
@@ -179,6 +192,7 @@ public class Software extends JFrame {
         JOptionPane.showMessageDialog(this, new JScrollPane(textArea), "Turnos Pendientes", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    // Ver historial de turnos atendidos
     private void mostrarHistorial() {
         String info = historial.listarHistorial();
         JTextArea textArea = new JTextArea(info);
@@ -186,6 +200,7 @@ public class Software extends JFrame {
         JOptionPane.showMessageDialog(this, new JScrollPane(textArea), "Historial de Turnos", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    // Método principal para iniciar la aplicación
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Software());
     }
