@@ -168,7 +168,7 @@ public class Software extends JFrame {
         }
     }
 
-    // Punto ii y iii: Asignar turno a operario y eliminarlo de la cola
+    // Asignar turno a operario y eliminarlo de la cola
     private void asignarTurno() {
         NodoCircularSimple turno = turnos.atenderTurno();
         if (turno == null) {
@@ -189,7 +189,11 @@ public class Software extends JFrame {
         String info = turnos.listarTurnos();
         JTextArea textArea = new JTextArea(info);
         textArea.setEditable(false);
-        JOptionPane.showMessageDialog(this, new JScrollPane(textArea), "Turnos Pendientes", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(
+            this, new JScrollPane(textArea),
+            "Turnos Pendientes",
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }
 
     // Ver historial de turnos atendidos
@@ -197,7 +201,11 @@ public class Software extends JFrame {
         String info = historial.listarHistorial();
         JTextArea textArea = new JTextArea(info);
         textArea.setEditable(false);
-        JOptionPane.showMessageDialog(this, new JScrollPane(textArea), "Historial de Turnos", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(
+            this, new JScrollPane(textArea),
+            "Historial de Turnos",
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }
 
     // Método principal para iniciar la aplicación
