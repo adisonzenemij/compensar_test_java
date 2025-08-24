@@ -1,6 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 
 package code;
 
@@ -9,10 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-/**
- *
- * @author adiso
- */
 public class Software {
 
     public static void main(String[] args) {
@@ -20,37 +13,34 @@ public class Software {
         crearArchivoMessage();
 
         Scanner sc = new Scanner(System.in);
-        int opcion;
+        int opcion = 0;
 
         do {
-            System.out.println("\n=== MENU DE OPCIONES ===");
+            // Imprimir menu y ocpiones para el usuario
+            System.out.println("\nMenu De Opciones");
             System.out.println("1. Copiar archivo (message.dat -> new.dat)");
             System.out.println("2. Abrir y mostrar archivo");
             System.out.println("3. Ingresar numeros y guardarlos en archivo");
             System.out.println("4. Leer archivo y mostrar numero mayor");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opcion: ");
+
+            if (!sc.hasNextInt()) {   // 🔹 evita la excepción
+                System.out.println("Entrada invalida.");
+                sc.nextLine(); 
+                continue;
+            }
+
             opcion = sc.nextInt();
-            sc.nextLine(); // limpiar buffer
+            sc.nextLine();
 
             switch (opcion) {
-                case 1:
-                    CopiarArchivo.main(null);
-                    break;
-                case 2:
-                    LeerArchivo.main(null);
-                    break;
-                case 3:
-                    GuardarNumeros.main(null);
-                    break;
-                case 4:
-                    NumeroMayor.main(null);
-                    break;
-                case 0:
-                    System.out.println("Saliendo del programa...");
-                    break;
-                default:
-                    System.out.println("Opcion invalida.");
+                case 1 -> CopiarArchivo.main(null);
+                case 2 -> LeerArchivo.main(null);
+                case 3 -> GuardarNumeros.main(null);
+                case 4 -> NumeroMayor.main(null);
+                case 0 -> System.out.println("Programa Finalizado");
+                default -> System.out.println("Opcion invalida.");
             }
         } while (opcion != 0);
 
@@ -58,12 +48,21 @@ public class Software {
     }
 
     /**
-     * Crea el archivo message.dat en la carpeta de ejecución.
-     * Si ya existe, lo borra y lo vuelve a generar con contenido de ejemplo.
+     * Crea el archivo message.dat en la carpeta target del proyecto.
+     * En caso de existir el archivo borrar y volver a generar el archivo con contenido.
      */
     private static void crearArchivoMessage() {
-        String basePath = System.getProperty("user.dir");
-        File archivo = new File(basePath, "message.dat");
+        // Ruta de la carpeta target del proyecto
+        String basePath = System.getProperty("user.dir") + File.separator + "target";
+        File carpetaTarget = new File(basePath);
+
+        // Nos aseguramos que la carpeta exista
+        if (!carpetaTarget.exists()) {
+            carpetaTarget.mkdirs();
+        }
+
+        // Archivoq que se almacenará en la carpeta target
+        File archivo = new File(carpetaTarget, "message.dat");
 
         if (archivo.exists()) { archivo.delete(); }
 
@@ -76,4 +75,5 @@ public class Software {
             System.out.println("Error al crear message.dat: " + e.getMessage());
         }
     }
+
 }
