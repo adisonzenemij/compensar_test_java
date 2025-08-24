@@ -25,7 +25,7 @@ public class Software {
             System.out.println("0. Salir");
             System.out.print("Seleccione una opcion: ");
 
-            if (!sc.hasNextInt()) {   // 🔹 evita la excepción
+            if (!sc.hasNextInt()) {
                 System.out.println("Entrada invalida.");
                 sc.nextLine(); 
                 continue;
